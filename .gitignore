@@ -59,5 +59,11 @@ sysinfo.txt
 crashlytics-build.properties
 
 
-#Custom Ignores
+##### Custom Ignore ####
+
+#From Asset Store
 /[Aa]ssets/ImportedAssets*
+
+
+#From Package Manager
+/[Aa]ssets/TextMesh Pro*
