@@ -60,6 +60,7 @@ crashlytics-build.properties
 
 
 ##### Custom Ignore ####
+.localAssets/
 
 #From Asset Store
 /[Aa]ssets/ImportedAssets*
