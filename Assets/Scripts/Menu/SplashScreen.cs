@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using NaviEnt.Level;
 
 public class SplashScreen : MonoBehaviour
 {

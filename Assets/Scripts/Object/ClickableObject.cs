@@ -1,16 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using MoreMountains.Feedbacks;
+﻿using UnityEngine;
 
-public class ClickableObject : MonoBehaviour
+
+namespace NaviEnt
 {
-
-    public MMFeedbacks _mmFeedback;
-    
-    private void OnMouseDown()
+    public abstract class ClickableObject : MonoBehaviour
     {
-        Debug.Log("I'm Clicked!!");
-        _mmFeedback.PlayFeedbacks();
+
+        private void OnMouseUp()
+        {
+            OnClicked();
+        }
+
+        public virtual void OnClicked()
+        {
+
+        }
+
+
     }
 }

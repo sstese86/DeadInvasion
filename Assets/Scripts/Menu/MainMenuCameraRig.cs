@@ -24,14 +24,13 @@ public class MainMenuCameraRig : MonoBehaviour
 
     private void Start()
     {
-        OnScreenPositionUpdate(Vector2.zero);
     }
 
-    public void OnScreenPositionUpdate(Vector2 pos)
+    private void Update()
     {
         if (isBusy) return;
 
-        float scrollX = -((_scrollSource.transform.localPosition.x + 1280f)/1280f);
+        float scrollX = -((_scrollSource.transform.localPosition.x + 1280f) / 1280f);
         float scrollY = -((_scrollSource.transform.localPosition.y - 720f) / 720f);
 
         _currentPosition.Set(scrollX * _cameraHorizontalScroll, 0, scrollY * _cameraVerticalScroll);

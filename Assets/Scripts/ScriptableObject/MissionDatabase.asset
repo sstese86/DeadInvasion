@@ -21,3 +21,7 @@ MonoBehaviour:
     description: Wastland Road
     difficulty: 0
     rewardItemId: 0200000000000000
+  - missionId: 3
+    description: Wastland Road
+    difficulty: 2
+    rewardItemId: 02000000010000000200000001000000

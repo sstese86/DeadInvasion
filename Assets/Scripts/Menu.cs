@@ -9,6 +9,8 @@ namespace NaviEnt.UI
     {
         static T _instance;
         public static T Instance => _instance;
+        public GameObject MenupPanel;
+       
         protected virtual void Awake()
         {
             if (_instance != null) Destroy(gameObject);
@@ -21,13 +23,16 @@ namespace NaviEnt.UI
         }
         public static void MenuOpen()
         {
-            Instance.gameObject.SetActive(true);
+            Instance.MenupPanel.SetActive(true);
         }
 
         public static void OnBackPressed()
         {
-            Instance.gameObject.SetActive(false);
+            Instance.MenupPanel.SetActive(false);
         }
+
+
+
     }
 
     //public abstract class Menu : MonoBehaviour
