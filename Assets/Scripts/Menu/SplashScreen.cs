@@ -8,7 +8,7 @@ using NaviEnt.Level;
 public class SplashScreen : MonoBehaviour
 {
     [SerializeField]
-    Slider _loadingSlider;
+    Slider _loadingSlider = null;
 
     // Start is called before the first frame update
     void Start()

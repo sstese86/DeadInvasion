@@ -6,16 +6,20 @@ using UnityEngine;
 
 public class GameEventManager : MonoBehaviour
 {
-    public static event Action<Entity> OnSelectedEntiyChanged;
-    // Start is called before the first frame update
-    void Start()
+    static GameEventManager _instance;
+    public static GameEventManager Instance => _instance;
+
+    private void Awake()
     {
-        
+        if (_instance != null) Destroy(gameObject);
+        else _instance = this;
+    }
+    //public static event Action<Entity> onSelectedEntiyChanged;
+    public static event Action<Vector3> onMissionObjectSelected;
+
+    public void OnMissionObjectSelected(Vector3 position)
+    {
+        onMissionObjectSelected.Invoke(position);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

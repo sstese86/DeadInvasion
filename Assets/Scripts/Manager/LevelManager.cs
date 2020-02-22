@@ -21,10 +21,15 @@ namespace NaviEnt.Level
             else _instance = this;
         }
 
-        public static void LoadGameScene(int missionId)
+        public static void LoadGame(int missionId)
         {
             LevelManager.missionId = missionId;
             SceneManager.LoadSceneAsync(gameScene);
+        }
+
+        public void LoadMainMenu()
+        {
+            SceneManager.LoadSceneAsync(mainMenuIndex);
         }
     }
 }

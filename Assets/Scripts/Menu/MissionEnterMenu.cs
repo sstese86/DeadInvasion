@@ -60,7 +60,7 @@ namespace NaviEnt.UI
 
         public void EnterMission()
         {
-            LevelManager.LoadGameScene(_missionIndex);
+            LevelManager.LoadGame(_missionIndex);
         }
 
     }

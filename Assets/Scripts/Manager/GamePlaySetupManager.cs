@@ -19,5 +19,10 @@ namespace NaviEnt
         {
 
         }
+
+        public void LoadMainMenu()
+        {
+            LevelManager.Instance.LoadMainMenu();
+        }
     }
 }

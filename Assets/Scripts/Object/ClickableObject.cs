@@ -6,16 +6,19 @@ namespace NaviEnt
     public abstract class ClickableObject : MonoBehaviour
     {
 
-        private void OnMouseUp()
+        protected virtual void OnMouseUpAsButton()
         {
-            OnClicked();
+            FeedbackOnMouseUp();
         }
 
-        public virtual void OnClicked()
+        public virtual void FeedbackOnMouseUp()
         {
 
         }
-
+        public virtual void OnMouseDown()
+        {
+            
+        }
 
     }
 }

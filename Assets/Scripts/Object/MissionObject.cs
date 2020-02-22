@@ -10,13 +10,12 @@ namespace NaviEnt
         [SerializeField]
         int _missionId = 0;
 
-        public override void OnClicked()
+        protected override void OnMouseUpAsButton()
         {
-
-            base.OnClicked();
             MissionEnterMenu.Instance.UpdateInfo(_missionId);
             MissionEnterMenu.MenuOpen();
 
+            GameEventManager.Instance.OnMissionObjectSelected(transform.position);
         }
     }
 }

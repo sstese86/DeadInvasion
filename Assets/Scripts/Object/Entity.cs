@@ -6,8 +6,8 @@ using System;
 [Serializable]
 public class Entity
 {
-    string _name;
-    string _description;
+    string _name = string.Empty;
+    string _description = string.Empty;
 
     public string Name => _name;
     public string Description => _description;
