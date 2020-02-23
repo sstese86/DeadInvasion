@@ -14,8 +14,8 @@ public class GameEventManager : MonoBehaviour
         if (_instance != null) Destroy(gameObject);
         else _instance = this;
     }
-    //public static event Action<Entity> onSelectedEntiyChanged;
-    public static event Action<Vector3> onMissionObjectSelected;
+    public static event Action<Entity> onSelectedEntiyChanged = delegate { };
+    public static event Action<Vector3> onMissionObjectSelected = delegate { };
 
     public void OnMissionObjectSelected(Vector3 position)
     {
