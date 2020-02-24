@@ -2,24 +2,34 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-
+using NaviEnt.Data;
 
 public class GameEventManager : MonoBehaviour
-{
-    static GameEventManager _instance;
-    public static GameEventManager Instance => _instance;
+{    
+    public static GameEventManager Instance { get; private set; }
 
     private void Awake()
     {
-        if (_instance != null) Destroy(gameObject);
-        else _instance = this;
+        if (Instance != null) Destroy(gameObject);
+        else Instance = this;
     }
     public static event Action<Entity> onSelectedEntiyChanged = delegate { };
     public static event Action<Vector3> onMissionObjectSelected = delegate { };
+    public static event Action onPlayerDataChanged = delegate { };
+
 
     public void OnMissionObjectSelected(Vector3 position)
     {
-        onMissionObjectSelected.Invoke(position);
+        if(onMissionObjectSelected!=null)
+            onMissionObjectSelected.Invoke(position);
     }
+
+    public void OnPlayerDataChanged()
+    {
+        if (onPlayerDataChanged != null)
+            onPlayerDataChanged.Invoke();
+    }
+
+
 
 }

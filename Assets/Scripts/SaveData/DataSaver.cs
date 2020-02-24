@@ -9,54 +9,59 @@ using System.Security.Cryptography;
 
 namespace NaviEnt.Data
 {
-    public class JsonSaver
-    {
-
-
-        public void Save<T>(SaveData<T> data) where T: SaveData<T>
-        {
-            data.hashValue = String.Empty;
-            string json = JsonUtility.ToJson(data);
-            data.hashValue = DataSaver.Instance.GetSHA256(json);
-            string saveFilename = DataSaver.Instance.GetSaveFilename(DataSaver.Instance.GetClassName<SaveData<T>>(data));
-
-            FileStream fileStream = new FileStream(saveFilename, FileMode.Create);
-            using (StreamWriter writer = new StreamWriter(fileStream))
-            {
-                writer.Write(json);
-            }
-            Debug.Log("Save Complete. Path: " + saveFilename);
-        }
-
-
-    }
-
 
     public class DataSaver : MonoBehaviour
     {
-        static DataSaver _instance;
-        public static DataSaver Instance => _instance;
-        
-        public JsonSaver _jsonSaver = null;
+        public static DataSaver Instance;
 
-        static readonly string _filename = "_saveData.dat";
+        ES3Settings _settings = null;
+
+        //public JsonSaver _jsonSaver = null;
+        [SerializeField]    
+        bool isEncryptionOn = false;
+        
 
 
         private void Awake()
         {
-            if (_instance != null) Destroy(gameObject);
-            else _instance = this;
+            if (Instance != null) Destroy(gameObject);
+            else Instance = this;
 
-            _jsonSaver = new JsonSaver();
+            _settings = new ES3Settings(ES3.EncryptionType.AES, "mypassword");
         }
 
-        
-        public string GetSaveFilename(string filename)
+
+        public void Save<T>(T data)
         {
-            return Application.persistentDataPath + "/" + filename + _filename;
+            
+            string name = GetClassName<T>(data);
+
+            if(isEncryptionOn)
+
+                ES3.Save<T>(name, data, name + "_saveData.dat", _settings);
+            else
+                ES3.Save<T>(name, data, name + "_saveData.dat");
+            
+            Debug.Log("DataSave Complete. Path: " + Application.persistentDataPath + "/" + name + "_saveData.dat" + " || isEncrypted : " + isEncryptionOn);
+
         }
 
+        public T Load<T>(T type)
+        {
+            T loadedData;
+            string name = GetClassName<T>(type);
+            loadedData = ES3.Load<T>(name, name + "_saveData.dat");
+            Debug.Log("DataLoad Complete. Path: " + Application.persistentDataPath + "/" + name + "_saveData.dat");
+            return loadedData;
+        }
 
+        public void SaveStruct<T>(T data)
+        {
+            string name = GetClassName(data);
+            ES3.Save<T>(name,data, name + "_saveData.dat");
+        }
+
+          
         public string GetHexStringFromHash(byte[] hash)
         {
             string hexString = string.Empty;
@@ -65,12 +70,6 @@ namespace NaviEnt.Data
                 hexString += b.ToString("x2");
             }
             return hexString;
-        }
-
-
-        public void DeleteSaveFile(string filename)
-        {
-            File.Delete(GetSaveFilename(filename));
         }
 
         public string GetClassName<T>(T t)

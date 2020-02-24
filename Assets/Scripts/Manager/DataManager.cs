@@ -6,8 +6,10 @@ namespace NaviEnt.Data
 {
     public class DataManager : MonoBehaviour
     {
-        PlayerData _playerData = null;
-        SystemData _systemData = null;        
+        public static DataManager Instance { get; private set; }
+        
+        PlayerData _playerData;
+        SystemData _systemData;        
         
         #region PLAYERDATA
         public string PlayerName
@@ -66,9 +68,40 @@ namespace NaviEnt.Data
 
         private void Awake()
         {
+            if (Instance != null) Destroy(gameObject);
+            else Instance = this;
+
             _playerData = new PlayerData();
             _systemData = new SystemData();
 
+        }
+
+        private void Start()
+        {
+            //SavePlayerData();
+            LoadPlayerData();
+            
+        }
+
+        public void UpdatePlayerData()
+        {
+            GameEventManager.Instance.OnPlayerDataChanged();
+        }
+
+        public void SavePlayerData()
+        {
+            DataSaver.Instance.Save<PlayerData>(_playerData);
+        }
+
+        public void LoadPlayerData()
+        {
+            _playerData = DataSaver.Instance.Load<PlayerData>(_playerData);
+            UpdatePlayerData();
+        }
+
+        public void SaveSettings()
+        {
+            DataSaver.Instance.Save<SystemData>(_systemData);
         }
 
     }
