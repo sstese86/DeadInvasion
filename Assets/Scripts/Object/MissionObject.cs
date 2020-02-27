@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaviEnt.UI;
+using NaviEnt.Game;
 
 namespace NaviEnt
 {

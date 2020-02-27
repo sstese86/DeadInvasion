@@ -2,18 +2,49 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
-
-[Serializable]
-public class Item
+namespace NaviEnt.Data
 {
-    public string _itemName;
-    public string _itemDescription;
-    public Sprite _itemIcon;
-}
+    
+    public enum ItemType
+    {
+        Simple,
+        Consumable,
+        Equipable,
+    }
 
-[CreateAssetMenu(fileName = "ItemDatabase",menuName = "NaviEnt/ItemDatabase", order = 0)]
-public class ItemDatabase : ScriptableObject
-{
-    public List<Item> ItemList;
+    [Serializable]
+    public struct Item
+    {
+        [EnumToggleButtons]
+        public ItemType itemType;
+
+        [HorizontalGroup("Base Info")]
+        [PreviewField(32)]
+        [LabelWidth(32)]
+        public Sprite icon;
+
+        [HorizontalGroup("Base Info")]
+        [PreviewField(32)]
+        [LabelWidth(32)]
+        public GameObject obj;
+
+        [HorizontalGroup("Base Info")]
+        [LabelWidth(300)]
+        [TextArea(2, 6)]
+        public string description;
+
+        [HorizontalGroup("amount")]
+        public bool isNotConsumable;
+        [HorizontalGroup("amount"), DisableIf("isNotConsumable")]
+        public int amount;
+    }
+
+    [CreateAssetMenu(fileName = "ItemDatabase", menuName = "NaviEnt/ItemDatabase", order = 0)]
+    public class ItemDatabase : SerializedScriptableObject
+    {
+        [TableList()]
+        public Dictionary<string, Item> itemDatabase;
+    }
 }

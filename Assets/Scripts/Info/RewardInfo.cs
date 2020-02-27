@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using NaviEnt.Data;
+
 public class RewardInfo : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _info = null;
@@ -18,7 +20,7 @@ public class RewardInfo : MonoBehaviour
 
     public void UpdateInfo(Item item)
     {
-        _info.text = item._itemDescription;
-        _icon.sprite = item._itemIcon;
+        _info.text = item.description;
+        _icon.sprite = item.icon;
     }
 }

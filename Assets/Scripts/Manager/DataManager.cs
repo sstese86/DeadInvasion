@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaviEnt.Game;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,21 +8,22 @@ namespace NaviEnt.Data
     public class DataManager : MonoBehaviour
     {
         public static DataManager Instance { get; private set; }
-        
+
         PlayerData _playerData;
-        SystemData _systemData;        
-        
+        SystemData _systemData;
+
         #region PLAYERDATA
+
         public string PlayerName
         {
             get => _playerData.playerName;
             set => _playerData.playerName = value;
         }
 
-        public int Gold
+        public int Coin
         {
-            get => _playerData.gold;
-            set => _playerData.gold = value;
+            get => _playerData.coin;
+            set => _playerData.coin = value;
         }
 
         public int Gas
@@ -35,6 +37,38 @@ namespace NaviEnt.Data
             get => _playerData.experience;
             set => _playerData.experience = value;
         }
+
+        public void SetPlayerQuest(Quest quest)
+        {
+
+            List<int> questInfo = new List<int>();
+
+            // List.Zero int is for QuestType.
+            questInfo.Add((int)quest.Type);
+            foreach(QuestGoal goal in quest.questGoals)
+            {
+                // From List.first are for QuestGolesProgress.
+                questInfo.Add(goal.currentAmount);
+            }
+            if(quest.isActive)
+            {
+                _playerData.playerActiveQuest[quest.Key] = questInfo;
+            }
+            else
+            {
+                _playerData.playerFinishedQuestKey.Add(quest.Key);
+            }          
+        }
+
+        public Dictionary<string, List<int>> GetActiveQuests()
+        {
+            return _playerData.playerActiveQuest;
+        }
+        //public Dictionary<string, PlayerQuestData> LoadPlayerQuest()
+        //{
+        //    return _playerData.playerActiveQuest;
+        //}
+
         #endregion
 
         #region SETTINGS

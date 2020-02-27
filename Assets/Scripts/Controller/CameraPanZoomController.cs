@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaviEnt;
 using System;
+using NaviEnt.Game;
 
 public class CameraPanZoomController : MonoBehaviour
 {

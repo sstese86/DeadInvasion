@@ -3,25 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public enum MissionDifficulty
-{
-    Easy,
-    Normal,
-    Difficult
-}
 
-[Serializable]
-public struct MissionData
+namespace NaviEnt.Data
 {
-    public int missionId;
-    public string description;
-    public MissionDifficulty difficulty;
-    public int[] rewardItemId;
-}
+    [Serializable]
+    public enum MissionDifficulty
+    {
+        Easy,
+        Normal,
+        Difficult
+    }
 
-[CreateAssetMenu(fileName = "MissionDatabase",menuName = "NaviEnt/MissionDatabase",order = 1)]
-public class MissionDatabase : ScriptableObject
-{
-    public List<MissionData> MissionData;
+    [Serializable]
+    public struct MissionData
+    {
+        public int missionId;
+        public string description;
+        public MissionDifficulty difficulty;
+        public string[] rewardItemName;
+    }
+
+    [CreateAssetMenu(fileName = "MissionDatabase", menuName = "NaviEnt/MissionDatabase", order = 1)]
+    public class MissionDatabase : ScriptableObject
+    {
+        public List<MissionData> MissionData;
+    }
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 using NaviEnt.Level;
+using NaviEnt.Data;
 
 namespace NaviEnt.UI
 {
@@ -46,14 +48,19 @@ namespace NaviEnt.UI
                 Destroy(child.gameObject);
             }
             
-            foreach(int itemIndex in _missionDatabase.MissionData[_missionIndex].rewardItemId)
+            foreach(string itemName in _missionDatabase.MissionData[_missionIndex].rewardItemName)
             {
                RewardInfo info = GameObject.Instantiate(_rewardInfoPrefab, _rewardLayoutGroup.transform).GetComponent<RewardInfo>();
-                if(itemIndex > _itemDatabase.ItemList.Count)
+                Item tempItem;
+                if(_itemDatabase.itemDatabase.TryGetValue(itemName, out tempItem))
                 {
-                    Debug.Log("MissionEnterMenu: Error! itemIndex is invalid check the ItemDatabase.");
+                    info.UpdateInfo(tempItem);
                 }
-                info.UpdateInfo(_itemDatabase.ItemList[itemIndex]);
+                else
+                {
+                    Debug.Log("MissionEnterMenu: Error! there is no Item" + itemName +" in ItemDatabase.");
+                }
+                
             }
 
         }
