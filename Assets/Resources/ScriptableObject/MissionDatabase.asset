@@ -25,11 +25,11 @@ MonoBehaviour:
     rewardItemName:
     - Experience
     - Experience
-    - Tools
+    - Coin
   - missionId: 3
     description: Wastland Road
     difficulty: 2
     rewardItemName:
-    - Tools
-    - Tools
-    - Tools
+    - Coin
+    - Coin
+    - Coin

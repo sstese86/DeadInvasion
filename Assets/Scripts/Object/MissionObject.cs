@@ -6,6 +6,7 @@ using NaviEnt.Game;
 
 namespace NaviEnt
 {
+    [SelectionBase]
     public class MissionObject : ClickableObject
     {
         [SerializeField]
@@ -13,10 +14,13 @@ namespace NaviEnt
 
         protected override void OnMouseUpAsButton()
         {
-            MissionEnterMenu.Instance.UpdateInfo(_missionId);
-            MissionEnterMenu.MenuOpen();
+            if(!GameManager.Instance.IsAnyMenuOpened)
+            { 
+                MissionEnterMenu.Instance.UpdateInfo(_missionId);
+                GameEventManager.Instance.OnMissionObjectSelected(transform.position);
+                MissionEnterMenu.Instance.MenuOpen();
+            }
 
-            GameEventManager.Instance.OnMissionObjectSelected(transform.position);
         }
     }
 }

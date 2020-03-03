@@ -47,29 +47,32 @@ public class CameraPanZoomController : MonoBehaviour
     private void Start()
     {
         CameraInit();
-        GameEventManager.onMissionObjectSelected += MoveToTarget;
+        GameEventManager.onMissionObjectSelectedCallback  += MoveToTarget;
 
     }
 
     private void OnDestroy()
     {
-        GameEventManager.onMissionObjectSelected -= MoveToTarget;
+        GameEventManager.onMissionObjectSelectedCallback  -= MoveToTarget;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if(Input.touchSupported || Application.isMobilePlatform)
-        {
-            HandleTouch();
-        }
-        else
-        {
-            HandleMouse();
+        if (!GameManager.Instance.IsAnyMenuOpened)
+        { 
+            if(Input.touchSupported || Application.isMobilePlatform)
+            {
+                HandleTouch();
+            }
+            else
+            {
+                HandleMouse();
+            }
+
+            CameraZOffset();
         }
 
-        CameraZOffset();
-        
     }
     void CameraInit()
     {

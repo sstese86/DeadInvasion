@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleData : SaveData<BattleData>
+public struct BattleData
 {
     // Start is called before the first frame update
     void Start()

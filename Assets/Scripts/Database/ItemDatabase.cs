@@ -15,36 +15,42 @@ namespace NaviEnt.Data
     }
 
     [Serializable]
-    public struct Item
+    public struct ItemData
     {
-        [EnumToggleButtons]
-        public ItemType itemType;
-
-        [HorizontalGroup("Base Info")]
+        [HorizontalGroup("Preview")]
         [PreviewField(32)]
         [LabelWidth(32)]
         public Sprite icon;
 
-        [HorizontalGroup("Base Info")]
+        [HorizontalGroup("Preview")]
         [PreviewField(32)]
         [LabelWidth(32)]
         public GameObject obj;
 
-        [HorizontalGroup("Base Info")]
+        [VerticalGroup("Base Info")]
+        [EnumToggleButtons]
+        public ItemType itemType;
+        [VerticalGroup("Base Info")]
+        [LabelWidth(100)]
+        public string name;
+
+        [VerticalGroup("Base Info")]
         [LabelWidth(300)]
         [TextArea(2, 6)]
         public string description;
 
         [HorizontalGroup("amount")]
-        public bool isNotConsumable;
-        [HorizontalGroup("amount"), DisableIf("isNotConsumable")]
-        public int amount;
+        public bool notAllowMultiple;
+
+        [HorizontalGroup("amount")]
+        public int value;
+
     }
 
     [CreateAssetMenu(fileName = "ItemDatabase", menuName = "NaviEnt/ItemDatabase", order = 0)]
     public class ItemDatabase : SerializedScriptableObject
     {
         [TableList()]
-        public Dictionary<string, Item> itemDatabase;
+        public Dictionary<string, ItemData> data;
     }
 }

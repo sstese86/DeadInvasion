@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b28aca1bac524b4aab4699b7569ca0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenupPanel: {fileID: 704874607817546799}
+  MenuPanel: {fileID: 704874607817546799}
   _missionIdText: {fileID: 704874608827916386}
   _difficultyText: {fileID: 704874607769498545}
   _rewardLayoutGroup: {fileID: 704874608619355292}
@@ -1260,9 +1260,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 704874607817546799}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 704874608660647991}
+        m_MethodName: MenuClose
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1657,9 +1657,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 704874607817546799}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 704874608660647991}
+        m_MethodName: MenuClose
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

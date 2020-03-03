@@ -30,10 +30,14 @@ namespace NaviEnt.Data
         [HorizontalGroup]
         public int requiredAmount, currentAmount;
 
+        public int CurrentAmount
+        {
+            get => currentAmount;
+            set => currentAmount = value;
+        }
+
         public bool IsGoalReached()
         {
-            EnemyKilled();
-            ItemCollected();
 
             if (currentAmount >= requiredAmount)
             {
@@ -67,6 +71,12 @@ namespace NaviEnt.Data
         }
     }
 
+    public enum QuestType
+    {
+        MainQuest,
+        SubQuest,
+        DayilyQuest,
+    }
 
     [System.Serializable]
     public struct Quest
@@ -78,13 +88,7 @@ namespace NaviEnt.Data
            set => _key = value;
         }
 
-        QuestType _questType;        
-        public QuestType Type
-        {
-           get => _questType;
-           set => _questType = value;
-        }
-
+        public QuestType questType;
         public bool isActive;
         public string title;
         [TextArea(2, 4)]
@@ -122,12 +126,9 @@ namespace NaviEnt.Data
     }
 
 
-
     [CreateAssetMenu(fileName = "QuestDatabase", menuName = "NaviEnt/QuestDatabase")]
     public class QuestDatabase : SerializedScriptableObject
     {
-        public Dictionary<string, Quest> mainQuest;
-        public Dictionary<string, Quest> subQuest;
-        public Dictionary<string, Quest> dayilyQuest;
+        public Dictionary<string, Quest> data;
     }
 }

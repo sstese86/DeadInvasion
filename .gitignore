@@ -64,7 +64,7 @@ crashlytics-build.properties
 
 #From Asset Store
 /[Aa]ssets/ImportedAssets*
-
+/[Aa]ssets/Resources/Audio*
 
 #From Package Manager
 /[Aa]ssets/TextMesh Pro*

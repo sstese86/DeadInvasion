@@ -18,7 +18,7 @@ public class RewardInfo : MonoBehaviour
         
     }
 
-    public void UpdateInfo(Item item)
+    public void UpdateInfo(ItemData item)
     {
         _info.text = item.description;
         _icon.sprite = item.icon;

@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: mainQuest
+    - Name: data
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[NaviEnt.Data.Quest,
         Assembly-CSharp]], mscorlib
@@ -34,7 +34,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -44,21 +44,24 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: NaviEnt.Data.Quest, Assembly-CSharp
+    - Name: questType
+      Entry: 3
+      Data: 0
     - Name: isActive
       Entry: 5
       Data: false
     - Name: title
       Entry: 1
-      Data: On Hunt
+      Data: OnHunt
     - Name: description
       Entry: 1
-      Data: Venture outside and kill zombies to get rewards.
+      Data: Venture out and kill zombies fo rewards
     - Name: experienceReward
       Entry: 3
-      Data: 17
+      Data: 18
     - Name: coinReward
       Entry: 3
-      Data: 34
+      Data: 16
     - Name: questGoals
       Entry: 7
       Data: 2|System.Collections.Generic.List`1[[NaviEnt.Data.QuestGoal, Assembly-CSharp]],
@@ -74,16 +77,16 @@ MonoBehaviour:
       Data: 0
     - Name: name
       Entry: 1
-      Data: Zombies
+      Data: Wondering zombies
     - Name: description
       Entry: 1
-      Data: "they came out from nowhere. \norder to servive have to deal with them."
+      Data: Kill wondering zombies
     - Name: icon
       Entry: 6
       Data: 
     - Name: requiredAmount
       Entry: 3
-      Data: 11
+      Data: 4
     - Name: currentAmount
       Entry: 3
       Data: 0
@@ -103,37 +106,125 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 1-2
+    - Name: $v
+      Entry: 7
+      Data: NaviEnt.Data.Quest, Assembly-CSharp
+    - Name: questType
+      Entry: 3
+      Data: 0
+    - Name: isActive
+      Entry: 5
+      Data: false
+    - Name: title
+      Entry: 1
+      Data: Gathering Items
+    - Name: description
+      Entry: 1
+      Data: 'I''t was shocking event! the zombies!! boold every where!
+
+        But have to put togather. gather item that I need to escape here.'
+    - Name: experienceReward
+      Entry: 3
+      Data: 27
+    - Name: coinReward
+      Entry: 3
+      Data: 16
+    - Name: questGoals
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[NaviEnt.Data.QuestGoal, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.QuestGoal, Assembly-CSharp
+    - Name: goalType
+      Entry: 3
+      Data: 1
+    - Name: name
+      Entry: 1
+      Data: Car Key
+    - Name: description
+      Entry: 1
+      Data: The Car Key.
+    - Name: icon
+      Entry: 6
+      Data: 
+    - Name: requiredAmount
+      Entry: 3
+      Data: 1
+    - Name: currentAmount
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.QuestGoal, Assembly-CSharp
+    - Name: goalType
+      Entry: 3
+      Data: 1
+    - Name: name
+      Entry: 1
+      Data: Snacks
+    - Name: description
+      Entry: 1
+      Data: High calory food. shoud be helpful.
+    - Name: icon
+      Entry: 6
+      Data: 
+    - Name: requiredAmount
+      Entry: 3
+      Data: 3
+    - Name: currentAmount
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.QuestGoal, Assembly-CSharp
+    - Name: goalType
+      Entry: 3
+      Data: 1
+    - Name: name
+      Entry: 1
+      Data: Drinks
+    - Name: description
+      Entry: 1
+      Data: Water Or Soda What ever can drink.
+    - Name: icon
+      Entry: 6
+      Data: 
+    - Name: requiredAmount
+      Entry: 3
+      Data: 3
+    - Name: currentAmount
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: subQuest
-      Entry: 7
-      Data: 3|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[NaviEnt.Data.Quest,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 1
     - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: dayilyQuest
-      Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[NaviEnt.Data.Quest,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 1
-    - Name: 
-      Entry: 12
-      Data: 0
     - Name: 
       Entry: 13
       Data: 

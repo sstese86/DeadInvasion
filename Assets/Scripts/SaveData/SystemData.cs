@@ -12,27 +12,17 @@ public enum GraphicQuality
 
 
 [Serializable]
-public class SystemData : SaveData<SystemData>
+public struct SystemData
 {
-    readonly string defaultPlayerId = "PlayerID Should be Hash Value. Might need it for Cloudsave";
 
     public bool isFirstTime;
+    
+    //"PlayerID Should be Hash Value. Might need it for Cloudsave"
     public string playerId;
 
     public float masterVolume;
     public float sfxVolume;
     public float musicVolume;
     public GraphicQuality graphicQuality;
-
-    public SystemData()
-    {
-        isFirstTime = true;
-        playerId = defaultPlayerId;
-
-        masterVolume = 1f;
-        sfxVolume = 0.75f;
-        musicVolume = 0.55f;
-        graphicQuality = GraphicQuality.Normal;
-    }
 
 }

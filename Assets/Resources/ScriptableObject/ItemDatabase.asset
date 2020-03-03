@@ -17,14 +17,14 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 6252536017125121984, guid: 9ef4e3829fd81a54bb25808b6af48f9e, type: 3}
+    - {fileID: 5192000294470767621, guid: af64c912a51f92d42818f91c9ee5c159, type: 3}
     - {fileID: -9034823484522495551, guid: 9ef4e3829fd81a54bb25808b6af48f9e, type: 3}
-    - {fileID: 5583672917616819036, guid: f9e1148a39941d247b546de28409d1ae, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: itemDatabase
+    - Name: data
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[NaviEnt.Data.Item,
         Assembly-CSharp]], mscorlib
@@ -37,7 +37,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -47,22 +47,30 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: NaviEnt.Data.Item, Assembly-CSharp
-    - Name: itemType
-      Entry: 3
-      Data: 0
     - Name: icon
       Entry: 10
       Data: 0
     - Name: obj
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
+    - Name: itemType
+      Entry: 3
+      Data: 0
+    - Name: name
+      Entry: 1
+      Data: Coin
     - Name: description
       Entry: 1
-      Data: Currency of now days. good old gold coin.
-    - Name: isNotConsumable
+      Data: 'Every one loves gold coin.
+
+        So let''s use them currency agin!.'
+    - Name: notAllowMultiple
       Entry: 5
       Data: false
     - Name: amount
+      Entry: 3
+      Data: 3
+    - Name: value
       Entry: 3
       Data: 0
     - Name: 
@@ -80,57 +88,30 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: NaviEnt.Data.Item, Assembly-CSharp
-    - Name: itemType
-      Entry: 3
-      Data: 0
-    - Name: icon
-      Entry: 10
-      Data: 1
-    - Name: obj
-      Entry: 6
-      Data: 
-    - Name: description
-      Entry: 1
-      Data: It's not a Item. but It will be in code.
-    - Name: isNotConsumable
-      Entry: 5
-      Data: false
-    - Name: amount
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Tools
-    - Name: $v
-      Entry: 7
-      Data: NaviEnt.Data.Item, Assembly-CSharp
-    - Name: itemType
-      Entry: 3
-      Data: 0
     - Name: icon
       Entry: 10
       Data: 2
     - Name: obj
       Entry: 6
       Data: 
+    - Name: itemType
+      Entry: 3
+      Data: 1
+    - Name: name
+      Entry: 1
+      Data: Experience
     - Name: description
       Entry: 1
-      Data: Useful tools for crafting. Now day we all need some crafting skills..
-    - Name: isNotConsumable
+      Data: Experience is valueable.
+    - Name: notAllowMultiple
       Entry: 5
-      Data: false
+      Data: true
     - Name: amount
       Entry: 3
-      Data: 0
+      Data: 9
+    - Name: value
+      Entry: 3
+      Data: 3
     - Name: 
       Entry: 8
       Data: 

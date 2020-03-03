@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace NaviEnt.Data
 {
@@ -42,9 +43,12 @@ namespace NaviEnt.Data
         {
 
             List<int> questInfo = new List<int>();
+            if(_playerData.playerActiveQuest== null)
+            {
+                Debug.Log("DataManager: playerActiveQuestIs Null");
+                return;
+            }
 
-            // List.Zero int is for QuestType.
-            questInfo.Add((int)quest.Type);
             foreach(QuestGoal goal in quest.questGoals)
             {
                 // From List.first are for QuestGolesProgress.
@@ -60,14 +64,15 @@ namespace NaviEnt.Data
             }          
         }
 
-        public Dictionary<string, List<int>> GetActiveQuests()
+        public Dictionary<string,List<int>> GetActiveQuests()
         {
-            return _playerData.playerActiveQuest;
+            return  _playerData.playerActiveQuest;
         }
-        //public Dictionary<string, PlayerQuestData> LoadPlayerQuest()
-        //{
-        //    return _playerData.playerActiveQuest;
-        //}
+
+        public List<string> GetFinishedQuests()
+        {
+            return _playerData.playerFinishedQuestKey;
+        }
 
         #endregion
 
@@ -105,17 +110,37 @@ namespace NaviEnt.Data
             if (Instance != null) Destroy(gameObject);
             else Instance = this;
 
-            _playerData = new PlayerData();
-            _systemData = new SystemData();
+            initData();
 
         }
 
         private void Start()
         {
-            //SavePlayerData();
+            //TODO Need to prepare first time play.
             LoadPlayerData();
-            
         }
+
+        private void initData()
+        {
+            _playerData = new PlayerData();
+            //initilize default values.
+            _playerData.playerName = "Player";
+            _playerData.coin = 0;
+            _playerData.gas = 0;
+            _playerData.experience = 0;
+            _playerData.playerActiveQuest = new Dictionary<string, List<int>>();
+            _playerData.playerFinishedQuestKey = new List<string>();
+
+            _systemData = new SystemData();
+            //initilize default values.
+            _systemData.isFirstTime = true;
+            _systemData.masterVolume = 1f;
+            _systemData.sfxVolume = 0.75f;
+            _systemData.musicVolume = 0.55f;
+            _systemData.graphicQuality = GraphicQuality.Normal;
+
+        }
+
 
         public void UpdatePlayerData()
         {

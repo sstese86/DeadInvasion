@@ -8,13 +8,13 @@ public abstract class PlayerResourceInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameEventManager.onPlayerDataChanged += UpdatePlayerData;
+        GameEventManager.onPlayerDataChangedCallback  += UpdatePlayerData;
         UpdatePlayerData();
     }
 
     private void OnDestroy()
     {
-        GameEventManager.onPlayerDataChanged -= UpdatePlayerData;
+        GameEventManager.onPlayerDataChangedCallback  -= UpdatePlayerData;
     }
     public abstract void UpdatePlayerData();
 

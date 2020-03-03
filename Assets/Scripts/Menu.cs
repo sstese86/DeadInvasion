@@ -3,40 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using NaviEnt.Game;
+
 namespace NaviEnt.UI
 {
-    public abstract class Menu<T>: MonoBehaviour where T: Menu<T>
+    public abstract class Menu<T>: Menu where T: Menu<T>
     {
-        static T _instance;
-        public static T Instance => _instance;
-        public GameObject MenupPanel;
+        
+        public static T Instance { get; private set; }
+        public GameObject MenuPanel;
        
         protected virtual void Awake()
         {
-            if (_instance != null) Destroy(gameObject);
-            else _instance = this as T;
+            if (Instance != null) Destroy(gameObject);
+            else Instance = this as T;
         }
 
         protected virtual void OnDestroy()
         {
-            _instance = null;
+            Instance = null;
         }
-        public static void MenuOpen()
+        public virtual void MenuOpen()
         {
-            Instance.MenupPanel.SetActive(true);
+            Instance.MenuPanel.SetActive(true);
+            GameManager.Instance.totalMenuOpened++;
+            GameEventManager.Instance.OnUIStateUpdate();
         }
 
-        public static void OnBackPressed()
+        public void MenuClose()
         {
-            Instance.MenupPanel.SetActive(false);
+            Instance.MenuPanel.SetActive(false);
+            GameManager.Instance.totalMenuOpened--;
+            GameEventManager.Instance.OnUIStateUpdate();
         }
 
 
 
     }
 
-    //public abstract class Menu : MonoBehaviour
-    //{
+    public abstract class Menu : MonoBehaviour
+    {
 
-    //}
+    }
 }

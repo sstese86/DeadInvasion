@@ -51,8 +51,8 @@ namespace NaviEnt.UI
             foreach(string itemName in _missionDatabase.MissionData[_missionIndex].rewardItemName)
             {
                RewardInfo info = GameObject.Instantiate(_rewardInfoPrefab, _rewardLayoutGroup.transform).GetComponent<RewardInfo>();
-                Item tempItem;
-                if(_itemDatabase.itemDatabase.TryGetValue(itemName, out tempItem))
+                ItemData tempItem;
+                if(_itemDatabase.data.TryGetValue(itemName, out tempItem))
                 {
                     info.UpdateInfo(tempItem);
                 }
@@ -65,9 +65,12 @@ namespace NaviEnt.UI
 
         }
 
+
+
         public void EnterMission()
         {
             LevelManager.LoadGame(_missionIndex);
+            MenuClose();
         }
 
     }
