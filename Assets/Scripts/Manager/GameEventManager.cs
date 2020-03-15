@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using NaviEnt.Data;
 
-namespace NaviEnt.Game
+namespace NaviEnt
 {
     public class GameEventManager : MonoBehaviour
     {
@@ -15,60 +14,125 @@ namespace NaviEnt.Game
             if (Instance != null) Destroy(gameObject);
             else Instance = this;
         }
-        
+
+        #region SYSTEM RELATED
+        public static event Action onSavePlayerData = delegate { };
+        public void OnSavePlayerData() 
+        { 
+            if(onSavePlayerData != null)
+                onSavePlayerData.Invoke();            
+        }
+
+        public static event Action onPlayerDataChanged = delegate { };
+        public void OnPlayerDataChanged()
+        {
+            if (onPlayerDataChanged != null)
+                onPlayerDataChanged.Invoke();
+        }
+
+        #endregion
+
+
+        #region UI RELATED
+
         public static event Action<IEntity> onSelectedEntityChangedCallback = delegate { };
-        public static event Action onUIStateUpdate = delegate { };
-        
-        public static event Action onEnemyKillCallback = delegate { };
-        public static event Action onItemCollectCallback = delegate { };
-
-        public static event Action<Vector3> onMissionObjectSelectedCallback = delegate { };
-        public static event Action onPlayerDataChangedCallback  = delegate { };
-        
-        public static event Action<string> onQuestTriggerCallback = delegate { };
-
-
         public void OnSelectedEntityChangedCallback(IEntity entityInfo)
         {
             if (onSelectedEntityChangedCallback != null)
                 onSelectedEntityChangedCallback.Invoke(entityInfo);
         }
 
+        public static event Action onUIStateUpdate = delegate { };
         public void OnUIStateUpdate()
         {
             if (onUIStateUpdate != null)
                 onUIStateUpdate.Invoke();
         }
 
+        public static event Action<Vector3> onMissionObjectSelectedCallback = delegate { };
+        public void OnMissionObjectSelected(Vector3 position)
+        {
+            if (onMissionObjectSelectedCallback != null)
+                onMissionObjectSelectedCallback.Invoke(position);
+        }
+        
+        public static event Action<string> onQuestTriggerCallback = delegate { };
+        public void OnQuestTriggerCallback(string questKey)
+        {
+            if (onQuestTriggerCallback != null)
+                onQuestTriggerCallback.Invoke(questKey);
+        }
+
+        public static event Action<Dialogue> onDialogueTriggerCallback = delegate { };
+        public void OnDialogueTriggerCallback(Dialogue newDialogue)
+        {
+            if(onDialogueTriggerCallback != null)
+                onDialogueTriggerCallback.Invoke(newDialogue);
+        }
+
+        #endregion
+
+
+        #region Controller RELATED
+        public static event Action onPlayerJumpButtonPressed = delegate { };
+        public void OnPlayerJumpButtonPressed()
+        {
+            if (onPlayerJumpButtonPressed != null)
+                onPlayerJumpButtonPressed.Invoke();
+        }
+
+        public static event Action onPlayerAttackButtonPressed = delegate { };
+        public void OnPlayerAttackButtonPressed()
+        {
+            if(onPlayerAttackButtonPressed != null)
+                onPlayerAttackButtonPressed.Invoke();
+        }
+
+        public static event Action onPlayerSkill1ButtonPressed = delegate { };
+        public static event Action onPlayerSkill2ButtonPressed = delegate { };
+        public static event Action onPlayerSkill3ButtonPressed = delegate { };
+        public static event Action onPlayerSkill4ButtonPressed = delegate { };
+
+
+
+        #endregion
+
+        #region GamePlay
+        public static event Action onEnemyKillCallback = delegate { };
         public void OnEnemyKillCallback()
         {
             if (onEnemyKillCallback != null)
                 onEnemyKillCallback.Invoke();
         }
 
+        public static event Action onItemCollectCallback = delegate { };
         public void OnItemCollectCallback()
         {
             if (onItemCollectCallback != null)
                 onItemCollectCallback.Invoke();
         }
 
-        public void OnMissionObjectSelected(Vector3 position)
+        public static event Action onPlayerDeadCallback = delegate { };
+        public void OnPlayerDead()
         {
-            if (onMissionObjectSelectedCallback != null)
-                onMissionObjectSelectedCallback.Invoke(position);
+            if (onPlayerDeadCallback != null)
+                onPlayerDeadCallback.Invoke();
         }
 
-        public void OnPlayerDataChanged()
+        public static event Action<Transform> onPlayerTargetChanged = delegate { };
+        public void OnPlayerTargetChanged(Transform trans)
         {
-            if (onPlayerDataChangedCallback != null)
-                onPlayerDataChangedCallback.Invoke();
+            if (onPlayerTargetChanged != null)
+                onPlayerTargetChanged.Invoke(trans);
         }
 
-        public void OnQuestTriggerCallback(string questKey)
-        {
-            if (onQuestTriggerCallback != null)
-                onQuestTriggerCallback.Invoke(questKey);
-        }
+        #endregion
+
+
+
+
+
+
 
     }
 }

@@ -11,7 +11,7 @@ namespace NaviEnt
         // Start is called before the first frame update
         void Start()
         {
-            textMesh.text = LevelManager.missionId.ToString();
+
         }
 
         // Update is called once per frame
@@ -22,7 +22,7 @@ namespace NaviEnt
 
         public void LoadMainMenu()
         {
-            LevelManager.Instance.LoadMainMenu();
+            LevelManager.Instance.MoveToMainMenu();
         }
     }
 }

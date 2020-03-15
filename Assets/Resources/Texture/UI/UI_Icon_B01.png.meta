@@ -17,6 +17,21 @@ TextureImporter:
   - first:
       213: 286739607641987396
     second: UI_Icon_01_4
+  - first:
+      213: -966261080281385468
+    second: UI_Icon_B01_0
+  - first:
+      213: -2828905843978831218
+    second: UI_Icon_B01_1
+  - first:
+      213: 2612546897147172900
+    second: UI_Icon_B01_2
+  - first:
+      213: -6479920811891073973
+    second: UI_Icon_B01_3
+  - first:
+      213: -7684991348516248045
+    second: UI_Icon_B01_4
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -113,11 +128,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Icon_01_0
+      name: UI_Icon_B01_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 384
+        y: 896
         width: 128
         height: 128
       alignment: 0
@@ -127,18 +142,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8439261ab7906b94e8f082d2779cc2e1
-      internalID: -7716552503785824253
+      spriteID: 24a146ada5069fd42b017736d187349a
+      internalID: -966261080281385468
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Icon_01_1
+      name: UI_Icon_B01_1
       rect:
         serializedVersion: 2
         x: 128
-        y: 384
+        y: 896
         width: 128
         height: 128
       alignment: 0
@@ -148,18 +163,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09c97c9a3edd3ba4f9503baa28b246ed
-      internalID: 5583672917616819036
+      spriteID: 8e5172c47388cf34ead907a7056f8b38
+      internalID: -2828905843978831218
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Icon_01_2
+      name: UI_Icon_B01_2
       rect:
         serializedVersion: 2
         x: 256
-        y: 384
+        y: 896
         width: 128
         height: 128
       alignment: 0
@@ -169,18 +184,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44394a514c14a914d92e5fee954b5dff
-      internalID: -2870332378191795605
+      spriteID: 3f6617373ad7d7846b42ad59e6aef0dc
+      internalID: 2612546897147172900
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Icon_01_3
+      name: UI_Icon_B01_3
       rect:
         serializedVersion: 2
         x: 384
-        y: 384
+        y: 896
         width: 128
         height: 128
       alignment: 0
@@ -190,18 +205,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d2e11d67afcfd447a7565e3dca0963a
-      internalID: 7771045809657238704
+      spriteID: 561d61e24eba20d4995273f929dc0c0b
+      internalID: -6479920811891073973
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Icon_01_4
+      name: UI_Icon_B01_4
       rect:
         serializedVersion: 2
         x: 256
-        y: 256
+        y: 768
         width: 128
         height: 128
       alignment: 0
@@ -211,8 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bf01bab48626814aaac9ba5e392d727
-      internalID: 286739607641987396
+      spriteID: 8b904ece4e8e99941b83c4a05baead86
+      internalID: -7684991348516248045
       vertices: []
       indices: 
       edges: []

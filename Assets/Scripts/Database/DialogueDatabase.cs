@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Sirenix.OdinInspector;
+
 [System.Serializable]
 public struct Dialogue
 {
@@ -11,7 +13,8 @@ public struct Dialogue
     public string[] sentences;
 }
 
-public class DialogueDatabase : ScriptableObject
+[CreateAssetMenu(fileName = "DialogueDatabase", menuName = "NaviEnt/DialogueDatabase", order = 3)]
+public class DialogueDatabase : SerializedScriptableObject
 {
-
+    public Dictionary<string, Dialogue> data;
 }

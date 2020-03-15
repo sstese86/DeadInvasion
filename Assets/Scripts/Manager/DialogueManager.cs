@@ -4,66 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DialogueManager : MonoBehaviour
+namespace NaviEnt.Game
 {
-    public static DialogueManager Instance;
-    Queue<string> sentences;
-
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI dialogueText;
-
-
-    private void Awake()
+    public class DialogueManager : MonoBehaviour
     {
-        if (Instance != null) Destroy(gameObject);
-        else Instance = this;
-    }
+        public static DialogueManager Instance { get; private set; }
+        DialogueDatabase _dialogueDatabase;
 
-    public void StartDialogue(Dialogue dialogue)
-    {
-        nameText.text = dialogue.name;
-        sentences.Clear();
 
-        foreach (string sentence in dialogue.sentences)
+
+        private void Awake()
         {
-            sentences.Enqueue(sentence);
+            if (Instance != null) Destroy(gameObject);
+            else Instance = this;
+
+            _dialogueDatabase = Resources.Load<DialogueDatabase>("ScriptableObject/DialogueDatabase");
         }
 
-        DisplayNextSentence();
-    }
-
-    public void DisplayNextSentence()
-    {
-        if(sentences.Count == 0)
+        public void StartDialogue(string key)
         {
-            EndDialogue();
-            return;
+            Dialogue newDialogue = new Dialogue();
+            newDialogue = _dialogueDatabase.data[key];
+            GameEventManager.Instance.OnDialogueTriggerCallback(newDialogue);
         }
 
-        string sentence = sentences.Dequeue();
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
     }
-
-    IEnumerator TypeSentence(string sentence)
-    {
-        dialogueText.text = "";
-        foreach(char latter in sentence.ToCharArray())
-        {
-            dialogueText.text += latter;
-            yield return null;
-        }
-    }
-    
-    private void EndDialogue()
-    {
-        Debug.Log("End of conversation");
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        sentences = new Queue<string>();
-    }
-
 }

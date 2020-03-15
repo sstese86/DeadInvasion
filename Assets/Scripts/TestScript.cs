@@ -5,7 +5,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 using NaviEnt.Data;
-using NaviEnt.Game;
+using NaviEnt;
 
 
 public class TestScript : MonoBehaviour

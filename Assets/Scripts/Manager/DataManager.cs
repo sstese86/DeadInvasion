@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+using NaviEnt;
+
 namespace NaviEnt.Data
 {
-    public class DataManager : MonoBehaviour
+    public class DataManager : SerializedMonoBehaviour
     {
         public static DataManager Instance { get; private set; }
 
-        PlayerData _playerData;
-        SystemData _systemData;
+        static PlayerData _playerData;
+        static SystemData _systemData;
 
         #region PLAYERDATA
 
@@ -23,20 +25,41 @@ namespace NaviEnt.Data
 
         public int Coin
         {
-            get => _playerData.coin;
-            set => _playerData.coin = value;
+            get => _playerData.playerItem["Coin"];
+            set => _playerData.playerItem["Coin"] = value;
         }
 
         public int Gas
         {
-            get => _playerData.gas;
-            set => _playerData.gas = value;
+            get => _playerData.playerItem["Gas"];
+            set => _playerData.playerItem["Gas"] = value;
         }
 
         public int Experience
         {
-            get => _playerData.experience;
-            set => _playerData.experience = value;
+            get => _playerData.playerItem["Experience"];
+            set => _playerData.playerItem["Experience"] = value;
+        }
+
+        public int GetPlayerItemAmount(string key)
+        {
+            if (!_playerData.playerItem.ContainsKey(key))
+            {
+                Debug.Log("DataManager_playerItem:: there is no item key: " + key);
+                return 0;
+            }
+            return _playerData.playerItem[key];
+        }
+
+        public void SetPlayerItemAmount(string key, int amount)
+        {
+            if (!_playerData.playerItem.ContainsKey(key))
+            {
+                Debug.Log("DataManager_playerItem:: there is no item key: " + key);
+                return;
+            }
+            _playerData.playerItem[key] = amount;
+            UpdatePlayerData();
         }
 
         public void SetPlayerQuest(Quest quest)
@@ -45,7 +68,7 @@ namespace NaviEnt.Data
             List<int> questInfo = new List<int>();
             if(_playerData.playerActiveQuest== null)
             {
-                Debug.Log("DataManager: playerActiveQuestIs Null");
+                Debug.Log("DataManager:: ERROR! playerActiveQuestIs Null");
                 return;
             }
 
@@ -109,15 +132,18 @@ namespace NaviEnt.Data
         {
             if (Instance != null) Destroy(gameObject);
             else Instance = this;
-
-            initData();
-
         }
 
         private void Start()
         {
-            //TODO Need to prepare first time play.
+            GameEventManager.onSavePlayerData += SavePlayerData;
             LoadPlayerData();
+
+        }
+
+        private void OnDestroy()
+        {
+            GameEventManager.onSavePlayerData -= SavePlayerData;
         }
 
         private void initData()
@@ -125,11 +151,13 @@ namespace NaviEnt.Data
             _playerData = new PlayerData();
             //initilize default values.
             _playerData.playerName = "Player";
-            _playerData.coin = 0;
-            _playerData.gas = 0;
-            _playerData.experience = 0;
             _playerData.playerActiveQuest = new Dictionary<string, List<int>>();
             _playerData.playerFinishedQuestKey = new List<string>();
+
+            _playerData.playerItem = new Dictionary<string, int>();
+            _playerData.playerItem.Add("Coin", 0);
+            _playerData.playerItem.Add("Gas", 0);
+            _playerData.playerItem.Add("Experience", 0);
 
             _systemData = new SystemData();
             //initilize default values.
@@ -138,7 +166,6 @@ namespace NaviEnt.Data
             _systemData.sfxVolume = 0.75f;
             _systemData.musicVolume = 0.55f;
             _systemData.graphicQuality = GraphicQuality.Normal;
-
         }
 
 
@@ -154,8 +181,17 @@ namespace NaviEnt.Data
 
         public void LoadPlayerData()
         {
-            _playerData = DataSaver.Instance.Load<PlayerData>(_playerData);
-            UpdatePlayerData();
+            if(DataSaver.Instance.FileExists<PlayerData>(_playerData))
+            { 
+                _playerData = DataSaver.Instance.Load<PlayerData>(_playerData);
+                UpdatePlayerData();
+            }
+            else
+            {
+                initData();
+                SavePlayerData();
+                Debug.Log("Savefile dosn't exist. Default savefile created.");
+            }
         }
 
         public void SaveSettings()

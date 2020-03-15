@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using NaviEnt;
 
 namespace NaviEnt.Level
 {
     public class LevelManager : MonoBehaviour
     {
-        static int mainMenuIndex = 1;
-        static int gameScene = 2;
-
-        public static int missionId = 0;
+        int _mainMenuIndex = 1;
+        int _battleUIIndex = 2;
+        int _alwaysOnTopUI = 3;
 
         static LevelManager _instance;
         public static LevelManager Instance => _instance;
@@ -21,15 +21,54 @@ namespace NaviEnt.Level
             else _instance = this;
         }
 
-        public static void LoadGame(int missionId)
+        public void EnterToMission(int index)
         {
-            LevelManager.missionId = missionId;
-            SceneManager.LoadSceneAsync(gameScene);
+            SceneManager.LoadSceneAsync(index);
+            SceneManager.LoadSceneAsync(_battleUIIndex,LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(_alwaysOnTopUI, LoadSceneMode.Additive);
+        }
+        
+        public void EnterToMission(string key)
+        {
+            SceneManager.LoadSceneAsync(key);
+            SceneManager.LoadSceneAsync(_battleUIIndex, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(_alwaysOnTopUI, LoadSceneMode.Additive);
         }
 
-        public void LoadMainMenu()
+        public void EnterToNextMission()
         {
-            SceneManager.LoadSceneAsync(mainMenuIndex);
+            GameEventManager.Instance.OnSavePlayerData();
+            int currentIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+            //need to save battledata.
+            EnterToMission(currentIndex);
+        }
+
+        public void RestartCurrentMission()
+        {
+            int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+            //need to save battledata.
+            EnterToMission(currentIndex);
+        }
+
+
+        public void EnterToPreviousMission()
+        {
+            GameEventManager.Instance.OnSavePlayerData();
+            int currentIndex = SceneManager.GetActiveScene().buildIndex - 1;
+
+            //need to save battledata.
+            EnterToMission(currentIndex);
+        }
+
+
+
+        public void MoveToMainMenu()
+        {
+            GameEventManager.Instance.OnSavePlayerData();
+            SceneManager.LoadSceneAsync(_mainMenuIndex);
+            SceneManager.LoadSceneAsync(_alwaysOnTopUI, LoadSceneMode.Additive);
         }
     }
 }

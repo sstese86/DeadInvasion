@@ -46,13 +46,21 @@ namespace NaviEnt.Data
 
         }
 
-        public T Load<T>(T type)
+        public T Load<T>(T data)
         {
+            
             T loadedData;
-            string name = GetClassName<T>(type);
+            string name = GetClassName<T>(data);
             loadedData = ES3.Load<T>(name, name + "_saveData.dat");
+            
             Debug.Log("DataLoad Complete. Path: " + Application.persistentDataPath + "/" + name + "_saveData.dat");
             return loadedData;
+        }
+
+        public bool FileExists<T>(T data)
+        {
+            string name = GetClassName<T>(data);
+            return ES3.FileExists(name + "_saveData.dat");
         }
 
         public void SaveStruct<T>(T data)

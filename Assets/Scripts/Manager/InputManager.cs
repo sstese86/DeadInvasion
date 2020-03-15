@@ -1,57 +1,55 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaviEnt;
+using System;
 
 namespace NaviEnt
 {
     public class InputManager : MonoBehaviour
     {
-        static InputManager _instance;
-        public static InputManager Instance => _instance;
+        public static InputManager Instance { get; private set; }
 
-        float _zoomInput = 0.0f;
+        public Vector2 MovementAxis{ get; set; }
 
-        public float ZoomInput => _zoomInput;
-        public float HorizontalAxis { get; set; }
-        public float VertivalAxis { get; set; }
+        public bool JumpInput { get; private set; }
+        public bool Fire1Input { get; private set; }
 
 
+        bool _isJumpButtonPressed = false;
+        bool _isAttackButtonPressed = false;
         // Update is called once per frame
         private void Awake()
         {
-            if (_instance != null) Destroy(gameObject);
-            else _instance = this;
+            if (Instance != null) Destroy(gameObject);
+            else Instance = this;
         }
+
+        private void Start()
+        {
+            GameEventManager.onPlayerAttackButtonPressed += AttackButtonPressed;
+            GameEventManager.onPlayerJumpButtonPressed += JumpButtonPressed;
+
+        }
+
+        private void OnDestroy()
+        {
+            GameEventManager.onPlayerAttackButtonPressed -= AttackButtonPressed;
+            GameEventManager.onPlayerJumpButtonPressed -= JumpButtonPressed;
+        }
+
 
         void Update()
         {
-            _zoomInput = TouchInputPinch();
             CheckAndroidBackButton();
+            CheckJumpInput();
+            CheckAttack();
         }
 
-        float TouchInputPinch()
+        void LateUpdate()
         {
-            float value = 0.0f;
-
-            if(Input.touchCount >= 2)
-            { 
-                Touch touchZero = Input.GetTouch(0);
-                Touch touchOne = Input.GetTouch(1);
-                Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
-                Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
-                float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-                float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
-                float difference = currentMagnitude - prevMagnitude;
-
-                value = difference * 0.1f;
-            }
-            if (Input.GetAxis("Mouse ScrollWheel") != 0f)
-            {
-                value = Input.GetAxis("Mouse ScrollWheel") * 10f;
-            }
-            return value;
+            ResetInputs();
         }
-
         void CheckAndroidBackButton()
         {
             if(Application.platform == RuntimePlatform.Android)
@@ -63,6 +61,39 @@ namespace NaviEnt
             }
         }
 
+        void CheckJumpInput()
+        {
+            if(Input.GetButton("Jump")||_isJumpButtonPressed)
+            {
+                JumpInput = true;
+            }
+        }
 
+        void CheckAttack()
+        {
+            if(Input.GetButton("Fire1")|| _isAttackButtonPressed)
+            {
+                Fire1Input = true;
+            }
+        }
+        
+        void AttackButtonPressed()
+        {
+            _isAttackButtonPressed = true;
+        }
+        
+        void JumpButtonPressed()
+        {
+            _isJumpButtonPressed = true;
+        }
+
+        void ResetInputs()
+        {
+            Fire1Input = false;
+            _isAttackButtonPressed = false;
+
+            JumpInput = false;
+            _isJumpButtonPressed = false;
+        }
     }
 }

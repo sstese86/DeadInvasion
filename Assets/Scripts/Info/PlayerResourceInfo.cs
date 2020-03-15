@@ -1,20 +1,22 @@
-﻿using NaviEnt.Game;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaviEnt;
+
 
 public abstract class PlayerResourceInfo : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        GameEventManager.onPlayerDataChangedCallback  += UpdatePlayerData;
+        GameEventManager.onPlayerDataChanged  += UpdatePlayerData;
         UpdatePlayerData();
     }
 
     private void OnDestroy()
     {
-        GameEventManager.onPlayerDataChangedCallback  -= UpdatePlayerData;
+        GameEventManager.onPlayerDataChanged  -= UpdatePlayerData;
     }
     public abstract void UpdatePlayerData();
 

@@ -6,12 +6,21 @@ using TMPro;
 
 using NaviEnt.Level;
 using NaviEnt.Data;
+using NaviEnt.Game;
 
 namespace NaviEnt.UI
 {
+    [System.Serializable]
+    public enum MissionDifficulty
+    {
+        Easy,
+        Normal,
+        Difficult
+    }
+
     public class MissionEnterMenu : Menu<MissionEnterMenu>
     {
-        [SerializeField] TextMeshProUGUI _missionIdText = null;
+        [SerializeField] TextMeshProUGUI _missionNameText = null;
         [SerializeField] TextMeshProUGUI _difficultyText = null;
         [SerializeField] GameObject _rewardLayoutGroup = null;
 
@@ -19,7 +28,8 @@ namespace NaviEnt.UI
         [SerializeField] MissionDatabase _missionDatabase = null;
         [SerializeField] ItemDatabase _itemDatabase = null;
 
-        int _missionIndex = 0;
+        string _key = string.Empty;
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -31,45 +41,62 @@ namespace NaviEnt.UI
         //    base.Awake();
         //}
 
-        public void UpdateInfo(int missionIndex)
+        public void UpdateInfo(string key)
         {
-            _missionIndex = missionIndex - 1;
+            _key = key;
 
-            if (_missionIndex > _missionDatabase.MissionData.Count)
+            if (!_missionDatabase.data.ContainsKey(_key))
             { 
-                Debug.Log("MissionEnterMenu: Error! missionIndex is invalid check the MissionDatabase.");
+                Debug.Log("MissionEnterMenu: Error!" + _key + " mission is invalid check the MissionDatabase.");
                 return;
             }
-            _missionIdText.text = _missionDatabase.MissionData[_missionIndex].missionId.ToString();
-            _difficultyText.text = _missionDatabase.MissionData[_missionIndex].difficulty.ToString();
+            _missionNameText.text = _missionDatabase.data[_key].missionName.ToString();
+            _difficultyText.text = CalculateDifficultyLevel(_missionDatabase.data[_key].fightingPower);
 
             foreach(Transform child in _rewardLayoutGroup.transform)
             {
                 Destroy(child.gameObject);
             }
             
-            foreach(string itemName in _missionDatabase.MissionData[_missionIndex].rewardItemName)
+            foreach(RewardItem item in _missionDatabase.data[_key].rewardItemList)
             {
                RewardInfo info = GameObject.Instantiate(_rewardInfoPrefab, _rewardLayoutGroup.transform).GetComponent<RewardInfo>();
                 ItemData tempItem;
-                if(_itemDatabase.data.TryGetValue(itemName, out tempItem))
+                if(_itemDatabase.data.TryGetValue(item.key, out tempItem))
                 {
                     info.UpdateInfo(tempItem);
                 }
                 else
                 {
-                    Debug.Log("MissionEnterMenu: Error! there is no Item" + itemName +" in ItemDatabase.");
+                    Debug.Log("MissionEnterMenu: Error! there is no Item" + item.key + " in ItemDatabase.");
                 }
                 
             }
 
         }
-
-
-
-        public void EnterMission()
+        string CalculateDifficultyLevel(int missionFightingPower)
         {
-            LevelManager.LoadGame(_missionIndex);
+            MissionDifficulty difficulty;
+            float playerPower = GameManager.Instance.PlayerFightingPower;
+
+            if((float)missionFightingPower < (playerPower * 0.5f))
+            {
+                difficulty = MissionDifficulty.Easy;
+            }
+            else if((float)missionFightingPower > (playerPower * 1.5f))
+            {
+                difficulty = MissionDifficulty.Difficult;
+            }
+            else
+            {
+                difficulty = MissionDifficulty.Normal;
+            }
+                return difficulty.ToString();
+        }
+
+        public void ButtonEnterMission()
+        {
+            LevelManager.Instance.EnterToMission(_key);
             MenuClose();
         }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using NaviEnt.Data;
 using NaviEnt.Game;
 
 public struct ItemSpawnData
@@ -21,15 +20,14 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField]
     public int _amount;
 
-    private void Start()
+    private void Awake()
     {
-        SpawnItem();
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        SpawnItem();
+        SpawnItem();  
     }
 
     void SpawnItem()

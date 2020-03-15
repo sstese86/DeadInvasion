@@ -15,12 +15,19 @@ namespace NaviEnt.Game
         MMFeedbacks _mmfeedback = null;
         
         
+
+        void Update()
+        {
+
+        }
         // Start is called before the first frame update
         public override void Start()
         {
             base.Start();
             
             EntityName = ItemData.name;
+            EntityInfo = ItemData.description;
+
             UpdateEntityInfo();
             OnStartCallback();
             _mmfeedback.Initialization();
@@ -28,7 +35,6 @@ namespace NaviEnt.Game
         
         public void UpdateEntityInfo()
         {
-            EntityInfo = ItemData.description;
             GameEventManager.Instance.OnSelectedEntityChangedCallback(GetComponent<IEntity>());
         }
 
@@ -36,9 +42,10 @@ namespace NaviEnt.Game
         {
 
         }
+
         public void PickUp()
         {
-            Debug.Log("PickedUp");
+            GameManager.Instance.AddPlayerItemAmount(ItemData.name, Amount);
             _mmfeedback.PlayFeedbacks();
         }
         private void OnTriggerEnter(Collider other)

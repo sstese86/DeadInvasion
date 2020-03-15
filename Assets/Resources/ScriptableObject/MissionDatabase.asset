@@ -12,24 +12,264 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bb0d16ce05ed64db1b077e3852eb60, type: 3}
   m_Name: MissionDatabase
   m_EditorClassIdentifier: 
-  MissionData:
-  - missionId: 1
-    description: Wastland
-    difficulty: 2
-    rewardItemName:
-    - Coin
-    - Experience
-  - missionId: 2
-    description: Wastland Road
-    difficulty: 0
-    rewardItemName:
-    - Experience
-    - Experience
-    - Coin
-  - missionId: 3
-    description: Wastland Road
-    difficulty: 2
-    rewardItemName:
-    - Coin
-    - Coin
-    - Coin
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: -5409237246470789245, guid: aad4d63f50eec7f44addbdb6b9c64aae, type: 3}
+    - {fileID: -8936545162972824521, guid: aad4d63f50eec7f44addbdb6b9c64aae, type: 3}
+    - {fileID: 5552123980319167066, guid: aad4d63f50eec7f44addbdb6b9c64aae, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: data
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[NaviEnt.Data.MissionData,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 1-1
+    - Name: $v
+      Entry: 7
+      Data: NaviEnt.Data.MissionData, Assembly-CSharp
+    - Name: missionName
+      Entry: 1
+      Data: Wastland Road 1
+    - Name: icon
+      Entry: 10
+      Data: 0
+    - Name: description
+      Entry: 1
+      Data: there is zombies totaly blocked our way.
+    - Name: fightingPower
+      Entry: 3
+      Data: 10
+    - Name: rewardItemList
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[NaviEnt.Data.RewardItem, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.RewardItem, Assembly-CSharp
+    - Name: key
+      Entry: 1
+      Data: Coin
+    - Name: minAmount
+      Entry: 3
+      Data: 10
+    - Name: maxAmount
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.RewardItem, Assembly-CSharp
+    - Name: key
+      Entry: 1
+      Data: Experience
+    - Name: minAmount
+      Entry: 3
+      Data: 25
+    - Name: maxAmount
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 1-2
+    - Name: $v
+      Entry: 7
+      Data: NaviEnt.Data.MissionData, Assembly-CSharp
+    - Name: missionName
+      Entry: 1
+      Data: Wastland Road 2
+    - Name: icon
+      Entry: 10
+      Data: 1
+    - Name: description
+      Entry: 1
+      Data: 'there is zombies totaly blocked our way.
+
+        much more then before!'
+    - Name: fightingPower
+      Entry: 3
+      Data: 20
+    - Name: rewardItemList
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[NaviEnt.Data.RewardItem, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.RewardItem, Assembly-CSharp
+    - Name: key
+      Entry: 1
+      Data: Coin
+    - Name: minAmount
+      Entry: 3
+      Data: 25
+    - Name: maxAmount
+      Entry: 3
+      Data: 40
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.RewardItem, Assembly-CSharp
+    - Name: key
+      Entry: 1
+      Data: Experience
+    - Name: minAmount
+      Entry: 3
+      Data: 22
+    - Name: maxAmount
+      Entry: 3
+      Data: 50
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.RewardItem, Assembly-CSharp
+    - Name: key
+      Entry: 1
+      Data: Experience
+    - Name: minAmount
+      Entry: 3
+      Data: 25
+    - Name: maxAmount
+      Entry: 3
+      Data: 50
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 1-3
+    - Name: $v
+      Entry: 7
+      Data: NaviEnt.Data.MissionData, Assembly-CSharp
+    - Name: missionName
+      Entry: 1
+      Data: Wastland Building
+    - Name: icon
+      Entry: 10
+      Data: 2
+    - Name: description
+      Entry: 1
+      Data: 'There are buildings on the road.
+
+        should be found somthing usefull. '
+    - Name: fightingPower
+      Entry: 3
+      Data: 25
+    - Name: rewardItemList
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[NaviEnt.Data.RewardItem, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.RewardItem, Assembly-CSharp
+    - Name: key
+      Entry: 1
+      Data: Coin
+    - Name: minAmount
+      Entry: 3
+      Data: 48
+    - Name: maxAmount
+      Entry: 3
+      Data: 75
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: NaviEnt.Data.RewardItem, Assembly-CSharp
+    - Name: key
+      Entry: 1
+      Data: Experience
+    - Name: minAmount
+      Entry: 3
+      Data: 54
+    - Name: maxAmount
+      Entry: 3
+      Data: 65
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

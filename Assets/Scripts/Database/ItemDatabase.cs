@@ -22,7 +22,7 @@ namespace NaviEnt.Data
         [LabelWidth(32)]
         public Sprite icon;
 
-        [HorizontalGroup("Preview")]
+       
         [PreviewField(32)]
         [LabelWidth(32)]
         public GameObject obj;

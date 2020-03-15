@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaviEnt.Game;
+using NaviEnt;
 
 public class QuestTrigger : MonoBehaviour
 {

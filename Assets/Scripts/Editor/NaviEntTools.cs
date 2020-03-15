@@ -70,7 +70,8 @@ public class JsonItemDataFromHoudini
 public class NaviEntTools : EditorWindow
 {
     ItemDatabase _itemDatabase = null;
-    string path = "";
+    string _dataRoot = "D:/ZZ_SourceControls/Unity3D/DeadInvasion/.localAssets/Data/";
+    string _itemDataPath = "ItemDatabase";
     //JsonItemDataFromHoudini tempJsonItem;
 
     [MenuItem("Tools/NavientTools")]
@@ -83,27 +84,27 @@ public class NaviEntTools : EditorWindow
     {
         InitAttributes();
 
-        GUILayout.Label("NaviEnt Tools", EditorStyles.boldLabel);
+        LoadItemDatabase();
 
+    }
 
-        path = EditorGUILayout.TextField("Path", path);
+    private void LoadItemDatabase()
+    {
+        GUILayout.Space(10);
+        GUILayout.Label("Item Database", EditorStyles.helpBox);
 
-        if (GUILayout.Button("Set Path"))
+        _itemDataPath = EditorGUILayout.TextField("Path", _itemDataPath);
+
+        if (GUILayout.Button("Load ItemDatabase"))
         {
-            path = EditorUtility.OpenFilePanel("Open Data File", "", "*");
-            path = EditorGUILayout.TextField("FilePath", path);
-        }
-
-            if (GUILayout.Button("Load Data File"))
-        {
-            string jsonString = File.ReadAllText(path);
+            string jsonString = File.ReadAllText(_dataRoot + _itemDataPath + ".json");
             JsonItemDataFromHoudini database = JsonUtility.FromJson<JsonItemDataFromHoudini>(jsonString);
             _itemDatabase.data.Clear();
-            
+
             foreach (ItemDataExternal item in database.data)
             {
                 ItemData newItem = new ItemData();
-                                
+
                 newItem.itemType = (ItemType)item.itemType;
                 newItem.name = item.name;
                 newItem.description = item.description;
@@ -113,18 +114,8 @@ public class NaviEntTools : EditorWindow
                 newItem.obj = item.GetGameObject();
                 _itemDatabase.data.Add(item.name, newItem);
             }
-
+            EditorUtility.SetDirty(_itemDatabase);
         }
-
-/*
-        if (GUILayout.Button("Save Data File"))
-        {
-            string jsonData = TestJsonData();
-            Debug.Log(jsonData);
-        }
-*/
-
-
     }
 
     void InitAttributes()

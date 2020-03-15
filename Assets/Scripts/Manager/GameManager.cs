@@ -15,6 +15,7 @@ namespace NaviEnt.Game
         public int totalMenuOpened = 0;
         public bool IsAnyMenuOpened { get; private set; }
 
+        public int PlayerFightingPower { get; private set; }
 
         DataManager _dataManager;
         GameEventManager _gameEventManager;
@@ -26,6 +27,8 @@ namespace NaviEnt.Game
 
         List<Quest> _activeQuest;
         List<Quest> _finishedQuest;
+
+        public float gravity = 0.5f;
 
         private void Awake()
         {
@@ -128,6 +131,15 @@ namespace NaviEnt.Game
         public ItemData GetItemData(string key)
         {
             return _itemDatabase.data[key];
+        }
+
+        public void AddPlayerItemAmount(string key, int amount)
+        {
+
+
+            int currentAmount = _dataManager.GetPlayerItemAmount(key);
+            currentAmount += amount;
+            _dataManager.SetPlayerItemAmount(key, currentAmount);
         }
 
         void CheckOpenedMenus()

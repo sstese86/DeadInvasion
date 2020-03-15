@@ -7,16 +7,15 @@ using NaviEnt.Game;
 namespace NaviEnt
 {
     [SelectionBase]
-    public class MissionObject : ClickableObject
+    public class MissionTrigger : ClickableObject
     {
         [SerializeField]
-        int _missionId = 0;
-
+        string _key = string.Empty;
         protected override void OnMouseUpAsButton()
         {
             if(!GameManager.Instance.IsAnyMenuOpened)
             { 
-                MissionEnterMenu.Instance.UpdateInfo(_missionId);
+                MissionEnterMenu.Instance.UpdateInfo(_key);
                 GameEventManager.Instance.OnMissionObjectSelected(transform.position);
                 MissionEnterMenu.Instance.MenuOpen();
             }

@@ -2,21 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using NaviEnt.Game;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public Dialogue dialogue;
-
-    DialogueManager dialogueManager = null;
-
-    private void Start()
-    {
-        dialogueManager = DialogueManager.Instance;
-    }
-
-
+    [SerializeField]
+    string _dialogueKey = string.Empty;
+    
     public void TriggerDialogue()
     {
-        dialogueManager.StartDialogue(dialogue);
+        DialogueManager.Instance.StartDialogue(_dialogueKey);
     }
 }
