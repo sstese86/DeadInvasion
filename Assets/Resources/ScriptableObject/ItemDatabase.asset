@@ -37,7 +37,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -70,6 +70,36 @@ MonoBehaviour:
     - Name: value
       Entry: 3
       Data: 0
+    - Name: isEquipable
+      Entry: 5
+      Data: false
+    - Name: itemState
+      Entry: 7
+      Data: NaviEnt.CharacterState, Assembly-CSharp
+    - Name: maxHealth
+      Entry: 3
+      Data: 0
+    - Name: attackDamage
+      Entry: 3
+      Data: 0
+    - Name: strength
+      Entry: 3
+      Data: 0
+    - Name: agility
+      Entry: 3
+      Data: 0
+    - Name: defance
+      Entry: 3
+      Data: 0
+    - Name: moveSpeed
+      Entry: 4
+      Data: 0
+    - Name: jumpSpeed
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -106,6 +136,104 @@ MonoBehaviour:
     - Name: value
       Entry: 3
       Data: 3
+    - Name: isEquipable
+      Entry: 5
+      Data: false
+    - Name: itemState
+      Entry: 7
+      Data: NaviEnt.CharacterState, Assembly-CSharp
+    - Name: maxHealth
+      Entry: 3
+      Data: 0
+    - Name: attackDamage
+      Entry: 3
+      Data: 0
+    - Name: strength
+      Entry: 3
+      Data: 0
+    - Name: agility
+      Entry: 3
+      Data: 0
+    - Name: defance
+      Entry: 3
+      Data: 0
+    - Name: moveSpeed
+      Entry: 4
+      Data: 0
+    - Name: jumpSpeed
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: TestEquipable
+    - Name: $v
+      Entry: 7
+      Data: NaviEnt.Data.ItemData, Assembly-CSharp
+    - Name: icon
+      Entry: 10
+      Data: 0
+    - Name: obj
+      Entry: 6
+      Data: 
+    - Name: itemType
+      Entry: 3
+      Data: 0
+    - Name: name
+      Entry: 1
+      Data: TestEquipable
+    - Name: description
+      Entry: 1
+      Data: 'Every one loves gold coin.
+
+        So let''s use them currency agin!.'
+    - Name: notAllowMultiple
+      Entry: 5
+      Data: false
+    - Name: value
+      Entry: 3
+      Data: 30
+    - Name: isEquipable
+      Entry: 5
+      Data: true
+    - Name: itemState
+      Entry: 7
+      Data: NaviEnt.CharacterState, Assembly-CSharp
+    - Name: maxHealth
+      Entry: 3
+      Data: 2
+    - Name: attackDamage
+      Entry: 3
+      Data: 1
+    - Name: strength
+      Entry: 3
+      Data: 1
+    - Name: agility
+      Entry: 3
+      Data: 2
+    - Name: defance
+      Entry: 3
+      Data: 2
+    - Name: moveSpeed
+      Entry: 4
+      Data: 1.06
+    - Name: jumpSpeed
+      Entry: 4
+      Data: 0.91
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

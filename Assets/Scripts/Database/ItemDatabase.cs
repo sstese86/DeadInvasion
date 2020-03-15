@@ -21,7 +21,6 @@ namespace NaviEnt.Data
         [PreviewField(32)]
         [LabelWidth(32)]
         public Sprite icon;
-
        
         [PreviewField(32)]
         [LabelWidth(32)]
@@ -44,6 +43,10 @@ namespace NaviEnt.Data
 
         [HorizontalGroup("amount")]
         public int value;
+
+        public bool isEquipable;
+        [ShowIf("isEquipable")]
+        public CharacterState itemState;
 
     }
 

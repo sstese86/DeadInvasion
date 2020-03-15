@@ -79,6 +79,7 @@ namespace NaviEnt
         {
             EntityName = ActorName;
             EntityInfo = _state.maxHealth.ToString() + " / " + CurrentHealth.ToString();
+            GameEventManager.Instance.OnSelectedEntityChangedCallback(GetComponent<IEntity>());
         }
     }
 }

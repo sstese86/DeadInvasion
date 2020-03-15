@@ -18,7 +18,6 @@ public class ItemDataExternal
 
     public string name;
     public string description;
-
     public string iconPath;
     public string objPath;
     
@@ -26,9 +25,19 @@ public class ItemDataExternal
     
     public int value;
 
-    public bool GetBoolNotAllowMultiple()
+    public int isEquipable;
+    public int state_maxHealth;
+    public int state_damage;
+    public int state_strength;
+    public int state_agility;
+    public int state_defance;
+    public float state_moveSpeed;
+    public float state_jumpSpeed;
+
+
+    public bool GetBoolFromIntValue(int value)
     {
-        if (notAllowMultiple == 0)
+        if (value == 0)
             return false;
         else return true;
     }
@@ -108,10 +117,20 @@ public class NaviEntTools : EditorWindow
                 newItem.itemType = (ItemType)item.itemType;
                 newItem.name = item.name;
                 newItem.description = item.description;
-                newItem.icon = item.GetIconSprite();
                 newItem.value = item.value;
-                newItem.notAllowMultiple = item.GetBoolNotAllowMultiple();
+                newItem.notAllowMultiple = item.GetBoolFromIntValue(item.notAllowMultiple);
+                newItem.icon = item.GetIconSprite();
                 newItem.obj = item.GetGameObject();
+
+                newItem.isEquipable = item.GetBoolFromIntValue(item.isEquipable);
+                newItem.itemState.maxHealth = item.state_maxHealth;
+                newItem.itemState.attackDamage = item.state_damage;
+                newItem.itemState.strength = item.state_strength;
+                newItem.itemState.agility = item.state_agility;
+                newItem.itemState.defance = item.state_defance;
+                newItem.itemState.moveSpeed = item.state_moveSpeed;
+                newItem.itemState.jumpSpeed = item.state_jumpSpeed;
+
                 _itemDatabase.data.Add(item.name, newItem);
             }
             EditorUtility.SetDirty(_itemDatabase);
