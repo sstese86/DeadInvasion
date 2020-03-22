@@ -32,9 +32,9 @@ namespace NaviEnt.Game
         bool _isDead = false;
         public bool IsBusy { get; set; }
 
-        public float testWeaponRange = 5f;
-        public int testWeaponIndex = 0;
+        public float targetSearchRange = 5f;
 
+        public int testWeaponIndex = 0;
         public float testAttackAnimIndex = 0f;
         public GameObject testHitCollider = null;
         public GameObject testParticlePrefab = null;
@@ -100,14 +100,14 @@ namespace NaviEnt.Game
                 //Vector3 center = new Vector3(0f, _characterCenterY / 2f, 0f);
                 //_characterController.center = center;
                 _actorSoundClip.PlaySoundJump();
-                _jumpVector.y = _characterHandler.State.jumpSpeed;
+                _jumpVector.y = _characterHandler.ModifiedState.jumpSpeed;
                 
             }           
         }
         public void Move()
         {
             if (_inputManager.MovementAxis == Vector2.zero) return;
-            Vector3 Movement = _moveDirectionVector * _characterHandler.State.moveSpeed;
+            Vector3 Movement = _moveDirectionVector * _characterHandler.ModifiedState.moveSpeed;
             _characterController.SimpleMove(Movement);
 
 
@@ -128,7 +128,7 @@ namespace NaviEnt.Game
             Vector3 direction;
             Quaternion rotateTo = new Quaternion();
             
-            float moveSpeed = _characterHandler.State.moveSpeed * 0.65f;
+            float moveSpeed = _characterHandler.ModifiedState.moveSpeed * 0.65f;
             float rotationDuration = moveSpeed * Time.deltaTime * 2f;
             direction = new Vector3(Axis.x, 0, Axis.y);
 
@@ -147,7 +147,7 @@ namespace NaviEnt.Game
         void LookAtToTarget(Vector3 direction, Quaternion rotateTo)
         {
             Quaternion rotateFrom = _root.rotation;
-            float moveSpeed = _characterHandler.State.moveSpeed * 0.65f;
+            float moveSpeed = _characterHandler.ModifiedState.moveSpeed * 0.65f;
             float rotationDuration = moveSpeed * Time.deltaTime * 2f;
 
             direction = _target.position - transform.position;
@@ -182,7 +182,7 @@ namespace NaviEnt.Game
             if (!IsBusy)
             {
                 _actorSoundClip?.PlaySoundAttack();
-                _characterAnimatorHandler.Attack(testWeaponIndex, testAttackAnimIndex);
+                _characterAnimatorHandler.Attack(_characterHandler.WeaponType, _characterHandler.AttackAnimIndex);
                 IsBusy = true;
                 isCombatMode = true;
             }   
@@ -204,7 +204,7 @@ namespace NaviEnt.Game
         {
             if(testHitCollider!= null)
             {
-                PoolManager.Instance.SpawnHitCollider(testHitCollider, _root, _characterHandler.ActorTeam, _characterHandler.State.damage, testParticlePrefab);
+                PoolManager.Instance.SpawnHitCollider(testHitCollider, _root, _characterHandler.ActorTeam, _characterHandler.Damage, testParticlePrefab);
             }
         }
 
@@ -213,7 +213,7 @@ namespace NaviEnt.Game
         {
             Transform target = null;
             float minDistance = Mathf.Infinity;
-            Collider[] colliders = Physics.OverlapSphere(transform.position, testWeaponRange);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, targetSearchRange);
             foreach (Collider col in colliders)
             {
 

@@ -844,6 +844,7 @@ GameObject:
   - component: {fileID: 530471154}
   - component: {fileID: 530471157}
   - component: {fileID: 530471158}
+  - component: {fileID: 530471159}
   m_Layer: 8
   m_Name: '[Enemy]'
   m_TagString: Untagged
@@ -867,13 +868,15 @@ MonoBehaviour:
   _disc: Zombie
   _team: 1
   _feedbackHandler: {fileID: 33534384}
-  _state:
+  _equipmentHandler: {fileID: 530471159}
+  _actorSoundClip: {fileID: 530471158}
+  _baseState:
     maxHealth: 10
     damage: 0
     strength: 0
     agility: 0
     defance: 0
-    moveSpeed: 3
+    moveSpeed: 0
     jumpSpeed: 0
 --- !u!136 &530471152
 CapsuleCollider:
@@ -982,6 +985,24 @@ MonoBehaviour:
     variation: 0.1
   _attack: []
   _jump: []
+--- !u!114 &530471159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530471150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f81afb101cb10f4e9a4a6b459e6b56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentItemKey:
+  - 
+  - 
+  - 
+  - 
+  currentWeapon: {fileID: 0}
 --- !u!1001 &576453427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1407,6 +1428,7 @@ GameObject:
   - component: {fileID: 758160859}
   - component: {fileID: 758160860}
   - component: {fileID: 758160861}
+  - component: {fileID: 758160862}
   m_Layer: 8
   m_Name: '[Player]'
   m_TagString: Player
@@ -1463,7 +1485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcbe5493c27f84e48a635275623a1f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testWeaponRange: 5
+  targetSearchRange: 5
   testWeaponIndex: 0
   testAttackAnimIndex: 0
   testHitCollider: {fileID: 5789193580150715736, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
@@ -1485,14 +1507,16 @@ MonoBehaviour:
   _disc: Player
   _team: 0
   _feedbackHandler: {fileID: 1277925252}
-  _state:
+  _equipmentHandler: {fileID: 758160862}
+  _actorSoundClip: {fileID: 758160861}
+  _baseState:
     maxHealth: 10
-    damage: 2
+    damage: 1
     strength: 0
     agility: 0
     defance: 0
-    moveSpeed: 3.5
-    jumpSpeed: 0.095
+    moveSpeed: 4
+    jumpSpeed: 0.15
 --- !u!114 &758160861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1524,6 +1548,24 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: 606def214a2b2ab4099e28e302562253, type: 3}
     volume: 0.25
     variation: 0.1
+--- !u!114 &758160862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758160856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f81afb101cb10f4e9a4a6b459e6b56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentItemKey:
+  - 
+  - 
+  - 
+  - 
+  currentWeapon: {fileID: 0}
 --- !u!1 &830315140
 GameObject:
   m_ObjectHideFlags: 0

@@ -69,8 +69,9 @@ GameObject:
   - component: {fileID: 4596983229342638763}
   - component: {fileID: 4596983229343724353}
   - component: {fileID: 1636059893439151535}
-  - component: {fileID: 7248879708286917365}
   - component: {fileID: 3301562080400655434}
+  - component: {fileID: 7248879708286917365}
+  - component: {fileID: 4151282357306411659}
   m_Layer: 0
   m_Name: Weapon_Melee_Pipe
   m_TagString: Untagged
@@ -153,19 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pickupTrigger: {fileID: 3653690773390382483}
   _pickupSound: {fileID: 8300000, guid: 582bcf5f4b161eb4e87c41a6e336118d, type: 3}
---- !u!114 &7248879708286917365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4596983229341535981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0101af6bab05e5741ae825b96579e49f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _key: Weapon-Pipe
 --- !u!114 &3301562080400655434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,3 +259,48 @@ MonoBehaviour:
   optionalRotationMode: 1
   optionalScrambleMode: 0
   optionalString: 
+--- !u!114 &7248879708286917365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4596983229341535981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0101af6bab05e5741ae825b96579e49f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponType: 1
+  _itemSoundClip: {fileID: 4151282357306411659}
+  _defaultAttackAnimIndex: 0000000001000000
+  _criticalAttackAnimIndex: 0
+  _defaultHitCollider: {fileID: 5789193580150715737, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
+    type: 3}
+  _criticalHitCollider: {fileID: 5789193580150715737, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
+    type: 3}
+--- !u!114 &4151282357306411659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4596983229341535981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2700c10bd97302c408d8bebf92ad4a49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _use: []
+  _hitActor:
+  - clip: {fileID: 8300000, guid: 3c566f644ea377940a6880d0413e22fd, type: 3}
+    volume: 1
+    variation: 0.1
+  _attack:
+  - clip: {fileID: 8300000, guid: 94efd329829fef64fb17d5c72c26c618, type: 3}
+    volume: 1
+    variation: 0.1
+  - clip: {fileID: 8300000, guid: 5b675d5e38ab7f0488d21dafae4f10e2, type: 3}
+    volume: 1
+    variation: 0.1
+  _reload: []

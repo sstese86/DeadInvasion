@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 using DG.Tweening;
+using NaviEnt.Data;
 
 namespace NaviEnt.Game
 {
@@ -16,6 +17,8 @@ namespace NaviEnt.Game
         AudioClip _pickupSound = null;
 
         DOTweenAnimation _dotween = null;
+
+        GameObject player = null;
 
         public string EntityName { get; set; }
         public string EntityInfo { get; set; }
@@ -33,7 +36,8 @@ namespace NaviEnt.Game
 
         public void OnPickupTriggerEnter(Collider other)
         {
-            if(other.GetComponent<CharacterHandler>().ActorTeam == Team.Player)
+            player = other.gameObject;
+            if (player.GetComponent<CharacterHandler>().ActorTeam == Team.Player)
             {
                 PickUp();
             }            
@@ -42,7 +46,17 @@ namespace NaviEnt.Game
         void PickUp()
         {
             AudioManager.Instance.PlaySoundSFX(_pickupSound);
-            GameManager.Instance.AddPlayerItemAmount(Key, Amount);
+            ItemData item = GameManager.Instance.GetItemData(Key);
+            if(item.isEquipable)
+            {
+                player.GetComponent<EquipmentHandler>().EquipItem(Key);
+                GameManager.Instance.AddPlayerItemAmount(Key, Amount);
+            }
+            else
+            {
+                GameManager.Instance.AddPlayerItemAmount(Key, Amount);
+            }
+            
             _pickupTrigger.gameObject.SetActive(false);
             DoTweenRotateItemStop();
             gameObject.SetActive(false);

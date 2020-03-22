@@ -13,6 +13,13 @@ namespace NaviEnt.Data
         Consumable,
     }
 
+    public enum EquipType
+    {
+        Head,
+        Body,
+        Weapon,
+        Misc,
+    }
 
 
     [Serializable]
@@ -52,14 +59,19 @@ namespace NaviEnt.Data
         [HorizontalGroup("Equipment")]
         public bool isEquipable;
 
+        [ShowIf("isEquipable")]
+        [EnumToggleButtons]
+        public EquipType equipType;
+
         [HorizontalGroup("Equipment")]
         [ShowIf("isEquipable")]
         public bool isWeapon;
-
+        
         [ShowIf("isEquipable")]
         public CharacterState equipableState;
 
-        [ShowIf("isWeapon")]
+        //[ShowIf("isWeapon")]
+        [ShowIf("equipType",EquipType.Weapon)]
         public WeaponState weaponState;
 
     }

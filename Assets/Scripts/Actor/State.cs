@@ -32,11 +32,15 @@ namespace NaviEnt
     [System.Serializable]
     public struct WeaponState
     {
+        public int damage;
+        public float fireRate;
+
         [HorizontalGroup("Ammo")]
         public bool needAmmo;
+
         [HorizontalGroup("Ammo")]
+        [DisableIf("@!needAmmo")]
         public int maxAmmo;
-        public float fireRate;
     }
 
 }

@@ -78,6 +78,9 @@ MonoBehaviour:
     - Name: isEquipable
       Entry: 5
       Data: false
+    - Name: equipType
+      Entry: 3
+      Data: 0
     - Name: isWeapon
       Entry: 5
       Data: false
@@ -111,17 +114,17 @@ MonoBehaviour:
     - Name: weaponState
       Entry: 7
       Data: NaviEnt.WeaponState, Assembly-CSharp
-    - Name: weaponType
+    - Name: damage
       Entry: 3
+      Data: 0
+    - Name: fireRate
+      Entry: 4
       Data: 0
     - Name: needAmmo
       Entry: 5
       Data: false
     - Name: maxAmmo
       Entry: 3
-      Data: 0
-    - Name: fireRate
-      Entry: 4
       Data: 0
     - Name: 
       Entry: 8
@@ -168,6 +171,9 @@ MonoBehaviour:
     - Name: isEquipable
       Entry: 5
       Data: false
+    - Name: equipType
+      Entry: 3
+      Data: 0
     - Name: isWeapon
       Entry: 5
       Data: false
@@ -201,17 +207,17 @@ MonoBehaviour:
     - Name: weaponState
       Entry: 7
       Data: NaviEnt.WeaponState, Assembly-CSharp
-    - Name: weaponType
+    - Name: damage
       Entry: 3
+      Data: 0
+    - Name: fireRate
+      Entry: 4
       Data: 0
     - Name: needAmmo
       Entry: 5
       Data: false
     - Name: maxAmmo
       Entry: 3
-      Data: 0
-    - Name: fireRate
-      Entry: 4
       Data: 0
     - Name: 
       Entry: 8
@@ -260,27 +266,30 @@ MonoBehaviour:
     - Name: isEquipable
       Entry: 5
       Data: true
+    - Name: equipType
+      Entry: 3
+      Data: 2
     - Name: isWeapon
       Entry: 5
-      Data: true
+      Data: false
     - Name: equipableState
       Entry: 7
       Data: NaviEnt.CharacterState, Assembly-CSharp
     - Name: maxHealth
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: damage
       Entry: 3
       Data: 0
     - Name: strength
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: agility
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: defance
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: moveSpeed
       Entry: 4
       Data: 0
@@ -293,18 +302,18 @@ MonoBehaviour:
     - Name: weaponState
       Entry: 7
       Data: NaviEnt.WeaponState, Assembly-CSharp
-    - Name: weaponType
+    - Name: damage
       Entry: 3
-      Data: 0
+      Data: 2
+    - Name: fireRate
+      Entry: 4
+      Data: 0.4
     - Name: needAmmo
       Entry: 5
       Data: false
     - Name: maxAmmo
       Entry: 3
       Data: 0
-    - Name: fireRate
-      Entry: 4
-      Data: 0.5
     - Name: 
       Entry: 8
       Data: 
