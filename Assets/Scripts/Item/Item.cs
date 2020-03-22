@@ -13,12 +13,7 @@ namespace NaviEnt.Game
     public abstract class Item : MonoBehaviour
     {
         public int Amount { get; set; }
-        public ItemData ItemData { get; set; }
-        // Start is called before the first frame update
-
-        public virtual void Start()
-        {
-        }
+        public string Key { get; set; }
 
     }
 }

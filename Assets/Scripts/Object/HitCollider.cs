@@ -2,55 +2,102 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitCollider : MonoBehaviour
+
+namespace NaviEnt.Game
 {
-    [SerializeField]
-    Team _team = Team.Player;
-    [SerializeField]
-    int _damage = 0;
-
-    [SerializeField]
-    bool _debugMode = false;
-    
-    private void OnTriggerEnter(Collider other)
+    public class HitCollider : MonoBehaviour, IPoolUse
     {
-        IDamageable target = other.GetComponent<IDamageable>();
-        target?.TakeDamage(_team, _damage);
-        GetComponent<Collider>().enabled = false;
-        if(_debugMode)
-            GetComponent<MeshRenderer>().enabled = false;
-    }
+        [SerializeField]
+        Team _team = Team.Player;
+        [SerializeField]
+        int _damage = 0;
 
-    public void InitHitCollider(Team team, int damage)
-    {
-        this._team = team;
-        this._damage = damage;
-        GetComponent<Collider>().enabled = true;
+        [SerializeField]
+        bool _debugMode = false;
+        [SerializeField]
+        HitColliderHelper helper = null;
 
-        if (_debugMode)
+        GameObject _hitEffect = null;
+        Transform _hitTarget = null;
+
+        public void InitHitCollider(Team team, int damage)
         {
-            GetComponent<MeshRenderer>().enabled = true;
+            this._team = team;
+            this._damage = damage;
+            helper.GetComponent<Collider>().enabled = true;
+            _hitEffect = null;
+            if (_debugMode)
+            {
+                helper.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                helper.GetComponent<MeshRenderer>().enabled = false;
+            }
+            StartCoroutine(ReturnToPoolRoutine());
         }
-        else
-        { 
-            GetComponent<MeshRenderer>().enabled = false;
-        }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        if(_debugMode)
-        { 
-            GetComponent<MeshRenderer>().enabled = true;
-            GetComponent<Collider>().enabled = true;
-        }
-        else
-            GetComponent<MeshRenderer>().enabled = false;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void InitHitCollider(GameObject hitEffect, Team team, int damage)
+        {
+            this._team = team;
+            this._damage = damage;
+            helper.GetComponent<Collider>().enabled = true;
+            _hitEffect = hitEffect;
+            if (_debugMode)
+            {
+                helper.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                helper.GetComponent<MeshRenderer>().enabled = false;
+            }
+            StartCoroutine(ReturnToPoolRoutine());
+        }
+        // Start is called before the first frame update
+        void Start()
+        {
+            helper.InitHitColliderHelper(this);
+            if (_debugMode)
+            {
+                helper.GetComponent<MeshRenderer>().enabled = true;
+                helper.GetComponent<Collider>().enabled = true;
+            }
+            else
+                helper.GetComponent<MeshRenderer>().enabled = false;
+        }
+
+        public void TargetEnter(Collider other)
+        {
+            IDamageable target = other.GetComponent<IDamageable>();
+            if(target.TakeDamage(_team, _damage))
+            {
+                if (_hitEffect != null)
+                {                    
+                    _hitTarget = other.GetComponent<ActorSocketFinder>().Body;
+                    if(_hitTarget == null)
+                    {
+                        _hitTarget = other.transform;
+                    }
+                    PoolManager.Instance.SpawnEffect(_hitEffect, _hitTarget);
+                }
+            }                
+            ReturnToPool();
+        }
+
+        public void ReturnToPool()
+        {
+            helper.GetComponent<Collider>().enabled = false;
+            if (_debugMode)
+            {
+                helper.GetComponent<MeshRenderer>().enabled = false;
+            }
+            PoolManager.Instance.HitColliderBackToPoolSystem(gameObject);
+        }
+
+        IEnumerator ReturnToPoolRoutine()
+        {
+            yield return new WaitForSeconds(0.1f);
+            ReturnToPool();
+        }
     }
 }

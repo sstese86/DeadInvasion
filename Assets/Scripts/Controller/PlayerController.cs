@@ -13,6 +13,8 @@ namespace NaviEnt.Game
         CharacterController _characterController = null;
         InputManager _inputManager = null;
 
+        ActorSoundClip _actorSoundClip = null;
+
         Transform _root = null;
         Transform _target = null;
         CharacterAnimatorHandler _characterAnimatorHandler = null;
@@ -21,16 +23,21 @@ namespace NaviEnt.Game
         Vector3 _jumpVector = Vector3.zero;
 
         bool isCombatMode = false;
-        bool isDead = false;
-        float gravity = 1.5f;
+        
+        float _gravity = 1.5f;
 
+        float _characterHeight = 0f;
+        float _characterCenterY = 0f;
+
+        bool _isDead = false;
         public bool IsBusy { get; set; }
-
 
         public float testWeaponRange = 5f;
         public int testWeaponIndex = 0;
-        public float testAttackAnimIndex = 0f;
 
+        public float testAttackAnimIndex = 0f;
+        public GameObject testHitCollider = null;
+        public GameObject testParticlePrefab = null;
 
         // Start is called before the first frame update
         void Start()
@@ -38,30 +45,38 @@ namespace NaviEnt.Game
             _inputManager = InputManager.Instance;
             _characterController = GetComponent<CharacterController>();
             _characterHandler = GetComponent<CharacterHandler>();
-            _root = transform.Find("Root");
+            _actorSoundClip = GetComponent<ActorSoundClip>();
 
-            GameEventManager.onPlayerDeadCallback += PlayerDead;       
+            _root = transform.Find("Root");                
 
-            gravity = GameManager.Instance.gravity;
-            
+            _gravity = GameManager.Instance.gravity;
+
+            _characterHeight = _characterController.height;
+            _characterCenterY = _characterController.center.y;
             IsBusy = false;
         }
 
         private void OnDestroy()
         {
-            GameEventManager.onPlayerDeadCallback -= PlayerDead;
+            
         }
 
         private void PlayerDead()
         {
-            isDead = true;
+            GameEventManager.Instance.OnPlayerDead();
             _characterAnimatorHandler.Dead();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (isDead) return;
+            if (_isDead) return;
+            if (_characterHandler.isDead)
+            {
+                _isDead = true;
+                PlayerDead();
+                return; 
+            }
             Rotate();
             InputActionCheck();
             AnimatorParmUpdate();
@@ -69,7 +84,7 @@ namespace NaviEnt.Game
 
         void FixedUpdate()
         {
-            if (isDead) return;
+            if (_isDead) return;
             Move();
             MoveInAir();
         }
@@ -81,6 +96,10 @@ namespace NaviEnt.Game
                     IsBusy = true;
                     if (!_characterAnimatorHandler.Jump()) return;
 
+                //_characterController.height = _characterHeight / 2f;
+                //Vector3 center = new Vector3(0f, _characterCenterY / 2f, 0f);
+                //_characterController.center = center;
+                _actorSoundClip.PlaySoundJump();
                 _jumpVector.y = _characterHandler.State.jumpSpeed;
                 
             }           
@@ -95,8 +114,8 @@ namespace NaviEnt.Game
         }
         void MoveInAir()
         {
-            _jumpVector.y -= gravity * Time.deltaTime;
-            _jumpVector.y = Mathf.Clamp(_jumpVector.y, -gravity * 2, gravity * 2);
+            _jumpVector.y -= _gravity * Time.deltaTime;
+            _jumpVector.y = Mathf.Clamp(_jumpVector.y, -_gravity * 2, _gravity * 2);
             _characterController.Move(_jumpVector);
         }
                
@@ -153,7 +172,7 @@ namespace NaviEnt.Game
         {
             if(_characterAnimatorHandler != null)
             {
-                _characterAnimatorHandler.UpdateAnimParmMoveSpeed(_moveDirectionVector.normalized.magnitude);
+                _characterAnimatorHandler.UpdateAnimParmMoveSpeed(_moveDirectionVector.sqrMagnitude);
             }
         }
 
@@ -162,11 +181,33 @@ namespace NaviEnt.Game
             SerchForTarget();
             if (!IsBusy)
             {
+                _actorSoundClip?.PlaySoundAttack();
                 _characterAnimatorHandler.Attack(testWeaponIndex, testAttackAnimIndex);
                 IsBusy = true;
                 isCombatMode = true;
             }   
         }
+
+        public void AnimEventAttackCallback()
+        {
+           SpawnHitCollider();
+            _target = null;
+        }
+        public void AnimEventJumpEndCallback()
+        {
+            //_characterController.height = _characterHeight;
+            //Vector3 center = new Vector3(0f, _characterCenterY, 0f);
+            //_characterController.center = center;
+        }
+
+        void SpawnHitCollider()
+        {
+            if(testHitCollider!= null)
+            {
+                PoolManager.Instance.SpawnHitCollider(testHitCollider, _root, _characterHandler.ActorTeam, _characterHandler.State.damage, testParticlePrefab);
+            }
+        }
+
 
         void SerchForTarget()
         {
@@ -207,6 +248,7 @@ namespace NaviEnt.Game
 
         public void NotBusy(float delay = 0f)
         {
+            StopAllCoroutines();
             StartCoroutine(NotBusyRoutine(delay));
         }
 

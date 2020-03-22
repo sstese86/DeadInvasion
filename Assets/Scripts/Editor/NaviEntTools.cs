@@ -123,13 +123,13 @@ public class NaviEntTools : EditorWindow
                 newItem.obj = item.GetGameObject();
 
                 newItem.isEquipable = item.GetBoolFromIntValue(item.isEquipable);
-                newItem.itemState.maxHealth = item.state_maxHealth;
-                newItem.itemState.attackDamage = item.state_damage;
-                newItem.itemState.strength = item.state_strength;
-                newItem.itemState.agility = item.state_agility;
-                newItem.itemState.defance = item.state_defance;
-                newItem.itemState.moveSpeed = item.state_moveSpeed;
-                newItem.itemState.jumpSpeed = item.state_jumpSpeed;
+                newItem.equipableState.maxHealth = item.state_maxHealth;
+                newItem.equipableState.damage = item.state_damage;
+                newItem.equipableState.strength = item.state_strength;
+                newItem.equipableState.agility = item.state_agility;
+                newItem.equipableState.defance = item.state_defance;
+                newItem.equipableState.moveSpeed = item.state_moveSpeed;
+                newItem.equipableState.jumpSpeed = item.state_jumpSpeed;
 
                 _itemDatabase.data.Add(item.name, newItem);
             }

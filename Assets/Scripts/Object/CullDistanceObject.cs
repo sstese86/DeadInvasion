@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class CullDistanceObject : MonoBehaviour
 {
-    GameObject _root = null;
+    [SerializeField]
+    List<GameObject> _cullObjectList = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
-        _root = transform.Find("Root").gameObject;
-        _root.SetActive(false);
+        _cullObjectList.Add(transform.Find("Root").gameObject);
+        foreach(GameObject obj in _cullObjectList)
+        {
+            obj.SetActive(false);
+        }
     }
 
     public void CullDistanceActive()
     {
-        _root.SetActive(true);
+        foreach (GameObject obj in _cullObjectList)
+        {
+            obj.SetActive(true);
+        }
     }
 
     public void CullDistanceInactive()
-    {
-        _root.SetActive(false);
+    {        
+        foreach (GameObject obj in _cullObjectList)
+        {
+            obj.SetActive(false);
+        }
     }
 
 }

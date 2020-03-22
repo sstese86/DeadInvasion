@@ -2,55 +2,75 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
+using DG.Tweening;
 
 namespace NaviEnt.Game
 {
     public class PickupItem : Item<PickupItem>, IEntity
     {
-        
+
+        [SerializeField]
+        PickupItemTrigger _pickupTrigger = null;
+
+        [SerializeField]
+        AudioClip _pickupSound = null;
+
+        DOTweenAnimation _dotween = null;
+
         public string EntityName { get; set; }
         public string EntityInfo { get; set; }
 
-        [SerializeField]
-        MMFeedbacks _mmfeedback = null;
-        
-        
-
-        void Update()
+        private void Awake()
         {
-
+            _pickupTrigger.gameObject.SetActive(false);
         }
-        // Start is called before the first frame update
-        public override void Start()
+
+        public void InitializePickupItem()
         {
-            base.Start();
-            
-            EntityName = ItemData.name;
-            EntityInfo = ItemData.description;
-
-            UpdateEntityInfo();
-            OnStartCallback();
-            _mmfeedback.Initialization();
+            _pickupTrigger.gameObject.SetActive(true);
+            DoTweenRotateItem();
         }
-        
+
+        public void OnPickupTriggerEnter(Collider other)
+        {
+            if(other.GetComponent<CharacterHandler>().ActorTeam == Team.Player)
+            {
+                PickUp();
+            }            
+        }
+
+        void PickUp()
+        {
+            AudioManager.Instance.PlaySoundSFX(_pickupSound);
+            GameManager.Instance.AddPlayerItemAmount(Key, Amount);
+            _pickupTrigger.gameObject.SetActive(false);
+            DoTweenRotateItemStop();
+            gameObject.SetActive(false);
+        }
+
+        void DoTweenRotateItem()
+        {
+            _dotween = GetComponent<DOTweenAnimation>();
+            if (_dotween != null)
+            {
+                float value = _dotween.duration;
+                _dotween.duration = Random.Range(value / 1.5f, value);
+                _dotween.CreateTween();
+                _dotween.DOPlay();
+            }
+        }
+
+        void DoTweenRotateItemStop()
+        {
+            if (_dotween != null)
+            {
+                _dotween.DOPause();
+            }
+        }
+
         public void UpdateEntityInfo()
         {
-            GameEventManager.Instance.OnSelectedEntityChangedCallback(GetComponent<IEntity>());
-        }
-
-        public virtual void OnStartCallback()
-        {
-
-        }
-
-        public void PickUp()
-        {
-            GameManager.Instance.AddPlayerItemAmount(ItemData.name, Amount);
-            _mmfeedback.PlayFeedbacks();
-        }
-        private void OnTriggerEnter(Collider other)
-        {
-            PickUp();
+            // No Need to Update Entity Info for Pick up items. because it will not change information.
         }
     }
 }

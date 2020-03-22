@@ -20,6 +20,8 @@ namespace NaviEnt.Game
 
         float _layerFadeValue = 0f;
         float _upperLayerMaskWeight = 0f;
+
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -50,10 +52,11 @@ namespace NaviEnt.Game
             _hashParmAttackAnimIndex = Animator.StringToHash("AttackAnimID");
         }
 
-        public void UpdateAnimParmMoveSpeed(float normalizedMagnitude)
+        public void UpdateAnimParmMoveSpeed(float magnitude)
         {
-            _animator.SetFloat(_hashParmMoveSpeed, normalizedMagnitude);
-            _upperLayerMaskWeight += normalizedMagnitude * 0.05f;
+            _animator.SetFloat(_hashParmMoveSpeed, Mathf.Clamp01(magnitude));
+            if(magnitude > 0.05f)
+                _upperLayerMaskWeight = 1f;
         }
 
         void LowerLayerMaskWeightUpdate()
@@ -72,6 +75,8 @@ namespace NaviEnt.Game
             _animator.SetBool(_hashParmIsJumping, true);
             return true;
         }
+
+
 
         public bool Attack(int weaponIndex, float attackAnimIndex)
         {
@@ -114,8 +119,18 @@ namespace NaviEnt.Game
 
             }
             _animator.SetLayerWeight(layerIndex, 0f);
-            _animator.SetBool("IsJumping", false);
-            _playerController.NotBusy();
+            _animator.SetBool(_hashParmIsJumping, false);
+            CallNotBusy(0.1f);
+        }
+
+
+        public void AnimEventAttack()
+        {
+            _playerController.AnimEventAttackCallback();
+        }
+        public void AnimEventJumpEnd()
+        {
+            _playerController.AnimEventJumpEndCallback();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿public interface IDamageable
 {
-    void TakeDamage(Team team,int amount);
+    bool TakeDamage(Team team,int amount);
 }
 
 public interface ICanAttack

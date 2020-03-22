@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using NaviEnt.Level;
+using NaviEnt;
 
 public class SplashScreen : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SplashScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager.Instance.PlayMusic();
         StartCoroutine(LoadMainMenuAsync());
     }
 

@@ -11,29 +11,34 @@ namespace NaviEnt.Data
     {
         Simple,
         Consumable,
-        Equipable,
     }
+
+
 
     [Serializable]
     public struct ItemData
     {
+        [Space]
+        [Space]
         [HorizontalGroup("Preview")]
         [PreviewField(32)]
         [LabelWidth(32)]
         public Sprite icon;
-       
+        [HorizontalGroup("Preview")]
         [PreviewField(32)]
         [LabelWidth(32)]
         public GameObject obj;
 
-        [VerticalGroup("Base Info")]
+        
         [EnumToggleButtons]
         public ItemType itemType;
-        [VerticalGroup("Base Info")]
+        [HorizontalGroup("Base Info")]
+        [VerticalGroup("Base Info/Left")]
         [LabelWidth(100)]
         public string name;
+        [VerticalGroup("Base Info/Right")]
+        public string key;
 
-        [VerticalGroup("Base Info")]
         [LabelWidth(300)]
         [TextArea(2, 6)]
         public string description;
@@ -44,9 +49,18 @@ namespace NaviEnt.Data
         [HorizontalGroup("amount")]
         public int value;
 
+        [HorizontalGroup("Equipment")]
         public bool isEquipable;
+
+        [HorizontalGroup("Equipment")]
         [ShowIf("isEquipable")]
-        public CharacterState itemState;
+        public bool isWeapon;
+
+        [ShowIf("isEquipable")]
+        public CharacterState equipableState;
+
+        [ShowIf("isWeapon")]
+        public WeaponState weaponState;
 
     }
 

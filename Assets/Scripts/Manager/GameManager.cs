@@ -17,7 +17,7 @@ namespace NaviEnt.Game
 
         public int PlayerFightingPower { get; private set; }
 
-        DataManager _dataManager;
+        PlayerDataManager _playerDataManager;
         GameEventManager _gameEventManager;
 
         QuestDatabase _questDatabase;
@@ -51,7 +51,7 @@ namespace NaviEnt.Game
 
         private void Initialize()
         {
-            _dataManager = DataManager.Instance;
+            _playerDataManager = PlayerDataManager.Instance;
             _gameEventManager = GameEventManager.Instance;
 
             _questDatabase = Resources.Load<QuestDatabase>("ScriptableObject/QuestDatabase");
@@ -68,7 +68,7 @@ namespace NaviEnt.Game
         {
 
             // Load activeQuests from player data.
-            Dictionary<string, List<int>> loadedActiveQuests = _dataManager.GetActiveQuests();
+            Dictionary<string, List<int>> loadedActiveQuests = _playerDataManager.GetActiveQuests();
             if (loadedActiveQuests == null) return;
 
             _activeQuest.Clear();
@@ -94,7 +94,7 @@ namespace NaviEnt.Game
             }
 
             // Load finished Quests from player data.            
-            List<string> loadedFinishedQuests = _dataManager.GetFinishedQuests();
+            List<string> loadedFinishedQuests = _playerDataManager.GetFinishedQuests();
             if (loadedFinishedQuests == null) return;
 
             _finishedQuest.Clear();
@@ -114,18 +114,26 @@ namespace NaviEnt.Game
             newQuest.isActive = true;
             _activeQuest.Add(newQuest);
 
-            _dataManager.SetPlayerQuest(newQuest);
+            _playerDataManager.SetPlayerQuest(newQuest);
 
             //TODO Make a reflect to Quest UI
         }
 
-        public void ItemInstantiate(string key, int amount, Transform trans)
+        public GameObject PickupItemInstantiate(string key, int amount, Transform trans)
         {
-            GameObject obj = Instantiate(_itemDatabase.data[key].obj, trans) ;
-            Item item = obj.GetComponent<Item>();
-            item.ItemData = _itemDatabase.data[key];
+            GameObject obj = Instantiate(_itemDatabase.data[key].obj, trans) as GameObject ;
 
+            PickupItem item = obj.GetComponent<PickupItem>();
+
+            item.Key = key;
             item.Amount = amount;
+
+            item.InitializePickupItem();
+            item.EntityInfo = _itemDatabase.data[key].description;
+            item.EntityName = _itemDatabase.data[key].name;
+
+            obj.name = _itemDatabase.data[key].name;
+            return obj;
         }
 
         public ItemData GetItemData(string key)
@@ -135,11 +143,19 @@ namespace NaviEnt.Game
 
         public void AddPlayerItemAmount(string key, int amount)
         {
+            int currentAmount = 0;
 
-
-            int currentAmount = _dataManager.GetPlayerItemAmount(key);
-            currentAmount += amount;
-            _dataManager.SetPlayerItemAmount(key, currentAmount);
+            ItemData item = _itemDatabase.data[key];
+            if(item.notAllowMultiple != true)
+            {
+                currentAmount = _playerDataManager.GetPlayerItemAmount(key);
+                currentAmount += amount;
+            }
+            else
+            {
+                currentAmount = 1;
+            }
+            _playerDataManager.SetPlayerItemAmount(key, currentAmount);
         }
 
         void CheckOpenedMenus()
@@ -153,15 +169,15 @@ namespace NaviEnt.Game
 
         public void Reward(int coin, int experience)
         {
-            _dataManager.Coin += coin;
-            _dataManager.Experience += experience;
+            _playerDataManager.Coin += coin;
+            _playerDataManager.Experience += experience;
             _gameEventManager.OnPlayerDataChanged();
         }
 
         [Button(ButtonSizes.Medium)]
         private void SavePlayerData()
         {
-            _dataManager.SavePlayerData();
+            _playerDataManager.SavePlayerData();
         }
 
         #endregion

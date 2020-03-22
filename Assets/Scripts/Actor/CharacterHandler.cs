@@ -9,20 +9,30 @@ namespace NaviEnt
         [SerializeField]
         FeedbackHandler _feedbackHandler = null;
 
+        ActorSoundClip _actorSoundClip = null;
+
         [SerializeField]
         CharacterState _state = new CharacterState();
 
         HUDHealthBar _healthbar = null;
         public CharacterState State { get => _state; }
-        
+
+        public bool isDead { get; private set; }
+
         public string EntityName { get; set; }
         public string EntityInfo { get; set; }
 
-        // Use this for initialization
-        void Start()
+
+        private void OnEnable()
         {
             CurrentHealth = _state.maxHealth;
             _healthbar = GetComponentInChildren<HUDHealthBar>();
+            _healthbar?.gameObject.SetActive(true);
+        }
+        // Use this for initialization
+        void Start()
+        {
+            _actorSoundClip = GetComponent<ActorSoundClip>();
         }
 
         // Update is called once per frame
@@ -31,16 +41,19 @@ namespace NaviEnt
 
         }
 
-        public void TakeDamage(Team team, int amount)
+        public bool TakeDamage(Team team, int amount)
         {
             if(ActorTeam != team)
-            { 
+            {
+                _actorSoundClip?.PlaySoundHit();
                 CurrentHealth -= amount;
                 IsDead();   
                 UpdateCurrentHealthInfo();
 
-                _feedbackHandler.HitFeedback();
+                _feedbackHandler?.HitFeedback();
+                return true;
             }
+            return false;
         }
         public void Heal(int amount)
         {
@@ -52,7 +65,10 @@ namespace NaviEnt
         {
             if (CurrentHealth < 1)
             {
-                DeadCallback();
+                isDead = true;
+                _actorSoundClip?.PlaySoundDead();
+                GetComponent<Collider>().enabled = false;
+                _healthbar?.gameObject.SetActive(false);
                 return true;
             }
             return false;
@@ -62,12 +78,6 @@ namespace NaviEnt
             CurrentHealth = Mathf.Clamp(CurrentHealth, 0, _state.maxHealth);
             float value = (float)CurrentHealth / (float)_state.maxHealth;
             _healthbar.UpdateHealthSlider(value);
-        }
-
-        void DeadCallback()
-        {
-            GameEventManager.Instance.OnPlayerDead();
-            Debug.Log(gameObject.name + " is dead.");
         }
 
         public Team GetTeam()

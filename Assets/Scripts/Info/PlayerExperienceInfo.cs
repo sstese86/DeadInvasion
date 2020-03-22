@@ -12,6 +12,6 @@ public class PlayerExperienceInfo : PlayerResourceInfo
 
     public override void UpdatePlayerData()
     {
-        _text.text = DataManager.Instance.Experience.ToString();
+        _text.text = PlayerDataManager.Instance.Experience.ToString();
     }
 }

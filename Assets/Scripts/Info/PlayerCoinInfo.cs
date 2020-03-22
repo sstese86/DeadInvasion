@@ -12,7 +12,7 @@ public class PlayerCoinInfo : PlayerResourceInfo
     
     public override void UpdatePlayerData()
     {
-        _text.text = DataManager.Instance.Coin.ToString();
+        _text.text = PlayerDataManager.Instance.Coin.ToString();
     }
 
 }

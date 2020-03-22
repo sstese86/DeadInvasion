@@ -16,7 +16,6 @@ public class PlayerCullDistanceTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Exit " + other.name);
         if (other.GetComponent<CullDistanceObject>())
         {
             other.GetComponent<CullDistanceObject>().CullDistanceInactive();

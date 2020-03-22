@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaviEnt.Level;
 
-namespace NaviEnt
+namespace NaviEnt.Game
 {
-    public class GamePlaySetupManager : MonoBehaviour
+    public class PickupItemTrigger : MonoBehaviour
     {
-        public TextMesh textMesh;
         // Start is called before the first frame update
         void Start()
         {
@@ -20,9 +18,9 @@ namespace NaviEnt
 
         }
 
-        public void LoadMainMenu()
+        private void OnTriggerEnter(Collider other)
         {
-            LevelManager.Instance.MoveToMainMenu();
+            transform.parent.GetComponent<PickupItem>().OnPickupTriggerEnter(other);
         }
     }
 }

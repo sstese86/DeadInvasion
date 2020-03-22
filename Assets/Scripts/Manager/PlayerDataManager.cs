@@ -8,12 +8,13 @@ using NaviEnt;
 
 namespace NaviEnt.Data
 {
-    public class DataManager : SerializedMonoBehaviour
+    public class PlayerDataManager : SerializedMonoBehaviour
     {
-        public static DataManager Instance { get; private set; }
+        public static PlayerDataManager Instance { get; private set; }
 
         static PlayerData _playerData;
         static SystemData _systemData;
+
 
         #region PLAYERDATA
 
@@ -53,11 +54,6 @@ namespace NaviEnt.Data
 
         public void SetPlayerItemAmount(string key, int amount)
         {
-            if (!_playerData.playerItem.ContainsKey(key))
-            {
-                Debug.Log("DataManager_playerItem:: there is no item key: " + key);
-                return;
-            }
             _playerData.playerItem[key] = amount;
             UpdatePlayerData();
         }
