@@ -13,8 +13,6 @@ namespace NaviEnt.Game
         CharacterController _characterController = null;
         InputManager _inputManager = null;
 
-        ActorSoundClip _actorSoundClip = null;
-
         Transform _root = null;
         Transform _target = null;
         CharacterAnimatorHandler _characterAnimatorHandler = null;
@@ -45,7 +43,6 @@ namespace NaviEnt.Game
             _inputManager = InputManager.Instance;
             _characterController = GetComponent<CharacterController>();
             _characterHandler = GetComponent<CharacterHandler>();
-            _actorSoundClip = GetComponent<ActorSoundClip>();
 
             _root = transform.Find("Root");                
 
@@ -80,6 +77,8 @@ namespace NaviEnt.Game
             Rotate();
             InputActionCheck();
             AnimatorParmUpdate();
+            CheckLookAtToTarget();
+
         }
 
         void FixedUpdate()
@@ -99,7 +98,7 @@ namespace NaviEnt.Game
                 //_characterController.height = _characterHeight / 2f;
                 //Vector3 center = new Vector3(0f, _characterCenterY / 2f, 0f);
                 //_characterController.center = center;
-                _actorSoundClip.PlaySoundJump();
+                _characterHandler.ActorSoundClip?.PlaySoundJump();
                 _jumpVector.y = _characterHandler.ModifiedState.jumpSpeed;
                 
             }           
@@ -134,26 +133,37 @@ namespace NaviEnt.Game
 
             rotateTo = Quaternion.LookRotation(direction, Vector3.up);
             _root.rotation = Quaternion.Slerp(rotateFrom, rotateTo, rotationDuration);
-            
+        }
 
-            // Auto targetting for attack.
-            if (isCombatMode && _target != null)
+        
+
+        IEnumerator LookAtToTargetRoutine()
+        {
+            Quaternion rotateFrom = _root.rotation;
+            //   float moveSpeed = _characterHandler.ModifiedState.moveSpeed * 0.65f;
+            //   float rotationDuration = moveSpeed * Time.deltaTime * 2f;
+            Vector3 direction = _target.position - transform.position;
+            Quaternion rotateTo = Quaternion.LookRotation(direction, Vector3.up);
+
+            float alpha = 0.0f;
+            while(alpha < 1f)
             {
-                LookAtToTarget(direction, rotateTo);
+                _root.transform.rotation = Quaternion.Slerp(rotateFrom, rotateTo, alpha);
+                alpha += 0.1f;
+                yield return new WaitForSeconds(0.01f);
             }
         }
 
         // Later Make it Iterator To Look at To Target then Invoke Attack to target
-        void LookAtToTarget(Vector3 direction, Quaternion rotateTo)
+        void CheckLookAtToTarget()
         {
-            Quaternion rotateFrom = _root.rotation;
-            float moveSpeed = _characterHandler.ModifiedState.moveSpeed * 0.65f;
-            float rotationDuration = moveSpeed * Time.deltaTime * 2f;
 
-            direction = _target.position - transform.position;
-            rotateTo = Quaternion.LookRotation(direction, Vector3.up);
-
-            _root.transform.rotation = Quaternion.Slerp(rotateFrom, rotateTo, rotationDuration * 3f);
+            // Auto targetting for attack.
+            if (isCombatMode && _target != null)
+            {
+                StopCoroutine(LookAtToTargetRoutine());
+                StartCoroutine(LookAtToTargetRoutine());
+            }
         }
 
         void InputActionCheck()
@@ -181,7 +191,8 @@ namespace NaviEnt.Game
             SerchForTarget();
             if (!IsBusy)
             {
-                _actorSoundClip?.PlaySoundAttack();
+                _characterHandler.ActorSoundClip?.PlaySoundAttack();
+                _characterHandler.WeaponSoundClip?.PlaySoundItemAttack();
                 _characterAnimatorHandler.Attack(_characterHandler.WeaponType, _characterHandler.AttackAnimIndex);
                 IsBusy = true;
                 isCombatMode = true;

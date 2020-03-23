@@ -49,7 +49,7 @@ namespace NaviEnt
 
         }
 
-        public void PlaySoundSFX(AudioClip clip, float volume)
+        public void PlaySoundSFX(AudioClip clip, float volume = 1f)
         {
 
             _sfxSoundFeedback.MinPitch = 1f - 0.05f;
@@ -62,19 +62,25 @@ namespace NaviEnt
 
         }
 
-        public void PlaySoundSFX(AudioClip clip, float volume , float variation)
+        public void PlaySoundSFX(AudioClip clip, float volume = 1f, float variation = 0.1f , float delay = 0f)
         {
-  
+            if(delay != 0f)
+            {
+                StartCoroutine(PlaySoundWithDelay(clip, volume, variation, delay));
+            }
+            else
+            {
+                _sfxSoundFeedback.MinPitch = 1f - variation;
+                _sfxSoundFeedback.MaxPitch = 1f + variation;
+                _sfxSoundFeedback.MinVolume = volume - 0.05f;
+                _sfxSoundFeedback.MaxVolume = volume + 0.05f;
 
-            _sfxSoundFeedback.MinPitch = 1f - variation;
-            _sfxSoundFeedback.MaxPitch = 1f + variation;
-            _sfxSoundFeedback.MinVolume = volume - 0.05f;
-            _sfxSoundFeedback.MaxVolume = volume + 0.05f;
+                _sfxSoundFeedback.Sfx = clip;
 
-            _sfxSoundFeedback.Sfx = clip;
-            _sfxSoundFeedback.Play(transform.position, 0);
-
+                _sfxSoundFeedback.Play(transform.position, 0);
+            }
         }
+
 
 
         public void PlaySoundUI(AudioClip clip)
@@ -107,10 +113,19 @@ namespace NaviEnt
             _ambientFeedback = AmbientFeedback.Feedbacks[0] as MMFeedbackSound;
         }
 
-        // Update is called once per frame
-        void Update()
+        IEnumerator PlaySoundWithDelay(AudioClip clip, float volume = 1f, float variation = 0.1f, float delay = 0f)
         {
+            yield return new WaitForSeconds(delay);
+            _sfxSoundFeedback.MinPitch = 1f - variation;
+            _sfxSoundFeedback.MaxPitch = 1f + variation;
+            _sfxSoundFeedback.MinVolume = volume - 0.05f;
+            _sfxSoundFeedback.MaxVolume = volume + 0.05f;
 
+            _sfxSoundFeedback.Sfx = clip;
+
+            _sfxSoundFeedback.Play(transform.position, 0);
+            yield return null;
         }
+
     }
 }

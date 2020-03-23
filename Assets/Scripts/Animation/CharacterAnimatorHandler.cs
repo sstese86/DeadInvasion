@@ -38,7 +38,7 @@ namespace NaviEnt.Game
         }
         private void Update()
         {
-            LowerLayerMaskWeightUpdate();
+            UpperLayerMaskWeightUpdate();
         }
 
         void GetHashNames()
@@ -59,7 +59,7 @@ namespace NaviEnt.Game
                 _upperLayerMaskWeight = 1f;
         }
 
-        void LowerLayerMaskWeightUpdate()
+        void UpperLayerMaskWeightUpdate()
         {
             _upperLayerMaskWeight -= 0.025f;
             _upperLayerMaskWeight = Mathf.Clamp01(_upperLayerMaskWeight);
@@ -75,9 +75,7 @@ namespace NaviEnt.Game
             _animator.SetBool(_hashParmIsJumping, true);
             return true;
         }
-
-
-
+               
         public bool Attack(int weaponIndex, float attackAnimIndex)
         {
             _animator.SetInteger(_hashParmWeaponIndex, weaponIndex);

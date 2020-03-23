@@ -56,16 +56,12 @@ namespace NaviEnt.Data
         [HorizontalGroup("amount")]
         public int value;
 
-        [HorizontalGroup("Equipment")]
+        [TitleGroup("Equipment")]
         public bool isEquipable;
 
         [ShowIf("isEquipable")]
         [EnumToggleButtons]
         public EquipType equipType;
-
-        [HorizontalGroup("Equipment")]
-        [ShowIf("isEquipable")]
-        public bool isWeapon;
         
         [ShowIf("isEquipable")]
         public CharacterState equipableState;

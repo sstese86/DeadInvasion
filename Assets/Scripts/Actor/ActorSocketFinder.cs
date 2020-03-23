@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using NaviEnt.Data;
+
 namespace NaviEnt.Game
 {
     public class ActorSocketFinder : MonoBehaviour
@@ -12,11 +14,14 @@ namespace NaviEnt.Game
         Transform _socketHead = null;
         Transform _socketHUD = null;
 
-        public Transform RightHand { get => _socketRightHand; }
-        public Transform LeftHand { get => _socketLeftHand; }
-        public Transform Body { get => _socketBody; }
-        public Transform Head { get => _socketHead; }
-        public Transform HUD { get => _socketHUD; }
+        public Transform RightHand { get => _socketRightHand;}
+        public Transform LeftHand { get => _socketLeftHand;}
+        public Transform Body { get => _socketBody;}
+        public Transform Head { get => _socketHead;}
+        public Transform HUD { get => _socketHUD;}
+
+        public ItemData EquipedWeapon { get => RightHand.GetChild(0).GetComponent<ItemData>(); }
+        public ItemData EquipedHead { get => Head.GetChild(0).GetComponent<ItemData>(); }
 
         private void OnEnable()
         {

@@ -17,6 +17,7 @@ namespace NaviEnt
         [SerializeField]
         ActorSoundClip _actorSoundClip = null;
 
+
         [Space]
         [SerializeField]
         CharacterState _baseState = new CharacterState();
@@ -29,13 +30,19 @@ namespace NaviEnt
 
         public CharacterState ModifiedState { get => _modifiedState; }
         
+        public ItemSoundClip WeaponSoundClip { get => _equipmentHandler.currentWeapon?.ItemSoundClip; }
+        public ActorSoundClip ActorSoundClip { get => _actorSoundClip; }
+
         public int Damage { get; private set; }
         public bool isDead { get; private set; }
         
+
+
+        //Animation Infomation
         public int WeaponType { get => _equipmentHandler.GetWeaponIndex(); }
         public float AttackAnimIndex { get => _equipmentHandler.GetAttackAnimIndex(); }
 
-
+        
         public string EntityName { get; set; }
         public string EntityInfo { get; set; }
 

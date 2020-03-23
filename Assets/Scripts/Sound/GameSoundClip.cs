@@ -8,6 +8,7 @@ namespace NaviEnt
     public struct AudioClipSetup
     {
         public AudioClip clip;
+        public float delay;
         public float volume;
         public float variation;
     }
@@ -24,7 +25,7 @@ namespace NaviEnt.Game
             if (_listOfClips.Count != 0)
             {
                 selector = Mathf.FloorToInt(Random.Range(0, _listOfClips.Count));
-                AudioManager.Instance.PlaySoundSFX(_listOfClips[selector].clip, _listOfClips[selector].volume, _listOfClips[selector].variation);
+                AudioManager.Instance.PlaySoundSFX(_listOfClips[selector].clip, _listOfClips[selector].volume, _listOfClips[selector].variation , _listOfClips[selector].delay);
             }
         }
 

@@ -7,10 +7,13 @@ using NaviEnt.Game;
 public class AttackEndBehavior : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if(layerIndex == 1)
+        {
+            animator.SetBool("LayerInAction", true);
+        }
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -21,8 +24,14 @@ public class AttackEndBehavior : StateMachineBehaviour
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (layerIndex == 1)
+        {
+            animator.SetBool("LayerInAction", false);
+        }
         animator.GetComponent<CharacterAnimatorHandler>().CallNotBusy(.55f);
         animator.GetComponent<CharacterAnimatorHandler>().CallNotCombatMode();
+
+
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

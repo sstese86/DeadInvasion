@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6559500967038898879
 Transform:
   m_ObjectHideFlags: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
   animationType: 3
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 1
+  autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 0, y: 360, z: 0}
@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0101af6bab05e5741ae825b96579e49f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponType: 1
   _itemSoundClip: {fileID: 4151282357306411659}
+  _weaponType: 1
   _defaultAttackAnimIndex: 0000000001000000
   _criticalAttackAnimIndex: 0
   _defaultHitCollider: {fileID: 5789193580150715737, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
@@ -294,13 +294,16 @@ MonoBehaviour:
   _use: []
   _hitActor:
   - clip: {fileID: 8300000, guid: 3c566f644ea377940a6880d0413e22fd, type: 3}
+    delay: 0
     volume: 1
     variation: 0.1
   _attack:
   - clip: {fileID: 8300000, guid: 94efd329829fef64fb17d5c72c26c618, type: 3}
+    delay: 0.25
     volume: 1
     variation: 0.1
   - clip: {fileID: 8300000, guid: 5b675d5e38ab7f0488d21dafae4f10e2, type: 3}
+    delay: 0.25
     volume: 1
     variation: 0.1
   _reload: []

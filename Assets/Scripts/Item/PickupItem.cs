@@ -56,9 +56,9 @@ namespace NaviEnt.Game
             {
                 GameManager.Instance.AddPlayerItemAmount(Key, Amount);
             }
-            
-            _pickupTrigger.gameObject.SetActive(false);
             DoTweenRotateItemStop();
+            _pickupTrigger.gameObject.SetActive(false);
+            
             gameObject.SetActive(false);
         }
 

@@ -9,6 +9,9 @@ namespace NaviEnt.Game
 {
     public class EquipmentHandler : MonoBehaviour
     {
+        [SerializeField]
+        ActorSocketFinder _socketFinder = null;
+
         public string[] equipmentItemKey = new string[4];
         //Equip item will increse character state.
         CharacterState _equipableStateHead = new CharacterState();
@@ -28,7 +31,6 @@ namespace NaviEnt.Game
         
         public WeaponState WeaponState { get => _weaponState; }
         
-
         public void EquipItem(string key)
         {
             currentItemData = GameManager.Instance.GetItemData(key);
@@ -49,6 +51,7 @@ namespace NaviEnt.Game
                         _weaponState = currentItemData.weaponState;
                         currentWeapon = currentItemData.obj.GetComponent<Weapon>();
                         equipmentItemKey[2] = key;
+                        SocketEquipItem(_socketFinder.RightHand, currentItemData.obj);
                         break;
                     case EquipType.Misc:
                         _equipableStateMisc = currentItemData.equipableState;
@@ -93,6 +96,16 @@ namespace NaviEnt.Game
                 }
             }
             onActorEquipmentChanged?.Invoke();
+        }
+
+        void SocketEquipItem(Transform socket, GameObject item)
+        {
+            if (socket.childCount != 0)
+                GameObject.Destroy(socket.GetChild(0).gameObject);
+
+            GameObject obj = GameObject.Instantiate(item, socket);
+            obj.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+
         }
 
         public CharacterState UpdateModifiedCharacterState(CharacterState baseState)
@@ -152,6 +165,22 @@ namespace NaviEnt.Game
                 result = currentWeapon.GetAttackAnimIndex();
             }
             return result;
+        }
+
+        void initEquipments()
+        {
+            foreach(string key in equipmentItemKey)
+            {
+                if(key != string.Empty)
+                {
+                    EquipItem(key);
+                }
+            }
+        }
+
+        private void Start()
+        {
+            initEquipments();
         }
     }
 }

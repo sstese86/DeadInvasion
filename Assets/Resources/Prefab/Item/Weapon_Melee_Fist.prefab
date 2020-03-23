@@ -1,62 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1700384154234136860
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6559500967038898879}
-  - component: {fileID: 4211871903618252905}
-  - component: {fileID: 3653690773390382483}
-  m_Layer: 0
-  m_Name: PickupTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6559500967038898879
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700384154234136860}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.468}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4596983229341332573}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4211871903618252905
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700384154234136860}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.36, y: 0.22, z: 1.74}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3653690773390382483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700384154234136860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 726b201e92781974794430292b7cb396, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4596983229341535981
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,8 +28,7 @@ Transform:
   m_LocalRotation: {x: -0.62351304, y: -0, z: -0, w: 0.781813}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
-  m_Children:
-  - {fileID: 6559500967038898879}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -77.146, y: 0, z: 0}
@@ -125,16 +67,20 @@ MonoBehaviour:
   _use: []
   _hitActor:
   - clip: {fileID: 8300000, guid: 12f2c46bacf29dd4f80a59c0b8ce31d6, type: 3}
+    delay: 0
     volume: 1
     variation: 0.1
   - clip: {fileID: 8300000, guid: b78fa03a21577a14aa1047f17bb52b7b, type: 3}
+    delay: 0
     volume: 1
     variation: 0.1
   _attack:
   - clip: {fileID: 8300000, guid: 94efd329829fef64fb17d5c72c26c618, type: 3}
+    delay: 0
     volume: 1
     variation: 0.1
   - clip: {fileID: 8300000, guid: 5b675d5e38ab7f0488d21dafae4f10e2, type: 3}
+    delay: 0
     volume: 1
     variation: 0.1
   _reload: []

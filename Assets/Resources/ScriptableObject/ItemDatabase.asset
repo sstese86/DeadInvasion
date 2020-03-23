@@ -21,6 +21,8 @@ MonoBehaviour:
     - {fileID: -9034823484522495551, guid: 9ef4e3829fd81a54bb25808b6af48f9e, type: 3}
     - {fileID: 21300000, guid: 7a4f1cca1d2ec5d4b9c3fbe4bfa310a4, type: 3}
     - {fileID: 4596983229341535981, guid: 2ace4411223317246bd13148a3fe839e, type: 3}
+    - {fileID: -8150127341462001537, guid: 3790b25ac46884f48937cd409435bb25, type: 3}
+    - {fileID: 4596983229341535981, guid: bca8d08bbb1f4d847bb1256c0c4fd05e, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -39,7 +41,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 
@@ -81,9 +83,6 @@ MonoBehaviour:
     - Name: equipType
       Entry: 3
       Data: 0
-    - Name: isWeapon
-      Entry: 5
-      Data: false
     - Name: equipableState
       Entry: 7
       Data: NaviEnt.CharacterState, Assembly-CSharp
@@ -174,9 +173,6 @@ MonoBehaviour:
     - Name: equipType
       Entry: 3
       Data: 0
-    - Name: isWeapon
-      Entry: 5
-      Data: false
     - Name: equipableState
       Entry: 7
       Data: NaviEnt.CharacterState, Assembly-CSharp
@@ -269,9 +265,6 @@ MonoBehaviour:
     - Name: equipType
       Entry: 3
       Data: 2
-    - Name: isWeapon
-      Entry: 5
-      Data: false
     - Name: equipableState
       Entry: 7
       Data: NaviEnt.CharacterState, Assembly-CSharp
@@ -308,6 +301,96 @@ MonoBehaviour:
     - Name: fireRate
       Entry: 4
       Data: 0.4
+    - Name: needAmmo
+      Entry: 5
+      Data: false
+    - Name: maxAmmo
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Weapon-Fist
+    - Name: $v
+      Entry: 7
+      Data: NaviEnt.Data.ItemData, Assembly-CSharp
+    - Name: icon
+      Entry: 10
+      Data: 5
+    - Name: obj
+      Entry: 10
+      Data: 6
+    - Name: itemType
+      Entry: 3
+      Data: 0
+    - Name: name
+      Entry: 1
+      Data: Fist
+    - Name: key
+      Entry: 1
+      Data: Weapon-Fist
+    - Name: description
+      Entry: 1
+      Data: Bare Hands!
+    - Name: notAllowMultiple
+      Entry: 5
+      Data: true
+    - Name: value
+      Entry: 3
+      Data: 0
+    - Name: isEquipable
+      Entry: 5
+      Data: true
+    - Name: equipType
+      Entry: 3
+      Data: 2
+    - Name: equipableState
+      Entry: 7
+      Data: NaviEnt.CharacterState, Assembly-CSharp
+    - Name: maxHealth
+      Entry: 3
+      Data: 0
+    - Name: damage
+      Entry: 3
+      Data: 0
+    - Name: strength
+      Entry: 3
+      Data: 0
+    - Name: agility
+      Entry: 3
+      Data: 0
+    - Name: defance
+      Entry: 3
+      Data: 0
+    - Name: moveSpeed
+      Entry: 4
+      Data: 0
+    - Name: jumpSpeed
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: weaponState
+      Entry: 7
+      Data: NaviEnt.WeaponState, Assembly-CSharp
+    - Name: damage
+      Entry: 3
+      Data: 1
+    - Name: fireRate
+      Entry: 4
+      Data: 0.1
     - Name: needAmmo
       Entry: 5
       Data: false
