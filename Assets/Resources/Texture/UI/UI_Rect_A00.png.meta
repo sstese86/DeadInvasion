@@ -1,0 +1,475 @@
+fileFormatVersion: 2
+guid: 181ac1adbd723ca4993cad0042c700a9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2718223570497608311
+    second: UI_Rect_A00_0
+  - first:
+      213: -4166018862463095955
+    second: UI_Rect_A00_1
+  - first:
+      213: -4321312186173454935
+    second: UI_Rect_A00_2
+  - first:
+      213: -2314997589178253245
+    second: UI_Rect_A00_3
+  - first:
+      213: 7152674624034443213
+    second: UI_Rect_A00_4
+  - first:
+      213: 754805815040197745
+    second: UI_Rect_A00_5
+  - first:
+      213: -7132756943857628195
+    second: UI_Rect_A00_6
+  - first:
+      213: 3431544151061157395
+    second: UI_Rect_A00_7
+  - first:
+      213: 1114937616907939440
+    second: UI_Rect_A00_8
+  - first:
+      213: -2646178883992524009
+    second: UI_Rect_A00_9
+  - first:
+      213: -1462904614545903316
+    second: UI_Rect_A00_10
+  - first:
+      213: -6807884546382844779
+    second: UI_Rect_A00_11
+  - first:
+      213: 710142240661116897
+    second: UI_Rect_A00_12
+  - first:
+      213: 9979848374813491
+    second: UI_Rect_A00_13
+  - first:
+      213: 8103680150488868825
+    second: UI_Rect_A00_14
+  - first:
+      213: 441036511765576972
+    second: UI_Rect_A00_15
+  - first:
+      213: -1345223470232744563
+    second: UI_Rect_A00_16
+  - first:
+      213: -4964793651676902463
+    second: UI_Rect_A00_17
+  - first:
+      213: 1846808478799478371
+    second: UI_Rect_A00_18
+  - first:
+      213: 403827822085762770
+    second: UI_Rect_A00_19
+  - first:
+      213: 5031479315242201164
+    second: UI_Rect_A00_20
+  - first:
+      213: 3306201202658311173
+    second: UI_Rect_A00_21
+  - first:
+      213: 8061650719338642640
+    second: UI_Rect_A00_22
+  - first:
+      213: -919989691357106212
+    second: UI_Rect_A00_23
+  - first:
+      213: -3758019307935947669
+    second: UI_Rect_A00_24
+  - first:
+      213: -9005926327921732134
+    second: UI_Rect_A00_25
+  - first:
+      213: -1956197789679457535
+    second: UI_Rect_A00_26
+  - first:
+      213: -6030230220280110022
+    second: UI_Rect_A00_27
+  - first:
+      213: -6173590764833703372
+    second: UI_Rect_A00_28
+  - first:
+      213: 8441629595146680660
+    second: UI_Rect_A00_29
+  - first:
+      213: 8881898945488129193
+    second: UI_Rect_A00_30
+  - first:
+      213: 1942265858385164416
+    second: UI_Rect_A00_31
+  - first:
+      213: -1671786384906942748
+    second: UI_Rect_A00_32
+  - first:
+      213: 4835042466543010202
+    second: UI_Rect_A00_33
+  - first:
+      213: 8685662184308129726
+    second: UI_Rect_A00_34
+  - first:
+      213: 6849922003622634334
+    second: UI_Rect_A00_35
+  - first:
+      213: 6750787815753894460
+    second: UI_Rect_A00_36
+  - first:
+      213: 4996314248474824154
+    second: UI_Rect_A00_37
+  - first:
+      213: 8453132057616398513
+    second: UI_Rect_A00_38
+  - first:
+      213: 785593405517460913
+    second: UI_Rect_A00_39
+  - first:
+      213: 3989916426633818930
+    second: UI_Rect_A00_40
+  - first:
+      213: -177021775365107391
+    second: UI_Rect_A00_41
+  - first:
+      213: 4693392026680128896
+    second: UI_Rect_A00_42
+  - first:
+      213: 4541604832132795573
+    second: UI_Rect_A00_43
+  - first:
+      213: 8724029500840707534
+    second: UI_Rect_A00_44
+  - first:
+      213: -285838096518018222
+    second: UI_Rect_A00_45
+  - first:
+      213: -5853521030829792458
+    second: UI_Rect_A00_46
+  - first:
+      213: 3619846171304198455
+    second: UI_Rect_A00_47
+  - first:
+      213: -5852167892644766573
+    second: UI_Rect_A00_48
+  - first:
+      213: 552866686653527586
+    second: UI_Rect_A00_49
+  - first:
+      213: -4303804763732895902
+    second: UI_Rect_A00_50
+  - first:
+      213: 6757921901966754758
+    second: UI_Rect_A00_51
+  - first:
+      213: 7828389202032621673
+    second: UI_Rect_A00_52
+  - first:
+      213: -1784011600148232704
+    second: UI_Rect_A00_53
+  - first:
+      213: -6059937281370436893
+    second: UI_Rect_A00_54
+  - first:
+      213: -8130007863527899092
+    second: UI_Rect_A00_55
+  - first:
+      213: 1121956298727719265
+    second: UI_Rect_A00_56
+  - first:
+      213: 907182291350502375
+    second: UI_Rect_A00_57
+  - first:
+      213: -7677672101057251028
+    second: UI_Rect_A00_58
+  - first:
+      213: 7047545878620502517
+    second: UI_Rect_A00_59
+  - first:
+      213: -378568947662815651
+    second: UI_Rect_A00_60
+  - first:
+      213: 6184118683622090769
+    second: UI_Rect_A00_61
+  - first:
+      213: -4283867939145773314
+    second: UI_Rect_A00_62
+  - first:
+      213: 546963290313178438
+    second: UI_Rect_A00_63
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UI_Rect_A00_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 512
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 50, y: 50, z: 50, w: 50}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37e61440b447dc5469d558b8e27c5ffd
+      internalID: -2718223570497608311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Rect_A00_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 512
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da7450fae14582449b8938cd7e69f690
+      internalID: -4166018862463095955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Rect_A00_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67453dac23c8ddf47956bc761a882d9b
+      internalID: -4321312186173454935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Rect_A00_3
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eb65a9320f935045a2886d9f2eff08d
+      internalID: -2314997589178253245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Rect_A00_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 512
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25da19d39a458df4c829c424c56fb862
+      internalID: 7152674624034443213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Rect_A00_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 512
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80552db5a59d52141af286043435471c
+      internalID: 754805815040197745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Rect_A00_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18e230d3b2807284fae84df8c7d41f1e
+      internalID: -7132756943857628195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Rect_A00_7
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09d2ddf293d0b9a458b3efc66119ab4f
+      internalID: 3431544151061157395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: efd07fd449580c34ca37c318a7a82007
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

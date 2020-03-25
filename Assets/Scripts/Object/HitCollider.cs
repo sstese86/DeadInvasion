@@ -72,6 +72,7 @@ namespace NaviEnt.Game
         public void TargetEnter(Collider other)
         {
             IDamageable target = other.GetComponent<IDamageable>();
+            if (target == null) return;
             if(target.TakeDamage(_team, _damage))
             {
                 if (_hitEffect != null)

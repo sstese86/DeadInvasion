@@ -26,6 +26,7 @@ public class TrapTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IDamageable target = other.GetComponent<IDamageable>();
+        if (target == null) return;
         target?.TakeDamage(_team, _damage);
 
         _triggerFeedback?.PlayFeedbacks();

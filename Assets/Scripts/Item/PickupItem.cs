@@ -18,7 +18,7 @@ namespace NaviEnt.Game
 
         DOTweenAnimation _dotween = null;
 
-        GameObject player = null;
+        CharacterHandler player = null;
 
         public string EntityName { get; set; }
         public string EntityInfo { get; set; }
@@ -36,7 +36,8 @@ namespace NaviEnt.Game
 
         public void OnPickupTriggerEnter(Collider other)
         {
-            player = other.gameObject;
+            player = other.GetComponent<CharacterHandler>();
+            if (player == null) return;
             if (player.GetComponent<CharacterHandler>().ActorTeam == Team.Player)
             {
                 PickUp();
