@@ -119,6 +119,9 @@ MonoBehaviour:
     - Name: fireRate
       Entry: 4
       Data: 0
+    - Name: range
+      Entry: 4
+      Data: 0
     - Name: needAmmo
       Entry: 5
       Data: false
@@ -207,6 +210,9 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: fireRate
+      Entry: 4
+      Data: 0
+    - Name: range
       Entry: 4
       Data: 0
     - Name: needAmmo
@@ -301,6 +307,9 @@ MonoBehaviour:
     - Name: fireRate
       Entry: 4
       Data: 0.4
+    - Name: range
+      Entry: 4
+      Data: 1
     - Name: needAmmo
       Entry: 5
       Data: false
@@ -391,6 +400,9 @@ MonoBehaviour:
     - Name: fireRate
       Entry: 4
       Data: 0.1
+    - Name: range
+      Entry: 4
+      Data: 0.5
     - Name: needAmmo
       Entry: 5
       Data: false

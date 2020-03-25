@@ -11,6 +11,6 @@ public interface ICanAttack
 
 public interface ICanMove
 {
-    void Move();
+    void Movement();
     void Jump();
 }

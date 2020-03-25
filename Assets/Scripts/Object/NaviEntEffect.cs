@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NaviEnt
 {
-    public class Effect : MonoBehaviour, IPoolUse
+    public class NaviEntEffect : MonoBehaviour, IPoolUse
     {
         float _delay = 0f;
 

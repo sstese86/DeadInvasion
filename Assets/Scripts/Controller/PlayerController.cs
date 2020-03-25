@@ -23,19 +23,13 @@ namespace NaviEnt.Game
         bool isCombatMode = false;
         
         float _gravity = 1.5f;
-
-        float _characterHeight = 0f;
-        float _characterCenterY = 0f;
-
+        float _currentAttackAnimIndex = 0f;
+        
         bool _isDead = false;
+
         public bool IsBusy { get; set; }
+        float targetSearchRange = 4f;
 
-        public float targetSearchRange = 5f;
-
-        public int testWeaponIndex = 0;
-        public float testAttackAnimIndex = 0f;
-        public GameObject testHitCollider = null;
-        public GameObject testParticlePrefab = null;
 
         // Start is called before the first frame update
         void Start()
@@ -48,8 +42,6 @@ namespace NaviEnt.Game
 
             _gravity = GameManager.Instance.gravity;
 
-            _characterHeight = _characterController.height;
-            _characterCenterY = _characterController.center.y;
             IsBusy = false;
         }
 
@@ -74,6 +66,7 @@ namespace NaviEnt.Game
                 PlayerDead();
                 return; 
             }
+            
             Rotate();
             InputActionCheck();
             AnimatorParmUpdate();
@@ -83,9 +76,10 @@ namespace NaviEnt.Game
 
         void FixedUpdate()
         {
-            if (_isDead) return;
-            Move();
+            if (_isDead) return;            
+            Movement();
             MoveInAir();
+
         }
         public void Jump()
         {
@@ -103,18 +97,21 @@ namespace NaviEnt.Game
                 
             }           
         }
-        public void Move()
-        {
+        public void Movement()
+        {           
             if (_inputManager.MovementAxis == Vector2.zero) return;
             Vector3 Movement = _moveDirectionVector * _characterHandler.ModifiedState.moveSpeed;
             _characterController.SimpleMove(Movement);
-
-
         }
+
         void MoveInAir()
         {
             _jumpVector.y -= _gravity * Time.deltaTime;
             _jumpVector.y = Mathf.Clamp(_jumpVector.y, -_gravity * 2, _gravity * 2);
+            //if(_characterController.isGrounded)
+            //{
+            //    _jumpVector.y = 0f;
+            //}
             _characterController.Move(_jumpVector);
         }
                
@@ -158,6 +155,7 @@ namespace NaviEnt.Game
         void CheckLookAtToTarget()
         {
 
+            //TODO IThink It calls too many. Check it and fix it.
             // Auto targetting for attack.
             if (isCombatMode && _target != null)
             {
@@ -168,7 +166,13 @@ namespace NaviEnt.Game
 
         void InputActionCheck()
         {
-            _moveDirectionVector = new Vector3(_inputManager.MovementAxis.x, 0, _inputManager.MovementAxis.y);
+            Vector3 direction = new Vector3(_inputManager.MovementAxis.x, 0, _inputManager.MovementAxis.y).normalized;
+            
+
+            _moveDirectionVector = new Vector3(_inputManager.MovementAxis.x* Mathf.Abs(direction.x),
+                                                0, 
+                                                _inputManager.MovementAxis.y * Mathf.Abs(direction.z));
+
             if (_inputManager.Fire1Input) Attack();
             if(_inputManager.JumpInput) Jump();
         }
@@ -191,9 +195,10 @@ namespace NaviEnt.Game
             SerchForTarget();
             if (!IsBusy)
             {
+                _currentAttackAnimIndex = _characterHandler.AttackAnimIndex;
                 _characterHandler.ActorSoundClip?.PlaySoundAttack();
                 _characterHandler.WeaponSoundClip?.PlaySoundItemAttack();
-                _characterAnimatorHandler.Attack(_characterHandler.WeaponType, _characterHandler.AttackAnimIndex);
+                _characterAnimatorHandler.Attack(_characterHandler.WeaponType, _currentAttackAnimIndex);
                 IsBusy = true;
                 isCombatMode = true;
             }   
@@ -213,15 +218,17 @@ namespace NaviEnt.Game
 
         void SpawnHitCollider()
         {
-            if(testHitCollider!= null)
+            if(_characterHandler.CurrentWeapon != null)
             {
-                PoolManager.Instance.SpawnHitCollider(testHitCollider, _root, _characterHandler.ActorTeam, _characterHandler.Damage, testParticlePrefab);
+                PoolManager.Instance.SpawnHitCollider( (int)_currentAttackAnimIndex, _root, _characterHandler.ActorTeam, _characterHandler.Damage, _characterHandler.CurrentWeapon);
             }
         }
 
 
         void SerchForTarget()
         {
+            targetSearchRange = _characterHandler.WeaponRange + 1f;
+
             Transform target = null;
             float minDistance = Mathf.Infinity;
             Collider[] colliders = Physics.OverlapSphere(transform.position, targetSearchRange);

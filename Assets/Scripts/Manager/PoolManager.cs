@@ -77,28 +77,32 @@ namespace NaviEnt
                 poolItem.GetComponent<HitCollider>().InitHitCollider(team, damage);
             }
         }
-        public void SpawnHitCollider(GameObject hitCollider, Transform trans, Team team, int damage, GameObject hitEffect = null)
+        public void SpawnHitCollider(int attackAnimIndex, Transform trans, Team team, int damage, Weapon equipedWeapon)
         {
+            HitCollider hitCollider = equipedWeapon.WeaponAttackSetup[attackAnimIndex].hitCollider;
+            NaviEntEffect hitEffect = equipedWeapon.WeaponAttackSetup[attackAnimIndex].hitEffect;
+            ItemSoundClip itemSoundClip = equipedWeapon.ItemSoundClip;
+
             Transform pool = null;
             pool = _hitCollider.transform.Find("[" + hitCollider.name + "]");
             if (!pool)
             {
-                pool = CreateNewPoolItemRoot(HitColliderPool, hitCollider);
-                AppendNewPoolItem(pool, hitCollider);
-                SpawnHitCollider(hitCollider, trans, team, damage, hitEffect);
+                pool = CreateNewPoolItemRoot(HitColliderPool, hitCollider.gameObject);
+                AppendNewPoolItem(pool, hitCollider.gameObject);
+                SpawnHitCollider(attackAnimIndex, trans, team, damage, equipedWeapon);
                 return;
             }
             else
             {
                 if (pool.childCount == 0)
                 {
-                    AppendNewPoolItem(pool, hitCollider);
+                    AppendNewPoolItem(pool, hitCollider.gameObject);
                 }
                 poolItem = pool.GetChild(0);
                 poolItem.parent = null;
                 poolItem.position = trans.position;
                 poolItem.rotation = trans.rotation;
-                poolItem.GetComponent<HitCollider>().InitHitCollider(hitEffect, team, damage);
+                poolItem.GetComponent<HitCollider>().InitHitCollider(team, damage, hitEffect, itemSoundClip);
             }
         }
 
@@ -124,7 +128,7 @@ namespace NaviEnt
                 poolItem.position = trans.position;
                 poolItem.rotation = trans.rotation;
 
-                Effect effect = poolItem.GetComponent<Effect>();
+                NaviEntEffect effect = poolItem.GetComponent<NaviEntEffect>();
                 effect.PlayEffect(delay);
             }
         }

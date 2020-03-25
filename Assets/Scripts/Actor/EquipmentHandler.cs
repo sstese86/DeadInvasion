@@ -23,7 +23,7 @@ namespace NaviEnt.Game
         
         // Weapon has own state for Attack.
         WeaponState _weaponState = new WeaponState();
-        public Weapon currentWeapon = null;
+        public Weapon CurrentWeapon { get; private set; }
 
         ItemData currentItemData = new ItemData();
 
@@ -49,7 +49,7 @@ namespace NaviEnt.Game
                     case EquipType.Weapon:
                         _equipableStateWeapon = currentItemData.equipableState;
                         _weaponState = currentItemData.weaponState;
-                        currentWeapon = currentItemData.obj.GetComponent<Weapon>();
+                        CurrentWeapon = currentItemData.obj.GetComponent<Weapon>();
                         equipmentItemKey[2] = key;
                         SocketEquipItem(_socketFinder.RightHand, currentItemData.obj);
                         break;
@@ -83,7 +83,7 @@ namespace NaviEnt.Game
                     case EquipType.Weapon:
                         _equipableStateWeapon = new CharacterState();
                         equipmentItemKey[2] = "";
-                        currentWeapon = null;
+                        CurrentWeapon = null;
                         _weaponState = new WeaponState();
                         break;
                     case EquipType.Misc:
@@ -150,9 +150,9 @@ namespace NaviEnt.Game
         public int GetWeaponIndex()
         {
             int result = 0;
-            if (currentWeapon != null)
+            if (CurrentWeapon != null)
             { 
-                result = currentWeapon.WeaponTypeIndex;
+                result = CurrentWeapon.WeaponTypeIndex;
             }
             return result;
         }
@@ -160,9 +160,9 @@ namespace NaviEnt.Game
         public float GetAttackAnimIndex()
         {
             float result = 0f;
-            if (currentWeapon != null)
+            if (CurrentWeapon != null)
             {
-                result = currentWeapon.GetAttackAnimIndex();
+                result = CurrentWeapon.GetAttackAnimIndex();
             }
             return result;
         }

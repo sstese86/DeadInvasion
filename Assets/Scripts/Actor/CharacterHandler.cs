@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using NaviEnt.Game;
 
-namespace NaviEnt
+
+namespace NaviEnt.Game
 {
     public class CharacterHandler : Actor, IDamageable, IEntity
     {
@@ -23,21 +23,21 @@ namespace NaviEnt
         CharacterState _baseState = new CharacterState();
         CharacterState _modifiedState = new CharacterState();
 
-
         WeaponState _weaponState = new WeaponState();
 
         HUDHealthBar _healthbar = null;
 
         public CharacterState ModifiedState { get => _modifiedState; }
         
-        public ItemSoundClip WeaponSoundClip { get => _equipmentHandler.currentWeapon?.ItemSoundClip; }
+        public ItemSoundClip WeaponSoundClip { get => _equipmentHandler.CurrentWeapon?.ItemSoundClip; }
         public ActorSoundClip ActorSoundClip { get => _actorSoundClip; }
+        public Weapon CurrentWeapon { get => _equipmentHandler.CurrentWeapon; }
+        public float WeaponRange { get => _weaponState.range; }
 
         public int Damage { get; private set; }
         public bool isDead { get; private set; }
+
         
-
-
         //Animation Infomation
         public int WeaponType { get => _equipmentHandler.GetWeaponIndex(); }
         public float AttackAnimIndex { get => _equipmentHandler.GetAttackAnimIndex(); }
@@ -50,19 +50,23 @@ namespace NaviEnt
 
         private void OnEnable()
         {
-            UpdateCharacterState();
+            UpdateEquipmentState();
 
             CurrentHealth = ModifiedState.maxHealth;
+            
+            EntityName = ActorName;
+            EntityInfo = CurrentHealth.ToString();
+
             _healthbar = GetComponentInChildren<HUDHealthBar>();
             _healthbar?.gameObject.SetActive(true);
             if(_equipmentHandler)
-                _equipmentHandler.onActorEquipmentChanged += UpdateCharacterState;
+                _equipmentHandler.onActorEquipmentChanged += UpdateEquipmentState;
         }
 
         private void OnDisable()
         {
             if (_equipmentHandler)
-                _equipmentHandler.onActorEquipmentChanged -= UpdateCharacterState;
+                _equipmentHandler.onActorEquipmentChanged -= UpdateEquipmentState;
         }
         // Use this for initialization
         void Start()
@@ -75,11 +79,10 @@ namespace NaviEnt
             
         }
 
-        void UpdateCharacterState()
+        void UpdateEquipmentState()
         {
             _modifiedState = _equipmentHandler.UpdateModifiedCharacterState(_baseState);
             _weaponState = _equipmentHandler.WeaponState;
-
             Damage = ModifiedState.damage + _weaponState.damage;
         }
 
@@ -120,12 +123,24 @@ namespace NaviEnt
             CurrentHealth = Mathf.Clamp(CurrentHealth, 0, _baseState.maxHealth);
             float value = (float)CurrentHealth / (float)_baseState.maxHealth;
             _healthbar.UpdateHealthSlider(value);
+            EntityInfo = CurrentHealth.ToString();
         }
 
         public Team GetTeam()
         {
             return ActorTeam;
         }
+
+        public HitCollider GetHitCollider(int animIndex)
+        {
+            return CurrentWeapon.WeaponAttackSetup[animIndex].hitCollider;
+        }
+
+        public NaviEntEffect GetHitEffect(int animIndex)
+        {
+            return CurrentWeapon.WeaponAttackSetup[animIndex].hitEffect;
+        }
+
 
         public void UpdateEntityInfo()
         {

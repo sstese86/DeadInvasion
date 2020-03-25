@@ -192,4 +192,4 @@ MonoBehaviour:
   _team: 2
   _damage: 3
   _debugMode: 0
-  helper: {fileID: 4378201482147687118}
+  _helper: {fileID: 4378201482147687118}

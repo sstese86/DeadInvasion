@@ -15,55 +15,58 @@ namespace NaviEnt.Game
         [SerializeField]
         bool _debugMode = false;
         [SerializeField]
-        HitColliderHelper helper = null;
+        HitColliderHelper _helper = null;
 
-        GameObject _hitEffect = null;
+        NaviEntEffect _hitEffect = null;
         Transform _hitTarget = null;
+        ItemSoundClip _itemSoundClip = null;
 
         public void InitHitCollider(Team team, int damage)
         {
             this._team = team;
             this._damage = damage;
-            helper.GetComponent<Collider>().enabled = true;
+            _helper.GetComponent<Collider>().enabled = true;
             _hitEffect = null;
             if (_debugMode)
             {
-                helper.GetComponent<MeshRenderer>().enabled = true;
+                _helper.GetComponent<MeshRenderer>().enabled = true;
             }
             else
             {
-                helper.GetComponent<MeshRenderer>().enabled = false;
+                _helper.GetComponent<MeshRenderer>().enabled = false;
             }
             StartCoroutine(ReturnToPoolRoutine());
         }
 
-        public void InitHitCollider(GameObject hitEffect, Team team, int damage)
+        public void InitHitCollider(Team team, int damage, NaviEntEffect hitEffect, ItemSoundClip itemSoundClip)
         {
-            this._team = team;
-            this._damage = damage;
-            helper.GetComponent<Collider>().enabled = true;
+            _team = team;
+            _damage = damage;
             _hitEffect = hitEffect;
+            _itemSoundClip = itemSoundClip;
+
+            _helper.GetComponent<Collider>().enabled = true;
             if (_debugMode)
             {
-                helper.GetComponent<MeshRenderer>().enabled = true;
+                _helper.GetComponent<MeshRenderer>().enabled = true;
             }
             else
             {
-                helper.GetComponent<MeshRenderer>().enabled = false;
+                _helper.GetComponent<MeshRenderer>().enabled = false;
             }
             StartCoroutine(ReturnToPoolRoutine());
         }
         // Start is called before the first frame update
         void Start()
         {
-            helper.InitHitColliderHelper(this);
+            _helper.InitHitColliderHelper(this);
             if (_debugMode)
             {
-                helper.GetComponent<MeshRenderer>().enabled = true;
-                helper.GetComponent<Collider>().enabled = true;
+                _helper.GetComponent<MeshRenderer>().enabled = true;
+                _helper.GetComponent<Collider>().enabled = true;
             }
             else
-                helper.GetComponent<MeshRenderer>().enabled = false;
+                _helper.GetComponent<MeshRenderer>().enabled = false;
         }
 
         public void TargetEnter(Collider other)
@@ -78,7 +81,8 @@ namespace NaviEnt.Game
                     {
                         _hitTarget = other.transform;
                     }
-                    PoolManager.Instance.SpawnEffect(_hitEffect, _hitTarget);
+                    PoolManager.Instance.SpawnEffect(_hitEffect.gameObject, _hitTarget);
+                    _itemSoundClip.PlaySoundItemHitActor();
                 }
             }                
             ReturnToPool();
@@ -86,10 +90,10 @@ namespace NaviEnt.Game
 
         public void ReturnToPool()
         {
-            helper.GetComponent<Collider>().enabled = false;
+            _helper.GetComponent<Collider>().enabled = false;
             if (_debugMode)
             {
-                helper.GetComponent<MeshRenderer>().enabled = false;
+                _helper.GetComponent<MeshRenderer>().enabled = false;
             }
             PoolManager.Instance.HitColliderBackToPoolSystem(gameObject);
         }

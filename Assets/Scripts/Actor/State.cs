@@ -34,6 +34,7 @@ namespace NaviEnt
     {
         public int damage;
         public float fireRate;
+        public float range;
 
         [HorizontalGroup("Ammo")]
         public bool needAmmo;

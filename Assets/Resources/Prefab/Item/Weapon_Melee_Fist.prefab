@@ -46,12 +46,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemSoundClip: {fileID: 4151282357306411659}
   _weaponType: 0
-  _defaultAttackAnimIndex: 0000000001000000
-  _criticalAttackAnimIndex: 0
-  _defaultHitCollider: {fileID: 5789193580150715737, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
-    type: 3}
-  _criticalHitCollider: {fileID: 5789193580150715737, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
-    type: 3}
+  _weaponAttackSetup:
+  - attackAnimIndex: 0
+    hitCollider: {fileID: 5789193580150715737, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
+      type: 3}
+    hitEffect: {fileID: 3041031425023861009, guid: 3547e5e490f502041ae6e8a59042e4bd,
+      type: 3}
+  - attackAnimIndex: 1
+    hitCollider: {fileID: 5789193580150715737, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
+      type: 3}
+    hitEffect: {fileID: 3041031425023861009, guid: 3547e5e490f502041ae6e8a59042e4bd,
+      type: 3}
 --- !u!114 &4151282357306411659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,11 +81,11 @@ MonoBehaviour:
     variation: 0.1
   _attack:
   - clip: {fileID: 8300000, guid: 94efd329829fef64fb17d5c72c26c618, type: 3}
-    delay: 0
+    delay: 0.15
     volume: 1
     variation: 0.1
   - clip: {fileID: 8300000, guid: 5b675d5e38ab7f0488d21dafae4f10e2, type: 3}
-    delay: 0
+    delay: 0.15
     volume: 1
     variation: 0.1
   _reload: []

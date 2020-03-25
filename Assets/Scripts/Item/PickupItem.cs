@@ -67,6 +67,7 @@ namespace NaviEnt.Game
             _dotween = GetComponent<DOTweenAnimation>();
             if (_dotween != null)
             {
+                _dotween.enabled = true;
                 float value = _dotween.duration;
                 _dotween.duration = Random.Range(value / 1.5f, value);
                 _dotween.CreateTween();
