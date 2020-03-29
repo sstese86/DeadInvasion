@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NaviEnt.Game
 {
-    public class ActorSoundClip : GameSoundClip
+    public class PlayerActorSoundClip : GameSoundClip
     {
         [SerializeField]
         List<AudioClipSetup> _hit = new List<AudioClipSetup>();

@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 5789193580150715687}
   - component: {fileID: 5789193580150715684}
   - component: {fileID: 5789193580150715737}
+  - component: {fileID: 2189229955478077664}
   m_Layer: 0
   m_Name: HitCollider_A00
   m_TagString: Untagged
@@ -194,3 +195,16 @@ MonoBehaviour:
   _hitMultipleTarget: 0
   _debugMode: 0
   _trigger: {fileID: 4378201482147687118}
+  _gameSoundClip: {fileID: 2189229955478077664}
+--- !u!114 &2189229955478077664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789193580150715736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55c6d6250d4c2f4083a955fc4d235cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -20,12 +20,17 @@ namespace NaviEnt.Game
         [SerializeField]
         HitColliderTrigger _trigger = null;
 
+        [SerializeField]
+        GameSoundClip _gameSoundClip = null;
+
         NaviEntEffect _hitEffect = null;
         Transform _hitTarget = null;
-        ItemSoundClip _itemSoundClip = null;
+        
+        List<AudioClipSetup> _hitAudioClipSetup = new List<AudioClipSetup>();
 
         public void InitHitCollider(Team team, int damage)
         {
+            Debug.Log("Init Type 1");
             _team = team;
             _damage = damage;
             _trigger.GetComponent<Collider>().enabled = true;
@@ -41,6 +46,25 @@ namespace NaviEnt.Game
             StartCoroutine(ReturnToPoolRoutine());
         }
 
+        public void InitHitCollider(Team team, int damage, NaviEntEffect hitEffect, List<AudioClipSetup> hitAudioClipSetup)
+        {
+            _team = team;
+            _damage = damage;
+            _hitEffect = hitEffect;
+            _hitAudioClipSetup = hitAudioClipSetup;
+            _trigger.GetComponent<Collider>().enabled = true;
+
+            if (_debugMode)
+            {
+                _trigger.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                _trigger.GetComponent<MeshRenderer>().enabled = false;
+            }
+            StartCoroutine(ReturnToPoolRoutine());
+        }
+        /*
         public void InitHitCollider(Team team, int damage, NaviEntEffect hitEffect, ItemSoundClip itemSoundClip)
         {
             _team = team;
@@ -59,6 +83,7 @@ namespace NaviEnt.Game
             }
             StartCoroutine(ReturnToPoolRoutine());
         }
+        */
         // Start is called before the first frame update
         void Start()
         {
@@ -96,6 +121,7 @@ namespace NaviEnt.Game
 
         void ApplyDamageFeedback(Collider other)
         {
+
             Actor actor = other.GetComponent<Actor>();
             if (actor == null) return;
             if (_hitEffect != null)
@@ -108,13 +134,19 @@ namespace NaviEnt.Game
                     PoolManager.Instance.SpawnEffect(_hitEffect.gameObject, _hitTarget);
 
             }
-            if (_itemSoundClip != null)
-                _itemSoundClip.PlaySoundItemHitActor();
+            //if (_itemSoundClip != null)
+            //    _itemSoundClip.PlaySoundItemHitActor();
+
+            if (_hitAudioClipSetup != null)
+                _gameSoundClip.PlaySFXSound(_hitAudioClipSetup);
         }
         
         public void ReturnToPool()
         {
             _trigger.GetComponent<Collider>().enabled = false;
+            _hitEffect = null;
+            _hitAudioClipSetup = null;
+
             if (_debugMode)
             {
                 _trigger.GetComponent<MeshRenderer>().enabled = false;

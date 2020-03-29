@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace NaviEnt.Game
 {
-    public class AIAgroTrigger : MonoBehaviour
+    public class AIAggroTrigger : MonoBehaviour
     {
         [SerializeField]
         Transform _target = null;
@@ -16,12 +16,12 @@ namespace NaviEnt.Game
 
         private void OnTriggerEnter(Collider other)
         {
-            PlayerActor target = other.gameObject.GetComponent<PlayerActor>();
+            Actor target = other.gameObject.GetComponent<Actor>();
             if (target == null) return;
-            if (target.DamageableTeam != _aiController.GetComponent<PlayerActor>().DamageableTeam)
+            if (target.DamageableTeam != _aiController.AITeam)
             {
                 _target = target.transform;
-                _aiController.OnAgroTriggerEnter(other.transform);
+                _aiController.OnAggroTriggerEnter(other.transform);
             }
         }
 

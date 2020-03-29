@@ -10,13 +10,15 @@ namespace NaviEnt.Game
         List<AudioClipSetup> _use = new List<AudioClipSetup>();
 
         [SerializeField]
-        List<AudioClipSetup> _hitActor = new List<AudioClipSetup>();
+        List<AudioClipSetup> _hit = new List<AudioClipSetup>();
 
         [SerializeField]
         List<AudioClipSetup> _attack = new List<AudioClipSetup>();
 
         [SerializeField]
         List<AudioClipSetup> _reload = new List<AudioClipSetup>();
+
+        public List<AudioClipSetup> GetHitAudioClips { get => _hit; }
 
         public void PlaySoundItemUse()
         {
@@ -25,7 +27,7 @@ namespace NaviEnt.Game
 
         public void PlaySoundItemHitActor()
         {
-            PlaySFXSound(_hitActor);
+            PlaySFXSound(_hit);
         }
 
         public void PlaySoundItemAttack()

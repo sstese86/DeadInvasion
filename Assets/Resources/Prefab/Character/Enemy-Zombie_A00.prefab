@@ -294,7 +294,7 @@ MonoBehaviour:
     Quantized: 0
     TargetBPM: 120
   DebugActive: 0
-  BoundRenderer: {fileID: 0}
+  BoundRenderer: {fileID: 2727658269087154905}
   FlickerDuration: 0.1
   FlickerOctave: 0.1
   FlickerColor: {r: 1, g: 0.078431375, b: 0.078431375, a: 1}
@@ -583,13 +583,10 @@ GameObject:
   - component: {fileID: 695851917628490641}
   - component: {fileID: 695851917628490642}
   - component: {fileID: 695851917628490646}
-  - component: {fileID: 695851917628490637}
   - component: {fileID: 5031978038499649188}
   - component: {fileID: 695851917628490651}
-  - component: {fileID: 695851917628490643}
   - component: {fileID: 695851917628490647}
-  - component: {fileID: 695851917628490644}
-  - component: {fileID: 695851917628490645}
+  - component: {fileID: 8160795046446458426}
   - component: {fileID: 695851917628490640}
   - component: {fileID: 695851917628490650}
   m_Layer: 8
@@ -606,8 +603,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695851917628490636}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.87, y: 0, z: -3.96}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 695851916570174289}
@@ -647,32 +644,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &695851917628490637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695851917628490636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8d63dab50680e41acfa6c468719e35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _name: Zombie
-  _disc: Zombie
-  _team: 1
-  _baseState:
-    maxHealth: 5
-    damage: 0
-    strength: 0
-    agility: 0
-    defance: 0
-    moveSpeed: 0
-    jumpSpeed: 0
-  _feedbackHandler: {fileID: 695851917131426514}
-  _equipmentHandler: {fileID: 695851917628490645}
-  _actorSoundClip: {fileID: 695851917628490644}
 --- !u!114 &5031978038499649188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,12 +656,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94929e978dbd2245a737ca1ae330511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: Zombie_AIActor
-  _disc: Zombie_AIActor
+  _name: Zombie
+  _disc: Aggresive walking dead.
   _team: 1
   _baseState:
     maxHealth: 5
-    damage: 0
+    damage: 2
     strength: 1
     agility: 1
     defance: 0
@@ -698,6 +669,14 @@ MonoBehaviour:
     jumpSpeed: 0
   _attack1HitCollider: {fileID: 5789193580150715736, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
     type: 3}
+  _attack2HitCollider: {fileID: 5789193580150715736, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
+    type: 3}
+  _attack1HitEffect: {fileID: 3041031425023861009, guid: 3547e5e490f502041ae6e8a59042e4bd,
+    type: 3}
+  _attack2HitEffect: {fileID: 3041031425023861009, guid: 3547e5e490f502041ae6e8a59042e4bd,
+    type: 3}
+  _feedbackHandler: {fileID: 695851917131426514}
+  _aiActorSoundClip: {fileID: 8160795046446458426}
 --- !u!114 &695851917628490651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,20 +689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e9931287d4cb8b4fb26561e2bd56181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &695851917628490643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695851917628490636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc779f1a3b7086489840a3c5191a6ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cullObjectList:
-  - {fileID: 695851916475109699}
 --- !u!114 &695851917628490647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886cd496c57e42c44a64b054cf12485a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &695851917628490644
+--- !u!114 &8160795046446458426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -745,43 +710,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 695851917628490636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c8f2b60163216d45b3b8ebbbb4b3265, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d31d7503d0153645bb481b445c2bdd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idle:
+  - clip: {fileID: 8300000, guid: 4f998a8b10c5d6f4aa7c375df64114ad, type: 3}
+    delay: 0
+    volume: 0.7
+    variation: 0.1
+  _aggro:
+  - clip: {fileID: 8300000, guid: 3ccc1d7a9ac7b3c438414b94a6054629, type: 3}
+    delay: 0
+    volume: 0.7
+    variation: 0.1
   _hit:
   - clip: {fileID: 8300000, guid: 3ccc1d7a9ac7b3c438414b94a6054629, type: 3}
     delay: 0
     volume: 0.7
-    variation: 0.15
+    variation: 0.1
   _dead:
   - clip: {fileID: 8300000, guid: ef11a04344a23e34e99e555f59d80e9c, type: 3}
     delay: 0
     volume: 0.7
     variation: 0.1
-  _attack:
-  - clip: {fileID: 8300000, guid: af9e9523a8a336e47bb1556deddbba13, type: 3}
-    delay: 0
+  _attack1:
+  - clip: {fileID: 8300000, guid: 23e716bb3ac6d764a830263009db1c6b, type: 3}
+    delay: 0.25
     volume: 0.7
     variation: 0.1
-  _jump: []
---- !u!114 &695851917628490645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695851917628490636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f81afb101cb10f4e9a4a6b459e6b56b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _socketFinder: {fileID: 695851917628490647}
-  equipmentItemKey:
-  - 
-  - 
-  - 
-  - 
+  _attack2: []
+  _attack1Hit:
+  - clip: {fileID: 8300000, guid: 040565ca09be2ce44ab29716bc61a2aa, type: 3}
+    delay: 0
+    volume: 0.7
+    variation: 0.2
+  _attack2Hit: []
 --- !u!114 &695851917628490640
 MonoBehaviour:
   m_ObjectHideFlags: 0

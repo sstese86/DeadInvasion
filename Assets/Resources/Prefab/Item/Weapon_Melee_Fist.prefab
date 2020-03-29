@@ -70,15 +70,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _use: []
-  _hitActor:
-  - clip: {fileID: 8300000, guid: 12f2c46bacf29dd4f80a59c0b8ce31d6, type: 3}
+  _hit:
+  - clip: {fileID: 8300000, guid: 67ecacb233796fa47b316d5a4190a899, type: 3}
     delay: 0
-    volume: 1
-    variation: 0.1
-  - clip: {fileID: 8300000, guid: b78fa03a21577a14aa1047f17bb52b7b, type: 3}
-    delay: 0
-    volume: 1
-    variation: 0.1
+    volume: 0.7
+    variation: 0.15
   _attack:
   - clip: {fileID: 8300000, guid: 94efd329829fef64fb17d5c72c26c618, type: 3}
     delay: 0.15

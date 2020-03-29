@@ -9,6 +9,10 @@ namespace NaviEnt.Game
         protected bool _canInputRotate = true;
         protected Transform _target = null;
         protected bool _isCombatMode = false;
+        protected bool _isDead = false;
+
+        public bool IsBusy { get; set; }
+        public float AttackCooldown { get; set; }
 
         protected IEnumerator LookAtToTargetRoutine(Transform root, Transform target)
         {

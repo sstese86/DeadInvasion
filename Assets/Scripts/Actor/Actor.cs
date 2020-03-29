@@ -29,7 +29,7 @@ namespace NaviEnt
         [SerializeField]
         Team _team = Team.Player;
 
-
+        HUDHealthBar _healthbar = null;
 
         [Space]
         [SerializeField]
@@ -42,6 +42,7 @@ namespace NaviEnt
         public string ActorDiscription { get => _disc; }
         public int CurrentHealth { get; protected set; }
         public float HealthRatio { get; protected set; }
+        public CharacterState BaseState { get => _modifiedState; }
         public CharacterState ModifiedState { get => _modifiedState; }
 
         public string EntityName { get; set; }
@@ -49,7 +50,25 @@ namespace NaviEnt
         public float EntityValue { get; set; }
 
         public int Damage { get; protected set; }
-        public bool isDead { get; protected set; }
+        public bool IsDead { get; protected set; }
+
+        public virtual void OnEnable()
+        {
+            if(_modifiedState.Equals(new CharacterState()))
+            {
+                _modifiedState = _baseState;
+            }
+            
+            CurrentHealth = ModifiedState.maxHealth;
+            Damage = ModifiedState.damage;
+
+            EntityName = ActorName;
+            EntityInfo = ModifiedState.maxHealth.ToString() + " / " + CurrentHealth.ToString();
+            EntityValue = 1f;
+
+            _healthbar = GetComponentInChildren<HUDHealthBar>();
+            _healthbar.InitHealthBar();
+        }
 
         public virtual void UpdateEntityInfo()
         {
@@ -60,10 +79,10 @@ namespace NaviEnt
                 GameEventManager.Instance.OnSelectedEntityChangedCallback(GetComponent<IEntity>(), transform);
         }
 
-        void UpdateHealthInfo()
+        protected void UpdateHealthInfo()
         {
-            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, _modifiedState.maxHealth);
-            HealthRatio = (float)CurrentHealth / (float)_modifiedState.maxHealth;
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, ModifiedState.maxHealth);
+            HealthRatio = (float)CurrentHealth / (float)ModifiedState.maxHealth;
             UpdateHealthInfoFeedback();
         }
 
@@ -73,7 +92,7 @@ namespace NaviEnt
             {
                 CurrentHealth -= amount;
                 TakeDamageFeedback();
-                IsDead();
+                IsActorDead();
                 return true;
             }
             return false;
@@ -85,11 +104,11 @@ namespace NaviEnt
             UpdateHealthInfo();
         }
 
-        protected bool IsDead()
+        protected bool IsActorDead()
         {
             if (CurrentHealth < 1)
             {
-                isDead = true;
+                IsDead = true;
                 GetComponent<Collider>().enabled = false;
                 DeadFeedback();
                 return true;
@@ -101,12 +120,14 @@ namespace NaviEnt
         protected virtual void UpdateHealthInfoFeedback() 
         {
             UpdateEntityInfo();
+            _healthbar.UpdateHealthSlider(HealthRatio);
         }
         protected virtual void DeadFeedback()
         {
             EntityInfo = EntityName + " is Dead";
             if (DamageableTeam != Team.Player)
                 GameEventManager.Instance.OnSelectedEntityChangedCallback(GetComponent<IEntity>(), transform);
+            _healthbar.gameObject.SetActive(false);
         }
         // Start is called before the first frame update
         void Start()

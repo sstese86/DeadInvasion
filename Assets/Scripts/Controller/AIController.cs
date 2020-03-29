@@ -19,40 +19,43 @@ namespace NaviEnt.Game
         float AIUpdateTickTime = 0.25f;
 
         Transform _root = null;
-
         AIActor _actor = null;
-        PlayerActor _characterHandler = null;
+        
+
         AIAnimatorHandler _animatorHandler = null;
 
-        bool _isDead = false;
-        bool _canUpdate = true;
-        bool _isBusy = false;
+        public Team AITeam { get => _actor.DamageableTeam; }
 
-        // Start is called before the first frame update
+        bool _canUpdate = true;
+        
+
         void Start()
         {
             _actor = GetComponent<AIActor>();
-            _characterHandler = GetComponent<PlayerActor>();
             _root = transform.Find("Root");
         }
 
-        // Update is called once per frame
         void Update()
         {
-            if(_canUpdate)
+            if (_isDead == true) return;
+            if (_canUpdate)
             {
                 StartCoroutine(UpdataAIBehaviourRoutine());
+            }
+            if (_actor.IsDead)
+            {
+                AIDead();
             }            
-            IsDead();
+
+
         }
 
         void MoveToTarget()
         {
             if(_target != null)
             {
-                
                 _agent.SetDestination(_target.position);
-                _animatorHandler.UpdateAnimParmMovement(true);
+                _animatorHandler.UpdateAnimParmMove(true);
                 if(_canUpdateLookAtDir)
                 {
                     StartCoroutine(LookAtToTargetRoutine(_root, _target));
@@ -64,36 +67,43 @@ namespace NaviEnt.Game
         {
             _target = null;
             _agent.isStopped = true;
-            _animatorHandler.UpdateAnimParmMovement(false);
+            _animatorHandler.UpdateAnimParmMove(false);
+
         }
 
-        void IsDead()
+        void AIDead()
         {
-            if(_isDead)
-            {
-                gameObject.SetActive(false);
-            }
-
-            if (_characterHandler.isDead)
-            {
-                _isDead = true;
-            }
+            _isDead = true;
+            StopAllCoroutines();
+            _animatorHandler.PlayAIAnimDead();
+            StartCoroutine(DeadWaitTimer());
         }
 
 
         public void Attack()
         {
-            if(!_isBusy)
-            {
-                _characterHandler.ActorSoundClip.PlaySoundAttack();
+            //At the moment just Attack 1. Later Implement Attack 2 for critical attack or somthing.
+  
+                _actor.GetAIActorSoundClip.PlaySoundAttack1();
                 _animatorHandler.PlayAIAnimAttack1();
-                _isBusy = true;
-            }
+                IsBusy = true;
+
         }
 
         void Wandering()
         {
 
+        }
+
+        void ReturnToPool()
+        {
+            gameObject.SetActive(false);
+        }
+
+        IEnumerator DeadWaitTimer()
+        {
+            yield return new WaitForSeconds(5f);
+            ReturnToPool();
         }
 
         IEnumerator UpdataAIBehaviourRoutine()
@@ -104,10 +114,13 @@ namespace NaviEnt.Game
             _canUpdate = true;
         }
 
-        public void OnAttackTriggerStay(Team team)
+        public void OnAttackTriggerStay(Actor actor)
         {
-            if(team != _characterHandler.DamageableTeam)
-                Attack();
+            if (!IsBusy)
+            {
+                if (actor.DamageableTeam != _actor.DamageableTeam)
+                    Attack();
+            }
         }
 
 
@@ -116,7 +129,7 @@ namespace NaviEnt.Game
             _animatorHandler = handler;
         }
 
-        public void OnAgroTriggerEnter(Transform target)
+        public void OnAggroTriggerEnter(Transform target)
         {
             _target = target;
             _agent.isStopped = false;
@@ -130,8 +143,27 @@ namespace NaviEnt.Game
         public void AnimEventAttackCallback()
         {
             //TODO AI Attack has problem unknown. Player takes damage just first time.
-            PoolManager.Instance.SpawnHitCollider(_actor.GetAttack1HitCollider, _root, _actor.DamageableTeam, 2);
+            PoolManager.Instance.SpawnHitCollider(_actor.DamageableTeam, _actor.Damage, _root, _actor.GetAttack1HitCollider, _actor.GetAttack1HitEffect, _actor.GetAIActorSoundClip.GetAttack1HitAudioClips );
         }
+
+ 
+        public void NotBusy()
+        {
+            StopCoroutine(NotBusyRoutine());
+            StartCoroutine(NotBusyRoutine(AttackCooldown));
+        }
+        public void NotBusy(float delay)
+        {
+            StopCoroutine(NotBusyRoutine());
+            StartCoroutine(NotBusyRoutine(delay));
+        }
+
+        IEnumerator NotBusyRoutine(float delay = 0f)
+        {
+            yield return new WaitForSeconds(delay);
+            IsBusy = false;
+        }
+
 
         private void OnDrawGizmos()
         {

@@ -53,7 +53,7 @@ namespace NaviEnt
 
         }
 
-        public void SpawnHitCollider(GameObject hitCollider,Transform trans, Team team, int damage)
+        public void SpawnHitCollider(Team team, int damage, Transform trans, GameObject hitCollider, NaviEntEffect hitEffect, List<AudioClipSetup> hitAudioClips)
         {
             Transform pool = null;
             pool = _hitCollider.transform.Find("["+ hitCollider.name + "]");
@@ -61,7 +61,7 @@ namespace NaviEnt
             {
                 pool = CreateNewPoolItemRoot(HitColliderPool, hitCollider);
                 AppendNewPoolItem(pool, hitCollider);
-                SpawnHitCollider(hitCollider,trans, team, damage);
+                SpawnHitCollider(team, damage, trans, hitCollider, hitEffect, hitAudioClips);
                 return;
             }
             else
@@ -74,14 +74,14 @@ namespace NaviEnt
                 poolItem.parent = null;
                 poolItem.position = trans.position;
                 poolItem.rotation = trans.rotation;                
-                poolItem.GetComponent<HitCollider>().InitHitCollider(team, damage);
+                poolItem.GetComponent<HitCollider>().InitHitCollider(team, damage,hitEffect,hitAudioClips);
             }
         }
         public void SpawnHitCollider(int attackAnimIndex, Transform trans, Team team, int damage, Weapon equipedWeapon)
         {
             HitCollider hitCollider = equipedWeapon.WeaponAttackSetup[attackAnimIndex].hitCollider;
             NaviEntEffect hitEffect = equipedWeapon.WeaponAttackSetup[attackAnimIndex].hitEffect;
-            ItemSoundClip itemSoundClip = equipedWeapon.ItemSoundClip;
+            List<AudioClipSetup> hitSoundClips = equipedWeapon.ItemSoundClip.GetHitAudioClips;
 
             Transform pool = null;
             pool = _hitCollider.transform.Find("[" + hitCollider.name + "]");
@@ -102,7 +102,7 @@ namespace NaviEnt
                 poolItem.parent = null;
                 poolItem.position = trans.position;
                 poolItem.rotation = trans.rotation;
-                poolItem.GetComponent<HitCollider>().InitHitCollider(team, damage, hitEffect, itemSoundClip);
+                poolItem.GetComponent<HitCollider>().InitHitCollider(team, damage, hitEffect, hitSoundClips);
             }
         }
 

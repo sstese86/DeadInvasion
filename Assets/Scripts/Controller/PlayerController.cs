@@ -9,7 +9,7 @@ namespace NaviEnt.Game
     public class PlayerController : ActorController, ICanAttack
     {
 
-        PlayerActor _characterHandler = null;
+        PlayerActor _actor = null;
         CharacterController _characterController = null;
         InputManager _inputManager = null;
         PlayerAnimatorHandler _animatorHandler = null;
@@ -21,20 +21,14 @@ namespace NaviEnt.Game
         
         float _gravity = 1.5f;
         float _currentAttackAnimIndex = 0f;
-        
-        bool _isDead = false;
-
-        public bool IsBusy { get; set; }
         float targetSearchRange = 4f;
 
-        float _attackCooldown = 0f;
 
-        // Start is called before the first frame update
         void Start()
         {
             _inputManager = InputManager.Instance;
             _characterController = GetComponent<CharacterController>();
-            _characterHandler = GetComponent<PlayerActor>();
+            _actor = GetComponent<PlayerActor>();
 
             _root = transform.Find("Root");                
 
@@ -58,7 +52,7 @@ namespace NaviEnt.Game
         void Update()
         {
             if (_isDead) return;
-            if (_characterHandler.isDead)
+            if (_actor.IsDead)
             {
                 _isDead = true;
                 PlayerDead();
@@ -90,15 +84,15 @@ namespace NaviEnt.Game
                 //_characterController.height = _characterHeight / 2f;
                 //Vector3 center = new Vector3(0f, _characterCenterY / 2f, 0f);
                 //_characterController.center = center;
-                _characterHandler.ActorSoundClip?.PlaySoundJump();
-                _jumpVector.y = _characterHandler.ModifiedState.jumpSpeed;
+                _actor.GetActorSoundClip?.PlaySoundJump();
+                _jumpVector.y = _actor.ModifiedState.jumpSpeed;
                 
             }           
         }
         public void Movement()
         {           
             if (_inputManager.MovementAxis == Vector2.zero) return;
-            Vector3 Movement = _moveDirectionVector * _characterHandler.ModifiedState.moveSpeed;
+            Vector3 Movement = _moveDirectionVector * _actor.ModifiedState.moveSpeed;
             _characterController.SimpleMove(Movement);
         }
 
@@ -124,7 +118,7 @@ namespace NaviEnt.Game
                 Vector3 direction;
                 Quaternion rotateTo = new Quaternion();
 
-                float moveSpeed = _characterHandler.ModifiedState.moveSpeed * 0.65f;
+                float moveSpeed = _actor.ModifiedState.moveSpeed * 0.65f;
                 float rotationDuration = moveSpeed * Time.deltaTime * 2f;
                 direction = new Vector3(Axis.x, 0, Axis.y);
 
@@ -174,11 +168,11 @@ namespace NaviEnt.Game
             {
                 SerchForTarget();
 
-                _currentAttackAnimIndex = _characterHandler.AttackAnimIndex;
-                _characterHandler.ActorSoundClip?.PlaySoundAttack();
-                _characterHandler.WeaponSoundClip?.PlaySoundItemAttack();
-                _animatorHandler.Attack(_characterHandler.WeaponType, _currentAttackAnimIndex);
-                _attackCooldown = _characterHandler.WeaponFireRate;
+                _currentAttackAnimIndex = _actor.GetAttackAnimIndex;
+                _actor.GetActorSoundClip?.PlaySoundAttack();
+                _actor.GetWeaponSoundClip?.PlaySoundItemAttack();
+                _animatorHandler.Attack(_actor.GetWeaponType, _currentAttackAnimIndex);
+                AttackCooldown = _actor.GetWeaponFireRate;
                 IsBusy = true;
                 _isCombatMode = true;
             }   
@@ -198,16 +192,16 @@ namespace NaviEnt.Game
 
         void SpawnHitCollider()
         {
-            if(_characterHandler.CurrentWeapon != null)
+            if(_actor.GetCurrentWeapon != null)
             {
-                PoolManager.Instance.SpawnHitCollider( (int)_currentAttackAnimIndex, _root, _characterHandler.DamageableTeam, _characterHandler.Damage, _characterHandler.CurrentWeapon);
+                PoolManager.Instance.SpawnHitCollider( (int)_currentAttackAnimIndex, _root, _actor.DamageableTeam, _actor.Damage, _actor.GetCurrentWeapon);
             }
         }
 
 
         void SerchForTarget()
         {
-            targetSearchRange = _characterHandler.WeaponRange + 1f;
+            targetSearchRange = _actor.GetWeaponRange + 1f;
 
             Transform target = null;
             float minDistance = Mathf.Infinity;
@@ -252,7 +246,7 @@ namespace NaviEnt.Game
         public void NotBusy()
         {
             StopCoroutine(NotBusyRoutine());
-            StartCoroutine(NotBusyRoutine(_attackCooldown));
+            StartCoroutine(NotBusyRoutine(AttackCooldown));
         }
         public void NotBusy(float delay)
         {

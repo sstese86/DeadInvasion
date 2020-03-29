@@ -20,7 +20,7 @@ namespace NaviEnt.Game
     {
         protected int selector = 0;
 
-        protected void PlaySFXSound(List<AudioClipSetup> _listOfClips)
+        public void PlaySFXSound(List<AudioClipSetup> _listOfClips)
         {
             if (_listOfClips.Count != 0)
             {

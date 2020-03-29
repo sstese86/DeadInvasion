@@ -398,10 +398,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _use: []
-  _hitActor:
+  _hit:
   - clip: {fileID: 8300000, guid: 3c566f644ea377940a6880d0413e22fd, type: 3}
     delay: 0
-    volume: 1
+    volume: 0.7
     variation: 0.1
   _attack:
   - clip: {fileID: 8300000, guid: 94efd329829fef64fb17d5c72c26c618, type: 3}

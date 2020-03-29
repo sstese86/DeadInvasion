@@ -15,36 +15,27 @@ namespace NaviEnt.Game
         [SerializeField]
         EquipmentHandler _equipmentHandler = null;
         [SerializeField]
-        ActorSoundClip _actorSoundClip = null;        
+        PlayerActorSoundClip _actorSoundClip = null;        
 
         WeaponState _weaponState = new WeaponState();
 
-        HUDHealthBar _healthbar = null;
+        public ItemSoundClip GetWeaponSoundClip { get => _equipmentHandler.CurrentWeapon?.ItemSoundClip; }
+        public PlayerActorSoundClip GetActorSoundClip { get => _actorSoundClip; }
 
-        public ItemSoundClip WeaponSoundClip { get => _equipmentHandler.CurrentWeapon?.ItemSoundClip; }
-        public ActorSoundClip ActorSoundClip { get => _actorSoundClip; }
-
-        public Weapon CurrentWeapon { get => _equipmentHandler.CurrentWeapon; }
-        public float WeaponRange { get => _weaponState.range; }
-        public float WeaponFireRate { get => _weaponState.fireRate; }
+        public Weapon GetCurrentWeapon { get => _equipmentHandler.CurrentWeapon; }
+        public float GetWeaponRange { get => _weaponState.range; }
+        public float GetWeaponFireRate { get => _weaponState.fireRate; }
 
         //Animation Infomation
-        public int WeaponType { get => _equipmentHandler.GetWeaponIndex(); }
-        public float AttackAnimIndex { get => _equipmentHandler.GetAttackAnimIndex(); }
+        public int GetWeaponType { get => _equipmentHandler.GetWeaponIndex(); }
+        public float GetAttackAnimIndex { get => _equipmentHandler.GetAttackAnimIndex(); }
 
 
-        private void OnEnable()
+        public override void OnEnable()
         {
+            base.OnEnable();
+
             UpdateEquipmentState();
-
-            CurrentHealth = ModifiedState.maxHealth;
-            
-            EntityName = ActorName;
-            EntityInfo = ModifiedState.maxHealth.ToString() + " / " + CurrentHealth.ToString();
-            EntityValue = 1f;
-
-            _healthbar = GetComponentInChildren<HUDHealthBar>();
-            _healthbar.InitHealthBar();
 
             if (_equipmentHandler)
                 _equipmentHandler.onActorEquipmentChanged += UpdateEquipmentState;
@@ -68,12 +59,12 @@ namespace NaviEnt.Game
 
         public HitCollider GetHitCollider(int animIndex)
         {
-            return CurrentWeapon.WeaponAttackSetup[animIndex].hitCollider;
+            return GetCurrentWeapon.WeaponAttackSetup[animIndex].hitCollider;
         }
 
         public NaviEntEffect GetHitEffect(int animIndex)
         {
-            return CurrentWeapon.WeaponAttackSetup[animIndex].hitEffect;
+            return GetCurrentWeapon.WeaponAttackSetup[animIndex].hitEffect;
         }
 
         void UpdateEquipmentState()
@@ -81,6 +72,7 @@ namespace NaviEnt.Game
             _modifiedState = _equipmentHandler.UpdateModifiedCharacterState(_baseState);
             _weaponState = _equipmentHandler.WeaponState;
             Damage = ModifiedState.damage + _weaponState.damage;
+            UpdateHealthInfo();            
         }
 
         protected override void TakeDamageFeedback()
@@ -88,7 +80,6 @@ namespace NaviEnt.Game
             base.TakeDamageFeedback();
             _actorSoundClip?.PlaySoundHit();
             _feedbackHandler?.HitFeedback();
-            
         }
 
         public override void Heal(int amount)
@@ -99,17 +90,13 @@ namespace NaviEnt.Game
         protected override void DeadFeedback()
         {
             base.DeadFeedback();
-            _actorSoundClip?.PlaySoundDead();
-            _healthbar?.gameObject.SetActive(false);
+            _actorSoundClip?.PlaySoundDead();            
         }
 
         protected override void UpdateHealthInfoFeedback()
         {
             base.UpdateHealthInfoFeedback();
-            _healthbar.UpdateHealthSlider(HealthRatio);
         }
-
-
 
 
     }
