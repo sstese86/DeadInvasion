@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace NaviEnt.Game
 {
-    public class CharacterAnimatorHandler : MonoBehaviour
+    public class PlayerAnimatorHandler : MonoBehaviour
     {
         PlayerController _playerController = null;
-        AIController _aiController = null;
         Animator _animator = null;
         // Start is called before the first frame update
         int _hashParmMoveSpeed = 0;
@@ -25,14 +24,15 @@ namespace NaviEnt.Game
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _playerController = transform.parent.transform.parent.GetComponent<PlayerController>();
-            _aiController = transform.parent.transform.parent.GetComponent<AIController>();
+            _playerController = transform.parent.parent.GetComponent<PlayerController>();
+
         }
 
         void Start()
         {
             if(_playerController != null)
                 _playerController.SetCharacterAnimatorHandler(this);
+
             GetHashNames();
 
         }
@@ -89,23 +89,24 @@ namespace NaviEnt.Game
             _animator.SetTrigger("Dead");
         }
 
-        public void CallNotBusy(float delay = 0f)
+        public void AnimatorBehaviourCallbackNotBusy()
         {
-            _playerController.NotBusy(delay);
+            _playerController.NotBusy();
         }
 
-        public void CallNotCombatMode()
+        public void AnimatorBehaviourCallbackNotCombatMode()
         {
             _playerController.NotCombatMode();
         }
 
+        
         public void LayerWeightFadeRoutine(int layerIndex)
         {
             _layerFadeValue = 1f;
             StartCoroutine(LayerWeightFade(layerIndex));
         }
 
-
+        
         IEnumerator LayerWeightFade( int layerIndex)
         {
 
@@ -118,9 +119,10 @@ namespace NaviEnt.Game
             }
             _animator.SetLayerWeight(layerIndex, 0f);
             _animator.SetBool(_hashParmIsJumping, false);
-            CallNotBusy(0.1f);
+            _playerController.NotBusy(0.1f);
+            
         }
-
+        
 
         public void AnimEventAttack()
         {

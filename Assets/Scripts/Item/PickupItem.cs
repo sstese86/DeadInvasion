@@ -7,7 +7,7 @@ using NaviEnt.Data;
 
 namespace NaviEnt.Game
 {
-    public class PickupItem : Item<PickupItem>, IEntity
+    public class PickupItem : Item<PickupItem> ,IEntity
     {
 
         [SerializeField]
@@ -18,10 +18,12 @@ namespace NaviEnt.Game
 
         DOTweenAnimation _dotween = null;
 
-        CharacterHandler player = null;
+        PlayerActor player = null;
 
         public string EntityName { get; set; }
         public string EntityInfo { get; set; }
+        public float EntityValue { get; set; }
+
 
         private void Awake()
         {
@@ -30,15 +32,16 @@ namespace NaviEnt.Game
 
         public void InitializePickupItem()
         {
+
             _pickupTrigger.gameObject.SetActive(true);
             DoTweenRotateItem();
         }
 
         public void OnPickupTriggerEnter(Collider other)
         {
-            player = other.GetComponent<CharacterHandler>();
+            player = other.GetComponent<PlayerActor>();
             if (player == null) return;
-            if (player.GetComponent<CharacterHandler>().ActorTeam == Team.Player)
+            if (player.GetComponent<PlayerActor>().DamageableTeam == Team.Player)
             {
                 PickUp();
             }            

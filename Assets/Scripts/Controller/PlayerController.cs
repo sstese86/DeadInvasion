@@ -6,21 +6,18 @@ using System;
 
 namespace NaviEnt.Game
 {
-    public class PlayerController : MonoBehaviour, ICanMove, ICanAttack
+    public class PlayerController : ActorController, ICanAttack
     {
 
-        CharacterHandler _characterHandler = null;
+        PlayerActor _characterHandler = null;
         CharacterController _characterController = null;
         InputManager _inputManager = null;
+        PlayerAnimatorHandler _animatorHandler = null;
 
         Transform _root = null;
-        Transform _target = null;
-        CharacterAnimatorHandler _characterAnimatorHandler = null;
 
         Vector3 _moveDirectionVector = Vector3.zero;
         Vector3 _jumpVector = Vector3.zero;
-
-        bool isCombatMode = false;
         
         float _gravity = 1.5f;
         float _currentAttackAnimIndex = 0f;
@@ -30,13 +27,14 @@ namespace NaviEnt.Game
         public bool IsBusy { get; set; }
         float targetSearchRange = 4f;
 
+        float _attackCooldown = 0f;
 
         // Start is called before the first frame update
         void Start()
         {
             _inputManager = InputManager.Instance;
             _characterController = GetComponent<CharacterController>();
-            _characterHandler = GetComponent<CharacterHandler>();
+            _characterHandler = GetComponent<PlayerActor>();
 
             _root = transform.Find("Root");                
 
@@ -53,7 +51,7 @@ namespace NaviEnt.Game
         private void PlayerDead()
         {
             GameEventManager.Instance.OnPlayerDead();
-            _characterAnimatorHandler.Dead();
+            _animatorHandler.Dead();
         }
 
         // Update is called once per frame
@@ -85,9 +83,9 @@ namespace NaviEnt.Game
         {
             if(_characterController.isGrounded && !IsBusy)
             {
-                if (_characterAnimatorHandler != null)
+                if (_animatorHandler != null)
                     IsBusy = true;
-                    if (!_characterAnimatorHandler.Jump()) return;
+                    if (!_animatorHandler.Jump()) return;
 
                 //_characterController.height = _characterHeight / 2f;
                 //Vector3 center = new Vector3(0f, _characterCenterY / 2f, 0f);
@@ -117,51 +115,35 @@ namespace NaviEnt.Game
                
         void Rotate()
         {
-            if (_inputManager.MovementAxis == Vector2.zero) return;
-
-            Vector3 Axis = _inputManager.MovementAxis;
-            Quaternion rotateFrom = _root.rotation;
-            Vector3 direction;
-            Quaternion rotateTo = new Quaternion();
-            
-            float moveSpeed = _characterHandler.ModifiedState.moveSpeed * 0.65f;
-            float rotationDuration = moveSpeed * Time.deltaTime * 2f;
-            direction = new Vector3(Axis.x, 0, Axis.y);
-
-            rotateTo = Quaternion.LookRotation(direction, Vector3.up);
-            _root.rotation = Quaternion.Slerp(rotateFrom, rotateTo, rotationDuration);
-        }
-
-        
-
-        IEnumerator LookAtToTargetRoutine()
-        {
-            Quaternion rotateFrom = _root.rotation;
-            //   float moveSpeed = _characterHandler.ModifiedState.moveSpeed * 0.65f;
-            //   float rotationDuration = moveSpeed * Time.deltaTime * 2f;
-            Vector3 direction = _target.position - transform.position;
-            Quaternion rotateTo = Quaternion.LookRotation(direction, Vector3.up);
-
-            float alpha = 0.0f;
-            while(alpha < 1f)
+            if(_canInputRotate)
             {
-                _root.transform.rotation = Quaternion.Slerp(rotateFrom, rotateTo, alpha);
-                alpha += 0.1f;
-                yield return new WaitForSeconds(0.01f);
-            }
-        }
+                if (_inputManager.MovementAxis == Vector2.zero) return;
 
+                Vector3 Axis = _inputManager.MovementAxis;
+                Quaternion rotateFrom = _root.rotation;
+                Vector3 direction;
+                Quaternion rotateTo = new Quaternion();
+
+                float moveSpeed = _characterHandler.ModifiedState.moveSpeed * 0.65f;
+                float rotationDuration = moveSpeed * Time.deltaTime * 2f;
+                direction = new Vector3(Axis.x, 0, Axis.y);
+
+                rotateTo = Quaternion.LookRotation(direction, Vector3.up);
+                _root.rotation = Quaternion.Slerp(rotateFrom, rotateTo, rotationDuration);
+            }
+
+        }
+        
         // Later Make it Iterator To Look at To Target then Invoke Attack to target
         void CheckLookAtToTarget()
         {
-
-            //TODO IThink It calls too many. Check it and fix it.
-            // Auto targetting for attack.
-            if (isCombatMode && _target != null)
+            if (_canUpdateLookAtDir)
             {
-                StopCoroutine(LookAtToTargetRoutine());
-                StartCoroutine(LookAtToTargetRoutine());
-            }
+                if (_isCombatMode && _target != null)
+                {
+                    StartCoroutine(LookAtToTargetRoutine(_root, _target));
+                }
+            }           
         }
 
         void InputActionCheck()
@@ -177,30 +159,28 @@ namespace NaviEnt.Game
             if(_inputManager.JumpInput) Jump();
         }
 
-        public void SetCharacterAnimatorHandler(CharacterAnimatorHandler animHandler)
-        {
-            _characterAnimatorHandler = animHandler;
-        }
-
         void AnimatorParmUpdate()
         {
-            if(_characterAnimatorHandler != null)
+            if(_animatorHandler != null)
             {
-                _characterAnimatorHandler.UpdateAnimParmMoveSpeed(_moveDirectionVector.sqrMagnitude);
+                _animatorHandler.UpdateAnimParmMoveSpeed(_moveDirectionVector.sqrMagnitude);
             }
         }
 
         public void Attack()
         {
-            SerchForTarget();
+            
             if (!IsBusy)
             {
+                SerchForTarget();
+
                 _currentAttackAnimIndex = _characterHandler.AttackAnimIndex;
                 _characterHandler.ActorSoundClip?.PlaySoundAttack();
                 _characterHandler.WeaponSoundClip?.PlaySoundItemAttack();
-                _characterAnimatorHandler.Attack(_characterHandler.WeaponType, _currentAttackAnimIndex);
+                _animatorHandler.Attack(_characterHandler.WeaponType, _currentAttackAnimIndex);
+                _attackCooldown = _characterHandler.WeaponFireRate;
                 IsBusy = true;
-                isCombatMode = true;
+                _isCombatMode = true;
             }   
         }
 
@@ -220,7 +200,7 @@ namespace NaviEnt.Game
         {
             if(_characterHandler.CurrentWeapon != null)
             {
-                PoolManager.Instance.SpawnHitCollider( (int)_currentAttackAnimIndex, _root, _characterHandler.ActorTeam, _characterHandler.Damage, _characterHandler.CurrentWeapon);
+                PoolManager.Instance.SpawnHitCollider( (int)_currentAttackAnimIndex, _root, _characterHandler.DamageableTeam, _characterHandler.Damage, _characterHandler.CurrentWeapon);
             }
         }
 
@@ -236,7 +216,7 @@ namespace NaviEnt.Game
             {
 
                 Actor obj = col.GetComponent<Actor>();
-                if(obj != null && obj.ActorTeam != Team.Player)
+                if(obj != null && obj.DamageableTeam != Team.Player)
                 {
                     float distance = (transform.position - col.transform.position).sqrMagnitude;
                     if(distance < minDistance)
@@ -250,7 +230,7 @@ namespace NaviEnt.Game
             if(target != null)
             {
                 _target = target;
-                //GameEventManager.Instance.OnPlayer
+                GameEventManager.Instance.OnSelectedEntityChangedCallback(_target.GetComponent<IEntity>(), _target);
             }
             else
             {
@@ -258,15 +238,25 @@ namespace NaviEnt.Game
             }
             
         }
-        
-        public void NotCombatMode()
+        public void SetCharacterAnimatorHandler(PlayerAnimatorHandler animHandler)
         {
-            isCombatMode = false;
+            _animatorHandler = animHandler;
         }
 
-        public void NotBusy(float delay = 0f)
+
+        public void NotCombatMode()
         {
-            StopAllCoroutines();
+            _isCombatMode = false;
+        }
+
+        public void NotBusy()
+        {
+            StopCoroutine(NotBusyRoutine());
+            StartCoroutine(NotBusyRoutine(_attackCooldown));
+        }
+        public void NotBusy(float delay)
+        {
+            StopCoroutine(NotBusyRoutine());
             StartCoroutine(NotBusyRoutine(delay));
         }
 

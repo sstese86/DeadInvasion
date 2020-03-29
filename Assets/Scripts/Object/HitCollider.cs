@@ -13,9 +13,12 @@ namespace NaviEnt.Game
         int _damage = 0;
 
         [SerializeField]
+        bool _hitMultipleTarget = false;
+
+        [SerializeField]
         bool _debugMode = false;
         [SerializeField]
-        HitColliderHelper _helper = null;
+        HitColliderTrigger _trigger = null;
 
         NaviEntEffect _hitEffect = null;
         Transform _hitTarget = null;
@@ -23,17 +26,17 @@ namespace NaviEnt.Game
 
         public void InitHitCollider(Team team, int damage)
         {
-            this._team = team;
-            this._damage = damage;
-            _helper.GetComponent<Collider>().enabled = true;
+            _team = team;
+            _damage = damage;
+            _trigger.GetComponent<Collider>().enabled = true;
             _hitEffect = null;
             if (_debugMode)
             {
-                _helper.GetComponent<MeshRenderer>().enabled = true;
+                _trigger.GetComponent<MeshRenderer>().enabled = true;
             }
             else
             {
-                _helper.GetComponent<MeshRenderer>().enabled = false;
+                _trigger.GetComponent<MeshRenderer>().enabled = false;
             }
             StartCoroutine(ReturnToPoolRoutine());
         }
@@ -45,56 +48,76 @@ namespace NaviEnt.Game
             _hitEffect = hitEffect;
             _itemSoundClip = itemSoundClip;
 
-            _helper.GetComponent<Collider>().enabled = true;
+            _trigger.GetComponent<Collider>().enabled = true;
             if (_debugMode)
             {
-                _helper.GetComponent<MeshRenderer>().enabled = true;
+                _trigger.GetComponent<MeshRenderer>().enabled = true;
             }
             else
             {
-                _helper.GetComponent<MeshRenderer>().enabled = false;
+                _trigger.GetComponent<MeshRenderer>().enabled = false;
             }
             StartCoroutine(ReturnToPoolRoutine());
         }
         // Start is called before the first frame update
         void Start()
         {
-            _helper.InitHitColliderHelper(this);
+            _trigger.InitHitColliderHelper(this);
             if (_debugMode)
             {
-                _helper.GetComponent<MeshRenderer>().enabled = true;
-                _helper.GetComponent<Collider>().enabled = true;
+                _trigger.GetComponent<MeshRenderer>().enabled = true;
             }
             else
-                _helper.GetComponent<MeshRenderer>().enabled = false;
+                _trigger.GetComponent<MeshRenderer>().enabled = false;
         }
 
         public void TargetEnter(Collider other)
         {
             IDamageable target = other.GetComponent<IDamageable>();
             if (target == null) return;
-            if(target.TakeDamage(_team, _damage))
+
+            if(_hitMultipleTarget)
             {
-                if (_hitEffect != null)
-                {                    
-                    _hitTarget = other.GetComponent<ActorSocketFinder>().Body;
-                    if(_hitTarget == null)
-                    {
-                        _hitTarget = other.transform;
-                    }
-                    PoolManager.Instance.SpawnEffect(_hitEffect.gameObject, _hitTarget);
-                    _itemSoundClip.PlaySoundItemHitActor();
+                if (target.TakeDamage(_team, _damage))
+                {
+                    ApplyDamageFeedback(other);
                 }
-            }                
-            ReturnToPool();
+
+            }
+            else
+            {
+                if (target.TakeDamage(_team, _damage))
+                {
+                    ApplyDamageFeedback(other);
+                    ReturnToPool();
+                }
+            }            
         }
 
+        void ApplyDamageFeedback(Collider other)
+        {
+            Actor actor = other.GetComponent<Actor>();
+            if (actor == null) return;
+            if (_hitEffect != null)
+                {
+                    _hitTarget = actor.GetComponent<ActorSocketFinder>().Body;
+                    if (_hitTarget == null)
+                    {
+                        _hitTarget = actor.transform;
+                    }
+                    PoolManager.Instance.SpawnEffect(_hitEffect.gameObject, _hitTarget);
+
+            }
+            if (_itemSoundClip != null)
+                _itemSoundClip.PlaySoundItemHitActor();
+        }
+        
         public void ReturnToPool()
         {
-            _helper.GetComponent<Collider>().enabled = false;
+            _trigger.GetComponent<Collider>().enabled = false;
             if (_debugMode)
             {
-                _helper.GetComponent<MeshRenderer>().enabled = false;
+                _trigger.GetComponent<MeshRenderer>().enabled = false;
             }
             PoolManager.Instance.HitColliderBackToPoolSystem(gameObject);
         }

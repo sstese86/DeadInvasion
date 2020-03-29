@@ -128,9 +128,19 @@ namespace NaviEnt.Game
             item.Key = key;
             item.Amount = amount;
 
-            item.InitializePickupItem();
-            item.EntityInfo = _itemDatabase.data[key].description;
+            item.InitializePickupItem();            
+            
             item.EntityName = _itemDatabase.data[key].name;
+            if(_itemDatabase.data[key].notAllowMultiple)
+            {
+                item.EntityInfo = _itemDatabase.data[key].description;
+            }
+            else
+            {
+                item.EntityInfo = amount.ToString() + " " + _itemDatabase.data[key].name + "s";
+            }
+            
+            item.EntityValue = 0f;
 
             obj.name = _itemDatabase.data[key].name;
             return obj;

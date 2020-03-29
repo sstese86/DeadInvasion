@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NaviEnt.Game
 {
-    public class HitColliderHelper : MonoBehaviour
+    public class HitColliderTrigger : MonoBehaviour
     {
         HitCollider _hitCollider = null;
 

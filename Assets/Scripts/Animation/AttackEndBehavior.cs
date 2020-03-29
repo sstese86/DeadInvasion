@@ -22,8 +22,8 @@ public class AttackEndBehavior : StateMachineBehaviour
     {
 
         animator.SetBool("BaseLayerAttack", false);
-        animator.GetComponent<CharacterAnimatorHandler>().CallNotBusy(.55f);
-        animator.GetComponent<CharacterAnimatorHandler>().CallNotCombatMode();
+        animator.GetComponent<PlayerAnimatorHandler>().AnimatorBehaviourCallbackNotBusy();
+        animator.GetComponent<PlayerAnimatorHandler>().AnimatorBehaviourCallbackNotCombatMode();
 
 
     }

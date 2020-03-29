@@ -12,21 +12,25 @@ namespace NaviEnt.Game
         Transform _target = null;
 
         AIController _aiController = null;
+        
 
         private void OnTriggerEnter(Collider other)
         {
-            CharacterHandler target = other.gameObject.GetComponent<CharacterHandler>();
+            PlayerActor target = other.gameObject.GetComponent<PlayerActor>();
             if (target == null) return;
-            if (target.ActorTeam != _aiController.GetComponent<CharacterHandler>().ActorTeam)
+            if (target.DamageableTeam != _aiController.GetComponent<PlayerActor>().DamageableTeam)
             {
+                _target = target.transform;
                 _aiController.OnAgroTriggerEnter(other.transform);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
+            
             if (other.transform == _target)
             {
+                _target = null;
                 _aiController.OnAgroTriggerExit();
             }
         }

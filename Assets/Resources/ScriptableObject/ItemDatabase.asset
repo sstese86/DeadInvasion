@@ -256,9 +256,7 @@ MonoBehaviour:
       Data: Weapon-Pipe
     - Name: description
       Entry: 1
-      Data: 'Every one loves gold coin.
-
-        So let''s use them currency agin!.'
+      Data: A old steel pipe. It fits nicely in the hand.
     - Name: notAllowMultiple
       Entry: 5
       Data: true

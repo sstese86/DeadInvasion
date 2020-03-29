@@ -14,7 +14,7 @@ public class TestScript : MonoBehaviour
     void Start()
     {
 
-        GameEventManager.onSelectedEntityChangedCallback += TestMethod_1;
+        
     }
 
     private void OnGUI()
@@ -33,8 +33,7 @@ public class TestScript : MonoBehaviour
 
     public void TestMethod_1(IEntity info)
     {
-        Debug.Log(info.EntityInfo);
-        Debug.Log(info.EntityName);
+
         
     }
 }

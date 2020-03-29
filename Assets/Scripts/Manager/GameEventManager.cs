@@ -35,11 +35,11 @@ namespace NaviEnt
 
         #region UI RELATED
 
-        public static event Action<IEntity> onSelectedEntityChangedCallback = delegate { };
-        public void OnSelectedEntityChangedCallback(IEntity entityInfo)
+        public static event Action<IEntity, Transform> onSelectedEntityChangedCallback = delegate { };
+        public void OnSelectedEntityChangedCallback(IEntity entityInfo, Transform trans)
         {
             if (onSelectedEntityChangedCallback != null)
-                onSelectedEntityChangedCallback.Invoke(entityInfo);
+                onSelectedEntityChangedCallback.Invoke(entityInfo, trans);
         }
 
         public static event Action onUIStateUpdate = delegate { };

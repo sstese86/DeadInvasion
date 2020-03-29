@@ -189,7 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d64f59970552e834ea17c53c724f81f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _team: 2
+  _team: 0
   _damage: 3
+  _hitMultipleTarget: 0
   _debugMode: 0
-  _helper: {fileID: 4378201482147687118}
+  _trigger: {fileID: 4378201482147687118}
