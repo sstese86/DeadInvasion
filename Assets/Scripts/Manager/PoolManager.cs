@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaviEnt.Game;
 
-namespace NaviEnt
+namespace NaviEnt.Game
 {
     public interface IPoolUse
     {
@@ -17,15 +16,21 @@ namespace NaviEnt
 
         public static PoolManager Instance { get; private set; }
 
+        GameObject _pool = null;
+
         GameObject _hitCollider = null;
         GameObject _effect = null;
         GameObject _emotion = null;
+        GameObject _activeObject = null;
+
 
         Transform poolItem = null;
 
+        public Transform Pool { get => _pool.transform; }
         public Transform HitColliderPool { get => _hitCollider.transform; }
         public Transform EffectPool { get => _effect.transform; }
         public Transform EmotionPool { get => _emotion.transform; }
+        public Transform ActiveObject { get => _activeObject.transform; }
 
         void Awake()
         {
@@ -35,22 +40,25 @@ namespace NaviEnt
         // Start is called before the first frame update
         void Start()
         {
-            InitializePool();
 
         }
 
-        void InitializePool()
+        public void InitializePool()
         {
-            
+            _pool = new GameObject("PoolSystem");
+            _pool.transform.parent = null;
+
             _hitCollider = new GameObject("HitCollider");
-            _hitCollider.transform.parent = transform;
+            _hitCollider.transform.parent = Pool;
             
             _effect = new GameObject("Effect");
-            _effect.transform.parent = transform;
+            _effect.transform.parent = Pool;
             
             _emotion = new GameObject("Emotion");
-            _emotion.transform.parent = transform;
+            _emotion.transform.parent = Pool;
 
+            _activeObject = new GameObject("ActiveObject");
+            _activeObject.transform.parent = null;
         }
 
         public void SpawnHitCollider(Team team, int damage, Transform trans, GameObject hitCollider, NaviEntEffect hitEffect, List<AudioClipSetup> hitAudioClips)
@@ -71,7 +79,7 @@ namespace NaviEnt
                     AppendNewPoolItem(pool, hitCollider);
                 }
                 poolItem = pool.GetChild(0);
-                poolItem.parent = null;
+                poolItem.parent = ActiveObject;
                 poolItem.position = trans.position;
                 poolItem.rotation = trans.rotation;                
                 poolItem.GetComponent<HitCollider>().InitHitCollider(team, damage,hitEffect,hitAudioClips);
@@ -99,7 +107,7 @@ namespace NaviEnt
                     AppendNewPoolItem(pool, hitCollider.gameObject);
                 }
                 poolItem = pool.GetChild(0);
-                poolItem.parent = null;
+                poolItem.parent = ActiveObject;
                 poolItem.position = trans.position;
                 poolItem.rotation = trans.rotation;
                 poolItem.GetComponent<HitCollider>().InitHitCollider(team, damage, hitEffect, hitSoundClips);
@@ -124,7 +132,7 @@ namespace NaviEnt
                     AppendNewPoolItem(pool, effectObject);
                 }
                 poolItem = pool.GetChild(0);
-                poolItem.parent = null;
+                poolItem.parent = ActiveObject;
                 poolItem.position = trans.position;
                 poolItem.rotation = trans.rotation;
 

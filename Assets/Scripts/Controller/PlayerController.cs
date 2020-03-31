@@ -6,7 +6,7 @@ using System;
 
 namespace NaviEnt.Game
 {
-    public class PlayerController : ActorController, ICanAttack
+    public class PlayerController : ActorController
     {
 
         PlayerActor _actor = null;
@@ -44,6 +44,7 @@ namespace NaviEnt.Game
 
         private void PlayerDead()
         {
+            StopAllCoroutines();
             GameEventManager.Instance.OnPlayerDead();
             _animatorHandler.Dead();
         }

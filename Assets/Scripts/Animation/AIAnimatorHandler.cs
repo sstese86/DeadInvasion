@@ -51,6 +51,14 @@ namespace NaviEnt.Game
             //_animator.SetBool(_hashParmIsBusy, true);
         }
 
+
+        public void SetAnimSpeedVariation(float value)
+        {
+            //_animator.SetFloat("AnimSpeedMult", value);
+            _animator.speed = value;
+        }
+
+
         void GetHashNames()
         {
             _hashParmMove = Animator.StringToHash("Move");
@@ -71,6 +79,6 @@ namespace NaviEnt.Game
         {
             _aiController.NotBusy();
         }
-        //public 
+        
     }
 }

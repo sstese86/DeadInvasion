@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using NaviEnt;
+using NaviEnt.Game;
 
 namespace NaviEnt.Level
 {

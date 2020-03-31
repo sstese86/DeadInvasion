@@ -42,6 +42,13 @@ namespace NaviEnt
                 onSelectedEntityChangedCallback.Invoke(entityInfo, trans);
         }
 
+        public static event Action<int> onEnemyRemainsUpdateCallback = delegate { };
+        public void OnEenemyRemainsUpdateCallback (int enemyRemains)
+        {
+            if (onEnemyRemainsUpdateCallback != null)
+                onEnemyRemainsUpdateCallback.Invoke(enemyRemains);
+        }
+
         public static event Action onUIStateUpdate = delegate { };
         public void OnUIStateUpdate()
         {

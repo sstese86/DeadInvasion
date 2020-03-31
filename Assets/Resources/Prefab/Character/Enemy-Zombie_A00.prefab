@@ -757,8 +757,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cda992355f71b41b54d647ee062857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemy: {fileID: 695851917628490651}
   _agent: {fileID: 695851917628490650}
-  AIUpdateTickTime: 0.25
+  _aiUpdateTickTime: 0.25
+  _animSpeedVariation: 0.1
 --- !u!195 &695851917628490650
 NavMeshAgent:
   m_ObjectHideFlags: 0

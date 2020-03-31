@@ -35,12 +35,12 @@ namespace NaviEnt.Game
 
         public void InitSpawnItem()
         {
-            Transform battleGameObject = GameObject.Find("/[BattleGameActor]/Pickup").transform;
+            Transform objectPool = PoolManager.Instance.ActiveObject;
 
             if (transform.childCount==1)
             { 
                 GameObject obj = GameManager.Instance.PickupItemInstantiate(_key, _amount, transform);
-                obj.transform.parent = battleGameObject;
+                obj.transform.parent = objectPool;
             }
         }
 

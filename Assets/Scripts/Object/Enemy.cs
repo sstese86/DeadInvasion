@@ -10,9 +10,9 @@ namespace NaviEnt.Game
             BattleManager.Instance.AddEnemy(this);
         }
 
-        private void OnDisable()
+        public void EnemyDeadCallback()
         {
             BattleManager.Instance.RemoveEnemy(this);
-        }
+        }    
     }
 }

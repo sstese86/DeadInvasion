@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaviEnt.Level;
+using NaviEnt;
 
 namespace NaviEnt.Game
 {
@@ -9,7 +10,9 @@ namespace NaviEnt.Game
     {
         public static BattleManager Instance { get; private set; }
         List<Enemy> Enemies = new List<Enemy>();
-        
+
+        public int EnemyRemains { get => Enemies.Count; }
+
         void Awake()
         {
             if (Instance != null) Destroy(gameObject);
@@ -19,16 +22,25 @@ namespace NaviEnt.Game
         public void AddEnemy(Enemy enemy)
         {
             Enemies.Add(enemy);
+
+            GameEventManager.Instance.OnEenemyRemainsUpdateCallback(EnemyRemains);
         }
 
         public void RemoveEnemy(Enemy enemy)
         {
             Enemies.Remove(enemy);
+            GameEventManager.Instance.OnEenemyRemainsUpdateCallback(EnemyRemains);
         }
+
+        public void InitBattleGame()
+        {
+            PoolManager.Instance.InitializePool();
+        }
+
         // Start is called before the first frame update
         void Start()
         {
-
+            
         }
 
         // Update is called once per frame

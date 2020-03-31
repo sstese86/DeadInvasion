@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +6,22 @@ using UnityEngine.AI;
 
 namespace NaviEnt.Game
 {
-    public class AIController : ActorController, ICanAttack
+    public class AIController : ActorController
     {
-
-
+        [SerializeField]
+        Enemy _enemy = null;
+        
         //[SerializeField]
         //float _agroRadius = 5f;
+
         [SerializeField]
         NavMeshAgent _agent = null;
 
         [SerializeField]
-        float AIUpdateTickTime = 0.25f;
+        float _aiUpdateTickTime = 0.25f;
+        
+        [SerializeField]
+        float _animSpeedVariation = 0f;
 
         Transform _root = null;
         AIActor _actor = null;
@@ -33,21 +38,28 @@ namespace NaviEnt.Game
         {
             _actor = GetComponent<AIActor>();
             _root = transform.Find("Root");
+            InitAnimSpeedVariationValue();
         }
 
         void Update()
         {
+
             if (_isDead == true) return;
-            if (_canUpdate)
-            {
-                StartCoroutine(UpdataAIBehaviourRoutine());
-            }
             if (_actor.IsDead)
             {
                 AIDead();
-            }            
+            }
+            if (_canUpdate && _isDead == false)
+            {
+                StartCoroutine(UpdataAIBehaviourRoutine());
+            }
+        }
 
-
+        void InitAnimSpeedVariationValue()
+        {
+           float value = Random.Range(-1f, 1f)* _animSpeedVariation;
+            value = value + 1f;
+            _animatorHandler.SetAnimSpeedVariation(value);
         }
 
         void MoveToTarget()
@@ -74,6 +86,7 @@ namespace NaviEnt.Game
         void AIDead()
         {
             _isDead = true;
+            _enemy?.EnemyDeadCallback();
             StopAllCoroutines();
             _animatorHandler.PlayAIAnimDead();
             StartCoroutine(DeadWaitTimer());
@@ -110,7 +123,7 @@ namespace NaviEnt.Game
         {
             _canUpdate = false;
             MoveToTarget();
-            yield return new WaitForSeconds(AIUpdateTickTime);
+            yield return new WaitForSeconds(_aiUpdateTickTime);
             _canUpdate = true;
         }
 
