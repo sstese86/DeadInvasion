@@ -12,11 +12,15 @@ namespace NaviEnt.UI
     {
         [SerializeField]
         TextMeshProUGUI _valueText = null;
+        
+        BattleManager _battleManager = null;
 
         // Start is called before the first frame update
         void Start()
         {
-            
+            _battleManager = BattleManager.Instance;
+
+            UpdateEnemyRemains();
         }
 
         private void OnEnable()
@@ -30,8 +34,9 @@ namespace NaviEnt.UI
         }
 
 
-        void UpdateEnemyRemains(int value)
+        void UpdateEnemyRemains()
         {
+            int value = _battleManager.EnemyRemains;
             _valueText.text = value.ToString();
         }
 

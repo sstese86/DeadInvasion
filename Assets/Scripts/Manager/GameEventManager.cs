@@ -42,11 +42,11 @@ namespace NaviEnt
                 onSelectedEntityChangedCallback.Invoke(entityInfo, trans);
         }
 
-        public static event Action<int> onEnemyRemainsUpdateCallback = delegate { };
-        public void OnEenemyRemainsUpdateCallback (int enemyRemains)
+        public static event Action onEnemyRemainsUpdateCallback = delegate { };
+        public void OnEenemyRemainsUpdateCallback ()
         {
             if (onEnemyRemainsUpdateCallback != null)
-                onEnemyRemainsUpdateCallback.Invoke(enemyRemains);
+                onEnemyRemainsUpdateCallback.Invoke();
         }
 
         public static event Action onUIStateUpdate = delegate { };

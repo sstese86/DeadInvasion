@@ -659,13 +659,14 @@ MonoBehaviour:
   _name: Zombie
   _disc: Aggresive walking dead.
   _team: 1
+  _healthbar: {fileID: 695851916475109697}
   _baseState:
-    maxHealth: 5
+    maxHealth: 10
     damage: 2
     strength: 1
     agility: 1
     defance: 0
-    moveSpeed: 0.1
+    moveSpeed: 1
     jumpSpeed: 0
   _attack1HitCollider: {fileID: 5789193580150715736, guid: 977d5a2aaed825e41aa6eac2c80a0ad2,
     type: 3}
@@ -757,6 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cda992355f71b41b54d647ee062857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _root: {fileID: 695851916570174289}
   _enemy: {fileID: 695851917628490651}
   _agent: {fileID: 695851917628490650}
   _aiUpdateTickTime: 0.25

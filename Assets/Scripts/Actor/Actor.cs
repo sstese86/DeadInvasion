@@ -28,7 +28,7 @@ namespace NaviEnt
 
         [SerializeField]
         Team _team = Team.Player;
-
+        [SerializeField]
         HUDHealthBar _healthbar = null;
 
         [Space]
@@ -66,7 +66,6 @@ namespace NaviEnt
             EntityInfo = ModifiedState.maxHealth.ToString() + " / " + CurrentHealth.ToString();
             EntityValue = 1f;
 
-            _healthbar = GetComponentInChildren<HUDHealthBar>();
             _healthbar.InitHealthBar();
         }
 
@@ -104,6 +103,11 @@ namespace NaviEnt
             UpdateHealthInfo();
         }
 
+        protected virtual void TakeDamageFeedback()
+        {
+            UpdateHealthInfo();
+        }
+
         protected bool IsActorDead()
         {
             if (CurrentHealth < 1)
@@ -116,7 +120,8 @@ namespace NaviEnt
             return false;
         }
 
-        protected virtual void TakeDamageFeedback() { UpdateHealthInfo(); }
+
+
         protected virtual void UpdateHealthInfoFeedback() 
         {
             UpdateEntityInfo();

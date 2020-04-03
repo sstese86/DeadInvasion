@@ -23,7 +23,6 @@ namespace NaviEnt.Game
         [SerializeField]
         float _animSpeedVariation = 0f;
 
-        Transform _root = null;
         AIActor _actor = null;
         
 
@@ -34,10 +33,12 @@ namespace NaviEnt.Game
         bool _canUpdate = true;
         
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
             _actor = GetComponent<AIActor>();
-            _root = transform.Find("Root");
+            Debug.Log("AIActor Move Speed : "+_actor.ModifiedState.moveSpeed);
+            _agent.speed = _actor.ModifiedState.moveSpeed;
             InitAnimSpeedVariationValue();
         }
 

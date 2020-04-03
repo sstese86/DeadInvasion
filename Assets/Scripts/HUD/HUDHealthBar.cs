@@ -12,7 +12,7 @@ public class HUDHealthBar : MonoBehaviour
 
     private void Start()
     {
-        InitHealthBar();
+
     }
 
     public void InitHealthBar()
@@ -26,8 +26,13 @@ public class HUDHealthBar : MonoBehaviour
 
     public void UpdateHealthSlider(float value)
     {
+       
         _value = value;
-        if (_value == 1f) { gameObject.SetActive(false); }
+
+        if (_value == 1f) 
+        {
+            gameObject.SetActive(false); 
+        }
         else
         {
             gameObject.SetActive(true);

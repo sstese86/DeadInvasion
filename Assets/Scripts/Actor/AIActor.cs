@@ -20,7 +20,6 @@ namespace NaviEnt.Game
         [SerializeField]
         FeedbackHandler _feedbackHandler = null;
 
-
         [SerializeField]
         AIActorSoundClip _aiActorSoundClip = null;
 
@@ -34,7 +33,7 @@ namespace NaviEnt.Game
         // Use this for initialization
         void Start()
         {
-
+        
         }
 
         // Update is called once per frame
@@ -42,7 +41,6 @@ namespace NaviEnt.Game
         {
 
         }
-
 
         protected override void DeadFeedback()
         {

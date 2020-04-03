@@ -10,7 +10,12 @@ namespace NaviEnt.Game
         protected Transform _target = null;
         protected bool _isCombatMode = false;
         protected bool _isDead = false;
+        
+        [SerializeField]
+        protected Transform _root = null;
 
+
+        public Transform Root { get => _root; set => _root = value; }
         public bool IsBusy { get; set; }
         public float AttackCooldown { get; set; }
 
@@ -36,7 +41,7 @@ namespace NaviEnt.Game
         }
 
         // Use this for initialization
-        void Start()
+        protected virtual void Start()
         {
 
         }

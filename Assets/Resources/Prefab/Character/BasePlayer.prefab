@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4602643471797993694}
   m_Layer: 8
-  m_Name: CamTarget_Tip
+  m_Name: CamTarget_Follow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,18 +197,6 @@ Transform:
   m_Father: {fileID: 4602643472688883508}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4602643472272601694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5547927643697169261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d50aef7c79c74542b48ffd3e2e230ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4602643472424199370
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +379,7 @@ GameObject:
   - component: {fileID: 4602643472942788246}
   - component: {fileID: 4602643472942788247}
   m_Layer: 8
-  m_Name: '[Player]'
+  m_Name: BasePlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -404,7 +392,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4602643472942788240}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -446,6 +434,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcbe5493c27f84e48a635275623a1f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _root: {fileID: 4602643473341584424}
+  _camTargetLookAt: {fileID: 4602643473079715009}
+  _camTargetFollow: {fileID: 4602643471797993694}
 --- !u!114 &4602643472942788244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +452,7 @@ MonoBehaviour:
   _name: Player
   _disc: Player
   _team: 0
+  _healthbar: {fileID: 4602643472688883509}
   _baseState:
     maxHealth: 10
     damage: 1
@@ -548,7 +540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4602643473079715009}
   m_Layer: 8
-  m_Name: CamTarget_Body
+  m_Name: CamTarget_LookAt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -917,6 +909,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4602643472272601694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5547927643697169261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d50aef7c79c74542b48ffd3e2e230ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4602643473004010084
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -22,14 +22,13 @@ namespace NaviEnt.Game
         public void AddEnemy(Enemy enemy)
         {
             Enemies.Add(enemy);
-
-            GameEventManager.Instance.OnEenemyRemainsUpdateCallback(EnemyRemains);
+            GameEventManager.Instance.OnEenemyRemainsUpdateCallback();
         }
 
         public void RemoveEnemy(Enemy enemy)
         {
             Enemies.Remove(enemy);
-            GameEventManager.Instance.OnEenemyRemainsUpdateCallback(EnemyRemains);
+            GameEventManager.Instance.OnEenemyRemainsUpdateCallback();
         }
 
         public void InitBattleGame()

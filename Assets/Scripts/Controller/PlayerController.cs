@@ -14,39 +14,34 @@ namespace NaviEnt.Game
         InputManager _inputManager = null;
         PlayerAnimatorHandler _animatorHandler = null;
 
-        Transform _root = null;
-
         Vector3 _moveDirectionVector = Vector3.zero;
         Vector3 _jumpVector = Vector3.zero;
+
+        [SerializeField]
+        Transform _camTargetLookAt = null;
+        [SerializeField]
+        Transform _camTargetFollow = null;
         
+        public Transform GetCamTargetLookAt { get => _camTargetLookAt; }
+        public Transform GetCamTargetFollow { get => _camTargetFollow; }
+
         float _gravity = 1.5f;
         float _currentAttackAnimIndex = 0f;
         float targetSearchRange = 4f;
 
+        public bool IsInputEnable { get; set; }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             _inputManager = InputManager.Instance;
             _characterController = GetComponent<CharacterController>();
             _actor = GetComponent<PlayerActor>();
 
-            _root = transform.Find("Root");                
-
             _gravity = GameManager.Instance.gravity;
 
             IsBusy = false;
-        }
-
-        private void OnDestroy()
-        {
-            
-        }
-
-        private void PlayerDead()
-        {
-            StopAllCoroutines();
-            GameEventManager.Instance.OnPlayerDead();
-            _animatorHandler.Dead();
         }
 
         // Update is called once per frame
@@ -59,21 +54,22 @@ namespace NaviEnt.Game
                 PlayerDead();
                 return; 
             }
-            
             Rotate();
             InputActionCheck();
             AnimatorParmUpdate();
             CheckLookAtToTarget();
-
         }
 
         void FixedUpdate()
         {
-            if (_isDead) return;            
-            Movement();
-            MoveInAir();
-
+            if (_isDead) return;  
+            if(IsInputEnable)
+            {
+                Movement();
+                MoveInAir();
+            }
         }
+
         public void Jump()
         {
             if(_characterController.isGrounded && !IsBusy)
@@ -144,14 +140,19 @@ namespace NaviEnt.Game
         void InputActionCheck()
         {
             Vector3 direction = new Vector3(_inputManager.MovementAxis.x, 0, _inputManager.MovementAxis.y).normalized;
-            
-
             _moveDirectionVector = new Vector3(_inputManager.MovementAxis.x* Mathf.Abs(direction.x),
                                                 0, 
                                                 _inputManager.MovementAxis.y * Mathf.Abs(direction.z));
 
             if (_inputManager.Fire1Input) Attack();
             if(_inputManager.JumpInput) Jump();
+        }
+
+        private void PlayerDead()
+        {
+            StopAllCoroutines();
+            GameEventManager.Instance.OnPlayerDead();
+            _animatorHandler.Dead();
         }
 
         void AnimatorParmUpdate()
@@ -177,6 +178,17 @@ namespace NaviEnt.Game
                 IsBusy = true;
                 _isCombatMode = true;
             }   
+        }
+
+        public void SpawnCallback()
+        {
+            StartCoroutine(SpawnCallbackRoutine());
+        }
+
+        IEnumerator SpawnCallbackRoutine()
+        {
+            yield return null;
+            IsInputEnable = true;
         }
 
         public void AnimEventAttackCallback()

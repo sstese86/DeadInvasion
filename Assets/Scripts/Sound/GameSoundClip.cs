@@ -16,6 +16,7 @@ namespace NaviEnt
 
 namespace NaviEnt.Game
 {
+    // Refactor Play Sound part to use singleton.
     public class GameSoundClip : MonoBehaviour
     {
         protected int selector = 0;
